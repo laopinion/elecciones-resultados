@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elecciones</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <section id="elecciones_results">
+      <div class="elecciones_header">
+        <div class="logo_bandera">
+          <img src="./img/bandera.png" alt="elecciones-bandera" />
+        </div>
+        <div class="elecciones_title_result">
+          <h2>Resultados Elecciones Nacionales</h2>
+          <div class="elecciones_num_boletin">
+            <span class="num_boletin">Boletín N° 14</span>
+            <span class="hora_boletin">Hora: 4:55 p.m.</span>
+          </div>
+          <div class="elecciones_mesas">
+            <p class="cant_m_informadas">
+              <strong>Cant. Mesas Informadas: </strong><span>1500</span>
+            </p>
+            <p class="total_m">
+              <strong>Total Mesas: </strong><span>2540</span>
+            </p>
+            <p class="porcentaje_m">
+              <strong>% de Mesas informadas: </strong><span>2540</span>
+            </p>
+          </div>
+        </div>
+        <div class="logo_elecciones">
+          <img src="./img/logo.png" alt="elecciones-2022" />
+        </div>
+      </div>
+
+      <ul class="elecciones_menu">
+        <li class="corporacion_senado active">Senado</li>
+        <li class="corporacion_camara">Cámara</li>
+        <li class="corporacion_consultas">Consultas</li>
+      </ul>
+
+      <div class="elecciones_container">
+        <div class="elecciones_body_senado">
+          <div class="elecciones_cantidados">
+            <div class="elecciones_cantidatos_title">
+              <div class="title">Votación por candidatos</div>
+              <div class="cant_v">Cant. Votos</div>
+            </div>
+            <ul class="eleeciones_r_senado_cantidatos">
+              <li>
+                <span class="candidato">Juan Manuel Galán</span>
+                <span class="cant_votos">2,513,320</span>
+              </li>
+              <li>
+                <span class="candidato">Juan Manuel Galán</span>
+                <span class="cant_votos">2,513,320</span>
+              </li>
+              <li>
+                <span class="candidato">Jorge Alberto Gomez Gallego</span>
+                <span class="cant_votos">2,513,320</span>
+              </li>
+              <li>
+                <span class="candidato">Juan Manuel Galán</span>
+                <span class="cant_votos">2,513,320</span>
+              </li>
+              <li>
+                <span class="candidato">Juan Manuel Galán</span>
+                <span class="cant_votos">2,513,320</span>
+              </li>
+              <li>
+                <span class="candidato">Juan Manuel Galán</span>
+                <span class="cant_votos">2,513,320</span>
+              </li>
+              <li>
+                <span class="candidato">Juan Manuel Galán</span>
+                <span class="cant_votos">2,513,320</span>
+              </li>
+              <li>
+                <span class="candidato">Juan Manuel Galán</span>
+                <span class="cant_votos">2,513,320</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="elecciones_partidos">
+            <div class="elecciones_partidos_title">
+              <div class="vacio"></div>
+              <div class="title">Votación por Partido</div>
+              <div class="cant_v">Cant. Votos</div>
+              <div class="porcet_v">% de votación</div>
+              <div class="posib_curules">Posibles Curules</div>
+            </div>
+            <ul class="elecciones_r_senado_partidos">
+              <li>
+                <span class="logo_partido plb">logo_partido</span>
+                <span class="partido">Partido Liberal Colombiano</span>
+                <span class="cant_votos">2,513,320</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="30">70</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+              <li>
+                <span class="logo_partido pcd">logo_partido</span>
+                <span class="partido">Partido Centro Democrático</span>
+                <span class="cant_votos">2,513,320</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="70">70%</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+              <li>
+                <span class="logo_partido pm">logo_partido</span>
+                <span class="partido">Partido Político MIRA</span>
+                <span class="cant_votos">2,513,320</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="70">70%</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+              <li>
+                <span class="logo_partido pv">logo_partido</span>
+                <span class="partido">Partido Alianza Verde</span>
+                <span class="cant_votos">2,513,320</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="70">70%</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+              <li>
+                <span class="logo_partido pv">logo_partido</span>
+                <span class="partido">Partido Alianza Verde</span>
+                <span class="cant_votos">2,513,320</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="70">70%</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+              <li>
+                <span class="logo_partido pv">logo_partido</span>
+                <span class="partido">Partido Alianza Verde</span>
+                <span class="cant_votos">2,513,320</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="70">70%</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+              <li>
+                <span class="logo_partido pv">logo_partido</span>
+                <span class="partido">Partido Alianza Verde</span>
+                <span class="cant_votos">2,513,320</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="70">70%</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+              <li>
+                <span class="logo_partido pv">logo_partido</span>
+                <span class="partido">Partido Alianza Verde</span>
+                <span class="cant_votos">2,513,320</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="70">70%</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="elecciones_body_camara">
+          <ul class="elecciones_partidos_title">
+            <li>
+              Partidos <span>Haga clic en la flecha para ver más detalles</span>
+            </li>
+            <li>Cant. Votos</li>
+            <li>Porcentaje de votación</li>
+            <li>Posibles Curules</li>
+          </ul>
+
+          <ul class="eleeciones_r_camara_partidos">
+            <li class="list_partido">
+              <div class="elecciones_logos_partidos">
+                <div class="btn_flecha" data-partido="pv"></div>
+                <span class="logo_partido pv">Logo</span>
+                <span class="partido">Partido Liberal Colombiano</span>
+              </div>
+              <span class="cant_votos">2,513,320</span>
+              <span class="porcet_v"
+                ><progress id="file" max="100" value="30">70</progress></span
+              >
+              <span class="posib_curules">20</span>
+            </li>
+            <div class="list_candidatos pv hidden">
+              <ul>
+                <li>
+                  <span class="candidato">Juan Manuel Galán</span>
+                  <span class="cant_votos">2,513,320</span>
+                </li>
+                <li>
+                  <span class="candidato">Juan Manuel Galán</span>
+                  <span class="cant_votos">2,513,320</span>
+                </li>
+                <li>
+                  <span class="candidato">Juan Manuel Galán</span>
+                  <span class="cant_votos">2,513,320</span>
+                </li>
+              </ul>
+            </div>
+            <li class="list_partido">
+              <div class="elecciones_logos_partidos">
+                <div class="btn_flecha" data-partido="plb"></div>
+                <span class="logo_partido plb">Logo</span>
+                <span class="partido">Partido Liberal Colombiano</span>
+              </div>
+              <span class="cant_votos">2,513,320</span>
+              <span class="porcet_v"
+                ><progress id="file" max="100" value="30">70</progress></span
+              >
+              <span class="posib_curules">20</span>
+            </li>
+            <div class="list_candidatos plb hidden">
+              <ul>
+                <li>
+                  <span class="candidato">Juan Manuel Galán</span>
+                  <span class="cant_votos">2,513,320 (0,77%)</span>
+                </li>
+                <li>
+                  <span class="candidato">Juan Manuel Galán</span>
+                  <span class="cant_votos">2,513,320 (0,77%)</span>
+                </li>
+                <li>
+                  <span class="candidato">Juan Manuel Galán</span>
+                  <span class="cant_votos">2,513,320 (0,77%)</span>
+                </li>
+                <li>
+                  <span class="candidato">Juan Manuel Galán</span>
+                  <span class="cant_votos">2,513,320 (0,77%)</span>
+                </li>
+                <li>
+                  <span class="candidato">Juan Manuel Galán</span>
+                  <span class="cant_votos">2,513,320 (0,77%)</span>
+                </li>
+              </ul>
+            </div>
+            <li class="list_partido">
+              <div class="elecciones_logos_partidos">
+                <div class="btn_flecha"></div>
+                <span class="logo_partido pph">Logo</span>
+                <span class="partido">Partido Liberal Colombiano</span>
+              </div>
+              <span class="cant_votos">2,513,320</span>
+              <span class="porcet_v"
+                ><progress id="file" max="100" value="30">70</progress></span
+              >
+              <span class="posib_curules">20</span>
+            </li>
+            <li class="list_partido">
+              <div class="elecciones_logos_partidos">
+                <div class="btn_flecha"></div>
+                <span class="logo_partido pph">Logo</span>
+                <span class="partido">Partido Liberal Colombiano</span>
+              </div>
+              <span class="cant_votos">2,513,320</span>
+              <span class="porcet_v"
+                ><progress id="file" max="100" value="30">70</progress></span
+              >
+              <span class="posib_curules">20</span>
+            </li>
+            <li class="list_partido">
+              <div class="elecciones_logos_partidos">
+                <div class="btn_flecha"></div>
+                <span class="logo_partido pph">Logo</span>
+                <span class="partido">Partido Liberal Colombiano</span>
+              </div>
+              <span class="cant_votos">2,513,320</span>
+              <span class="porcet_v"
+                ><progress id="file" max="100" value="30">70</progress></span
+              >
+              <span class="posib_curules">20</span>
+            </li>
+            <li class="list_partido">
+              <div class="elecciones_logos_partidos">
+                <div class="btn_flecha"></div>
+                <span class="logo_partido pph">Logo</span>
+                <span class="partido">Partido Liberal Colombiano</span>
+              </div>
+              <span class="cant_votos">2,513,320</span>
+              <span class="porcet_v"
+                ><progress id="file" max="100" value="30">70</progress></span
+              >
+              <span class="posib_curules">20</span>
+            </li>
+            <li class="list_partido">
+              <div class="elecciones_logos_partidos">
+                <div class="btn_flecha"></div>
+                <span class="logo_partido pph">Logo</span>
+                <span class="partido">Partido Liberal Colombiano</span>
+              </div>
+              <span class="cant_votos">2,513,320</span>
+              <span class="porcet_v"
+                ><progress id="file" max="100" value="30">70</progress></span
+              >
+              <span class="posib_curules">20</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="elecciones_footer">
+          <ul>
+            <li>
+              <div class="logo_total_v"></div>
+              <div class="total_v_title">
+                <span>Total de votos</span>
+                <span class="total_v">2,513,320</span>
+              </div>
+            </li>
+            <li>
+              <div class="logo_votos_n"></div>
+              <div class="votos_n_title">
+                <span>Votos Nulos</span>
+                <span class="votos_n">2,513,320</span>
+              </div>
+            </li>
+            <li>
+              <div class="logo_votos_nm"></div>
+              <div class="votos_nm_title">
+                <span>Votos No Marcados</span>
+                <span class="votos_nm">2,513,320</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <script src="./elecciones.js"></script>
+  </body>
+</html>
