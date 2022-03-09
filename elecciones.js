@@ -30,7 +30,7 @@ function capitalizarPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-function mainData() {
+function senadoData() {
   fetch('https://elecciones.laopinion.com.co/api/data/senado-nacional')
     .then((response) => {
       return response.json()
@@ -139,7 +139,7 @@ function mainData() {
                 return data
               }
             })
-            console.log(infoPartido)
+            // console.log(infoPartido)
             if (infoPartido.length > 0) {
               const { nombre, id_partido } = infoPartido[0]
               const names = capitalizarPrimeraLetra(nombre)
@@ -176,7 +176,178 @@ function mainData() {
     }) // Fin senado nacional
 }
 
-mainData()
+senadoData()
+
+function camaraData() {
+  fetch('https://elecciones.laopinion.com.co/api/data/camara-departamental')
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      console.log(result)
+      const titleResult =
+        '#elecciones_results .elecciones_header .elecciones_title_result'
+      $(titleResult)
+        .find('.elecciones_num_boletin .num_boletin')
+        .text(`Boletín N° ${result.data.Numero.V}`)
+      $(titleResult)
+        .find('.elecciones_num_boletin .hora_boletin')
+        .text(`Hora: ${result.data.Hora.V}:${result.data.Minuto.V} p.m.`)
+      $(titleResult)
+        .find('.elecciones_mesas .cant_m_informadas span')
+        .text(number_format(result.data.Mesas_Informadas.V, 0))
+      $(titleResult)
+        .find('.elecciones_mesas .total_m span')
+        .text(number_format(result.data.Mesas_Instaladas.V, 0))
+
+      const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
+      let porcMesas = parseInt(porc)
+      porcMesas = Math.round(porcMesas)
+      $(titleResult)
+        .find('.elecciones_mesas .porcentaje_m span')
+        .text(porcMesas + '%')
+
+      const footerResult = '.elecciones_footer'
+      $(footerResult)
+        .find('.total_v_title .total_v')
+        .text(
+          number_format(
+            result.data.Detalle_Circunscripcion.lin[0].Detalle_Partidos_Totales
+              .lin[2].Votos.V
+          )
+        )
+      $(footerResult)
+        .find('.votos_n_title .votos_n')
+        .text(number_format(result.data.Votos_Nulos.V))
+      $(footerResult)
+        .find('.votos_nm_title .votos_nm')
+        .text(number_format(result.data.Votos_No_Marcados.V))
+
+      const candidatos =
+        result.data.Detalle_Circunscripcion.lin[0].Detalle_Candidato.lin
+
+      const partidos =
+        result.data.Detalle_Circunscripcion.lin[0].Detalle_Partido.lin
+      fetch('https://elecciones.laopinion.com.co/api/data/partidos-camara')
+        .then((response) => {
+          return response.json()
+        })
+        .then((result) => {
+          // console.log(result.data)
+          console.log(partidos.length)
+          partidos.forEach((partido) => {
+            const infoPartido = result.data.filter((data) => {
+              // console.log(id.id_candidato)
+              if (data.id_partido === partido.Partido.V) {
+                return data
+              }
+            })
+            // console.log(infoPartido)
+            if (infoPartido.length > 0) {
+              const { nombre } = infoPartido[0]
+              const names = capitalizarPrimeraLetra(nombre)
+              const porc = clearZero(partido.Porc.V)
+              let porcPartido = parseInt(porc)
+              porcPartido = Math.round(porcPartido)
+
+              candidatosCamara(candidatos, partido.Partido.V).then(
+                (divCandidato) => {
+                  // console.log(divCandidato)
+                  const divPartido = `<li class="list_partido">
+                  <div class="elecciones_logos_partidos">
+                    <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-partido="partido_${
+                      partido.Partido.V
+                    }"></div>
+                    <span class="logo_partido partido_${
+                      partido.Partido.V
+                    }">Logo</span>
+                    <span class="partido">${names}</span>
+                  </div>
+                  <span class="cant_votos">${number_format(
+                    partido.Votos.V
+                  )}</span>
+                  <span class="porcet_v"
+                    ><progress id="file" max="100" value="${porcPartido}">${porcPartido}</progress></span
+                  >
+                  <span class="posib_curules">20</span>
+                </li>
+                <div class="list_candidatos partido_${
+                  partido.Partido.V
+                } hidden">
+                  <ul>
+                   ${divCandidato.map((candidato) => candidato).join('')}
+                  </ul>
+                </div>
+              `
+                  $(
+                    '.elecciones_body_camara .eleeciones_r_camara_partidos'
+                  ).append(divPartido)
+                }
+              )
+            }
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    })
+    .catch((err) => {
+      console.log(err)
+    }) // Fin camara departamental
+}
+
+function candidatosCamara(candidatos, id_partido) {
+  return fetch('https://elecciones.laopinion.com.co/api/data/candidatos-camara')
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      // console.log(result.data)
+      console.log(candidatos.length)
+      // return result.data
+      const divCandidato = candidatos.map((candidato) => {
+        const infoCandidato = result.data.filter((data) => {
+          if (
+            id_partido === data.id_partido &&
+            data.id_candidato === candidato.Candidato.V
+          ) {
+            return data
+          }
+        })
+        // console.log(infoCandidato)
+        if (infoCandidato.length > 0 && candidato.Partido.V === id_partido) {
+          const { primer_apellido, primer_nombre, segundo_nombre } =
+            infoCandidato[0]
+
+          const names = `${capitalizarPrimeraLetra(
+            primer_nombre
+          )} ${capitalizarPrimeraLetra(
+            segundo_nombre
+          )} ${capitalizarPrimeraLetra(primer_apellido)}`
+
+          const porc = clearZero(candidato.Porc.V)
+          let porcCandidato = parseInt(porc)
+          porcCandidato = Math.round(porcCandidato)
+
+          return `<li>
+                  <span class="candidato">${names}</span>
+                  <span class="cant_votos">${number_format(
+                    candidato.Votos.V
+                  )} (${porc}%)</span>
+                </li>
+                      `
+        }
+        // else {
+        //   // console.log(candidato.Candidato.V)
+        // }
+      })
+
+      return divCandidato
+    })
+    .catch((err) => {
+      console.log(err)
+    }) // FIn fetch candidatos
+}
 
 $('#elecciones_results .elecciones_menu li').click(function (e) {
   console.log($(this).data('corporacion'))
@@ -190,6 +361,7 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $(
       '#elecciones_results .elecciones_header .elecciones_title_result h2'
     ).text('Resultados Elecciones Nacionales')
+    senadoData()
   } else if (corporacion === 'camara') {
     $('#elecciones_results .elecciones_body_camara').show()
     $('#elecciones_results .elecciones_body_senado').hide()
@@ -197,6 +369,7 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $(
       '#elecciones_results .elecciones_header .elecciones_title_result h2'
     ).text('Resultados Norte de Santander')
+    camaraData()
   } else {
     $('#elecciones_results .elecciones_body_consultas').show()
     $('#elecciones_results .elecciones_body_camara').hide()
@@ -207,22 +380,35 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
   }
 })
 
-$('.eleeciones_r_camara_partidos .elecciones_logos_partidos .btn_flecha').click(
-  function (e) {
-    // $(this).slideUp()
-    console.log(e)
-    console.log($(this).data('partido'))
-    const partido = $(this).data('partido')
-    // $(this).parent().parent().css('height', 'auto')
-    const resultCamara = $(this).parent().parent().parent()
+// $(
+//   '.eleeciones_r_camara_partidos .elecciones_logos_partidos .btn_flecha'
+// ).click(function (e) {
+//   // $(this).slideUp()
+//   console.log(e)
+//   console.log($(this).data('partido'))
+//   const partido = $(this).data('partido')
+//   // $(this).parent().parent().css('height', 'auto')
+//   const resultCamara = $(this).parent().parent().parent()
 
-    resultCamara.find(`.list_candidatos.${partido}`).toggle()
-    // const listPartido = $(this).parent().parent()
-    // $(this).parent().parent().find('.list_candidatos').toggle('slow')
+//   resultCamara.find(`.list_candidatos.${partido}`).toggle()
+//   // const listPartido = $(this).parent().parent()
+//   // $(this).parent().parent().find('.list_candidatos').toggle('slow')
 
-    console.log('ok')
-  }
-)
+//   console.log('ok')
+// })
+
+function handleClickCandidatos(e) {
+  console.log($(e).data('partido'))
+  const partido = $(e).data('partido')
+  // $(e).parent().parent().css('height', 'auto')
+  const resultCamara = $(e).parent().parent().parent()
+
+  resultCamara.find(`.list_candidatos.${partido}`).toggle()
+  // const listPartido = $(e).parent().parent()
+  // $(e).parent().parent().find('.list_candidatos').toggle('slow')
+
+  console.log('ok')
+}
 
 $('.elecciones_body_consultas .consultas li').click(function (e) {
   console.log($(this).data('consulta'))
