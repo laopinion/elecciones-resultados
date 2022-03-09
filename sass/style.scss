@@ -173,7 +173,7 @@
           li {
             padding: 9px 0 13px 13px;
             display: grid;
-            grid-template-columns: 235px 60px;
+            grid-template-columns: 30px 235px 60px;
             justify-content: center;
             align-items: center;
             column-gap: 5px;
@@ -188,6 +188,7 @@
             .cant_votos {
               display: block;
               font-size: 14px;
+              // justify-self: center;
             }
           }
           li:nth-of-type(2n + 1) {
@@ -197,8 +198,9 @@
           li::before {
             counter-increment: my-counter;
             content: counter(my-counter) '.';
-            position: absolute;
-            left: 25px;
+            // position: absolute;
+            // left: 13px;
+            justify-self: center;
             font-weight: 700;
           }
         }
@@ -295,27 +297,32 @@
               text-align: center;
             }
 
-            .plb {
+            .plb,
+            .partido_0001 {
               // liberal
               background: url('../img/partidos.svg');
               background-position: -2px -6px;
             }
-            .pcd {
+            .pcd,
+            .partido_0011 {
               // centro demoniaco
               background: url('../img/partidos.svg');
               background-position: -2px -46px;
             }
-            .pm {
+            .pm,
+            .partido_0231 {
               // mira
               background: url('../img/partidos.svg');
               background-position: -2px -95px;
             }
-            .pv {
+            .pv,
+            .partido_0255 {
               // verde
               background: url('../img/partidos.svg');
               background-position: -2px -142px;
             }
-            .pc {
+            .pc,
+            .partido_0002 {
               // conservador
               background: url('../img/partidos.svg');
               background-position: -55px -6px;
@@ -325,32 +332,38 @@
               background: url('../img/partidos.svg');
               background-position: -55px -47px;
             }
-            .psn {
+            .psn,
+            .partido_0302 {
               // salvacion nacional
               background: url('../img/partidos.svg');
               background-position: -55px -95px;
             }
-            .pu {
+            .pu,
+            .partido_0008 {
               // partido de la U
               background: url('../img/partidos.svg');
               background-position: -104px -6px;
             }
-            .pnl {
+            .pnl,
+            .partido_0019 {
               // partido nuevo liberalismo
               background: url('../img/partidos.svg');
               background-position: -104px -46px;
             }
-            .pfc {
+            .pfc,
+            .partido_1140 {
               // partido fuerza ciudadana
               background: url('../img/partidos.svg');
               background-position: -104px -95px;
             }
-            .pcr {
+            .pcr,
+            .partido_0003 {
               // partido cambio radical
               background: url('../img/partidos.svg');
               background-position: -157px -6px;
             }
-            .pph {
+            .pph,
+            .partido_0292 {
               // partido pacto historico
               background: url('../img/partidos.svg');
               background-position: -157px -46px;

@@ -26,6 +26,7 @@ function clearZero(string) {
 }
 
 function capitalizarPrimeraLetra(str) {
+  str = str.toLowerCase() // minuscula
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
@@ -64,7 +65,7 @@ function mainData() {
         .text(
           number_format(
             result.data.Detalle_Circunscripcion.lin[0].Detalle_Partidos_Totales
-              .lin[0].Votos.V
+              .lin[2].Votos.V
           )
         )
       $(footerResult)
@@ -83,6 +84,7 @@ function mainData() {
         })
         .then((result) => {
           // console.log(result.data)
+          console.log(candidatos.length)
           candidatos.forEach((candidato) => {
             const infoCandidato = result.data.filter((data) => {
               // console.log(id.id_candidato)
@@ -93,14 +95,19 @@ function mainData() {
                 return data
               }
             })
-            console.log(infoCandidato)
+            // console.log(infoCandidato)
             if (infoCandidato.length > 0) {
               const { primer_apellido, primer_nombre, segundo_nombre } =
                 infoCandidato[0]
+
+              const names = `${capitalizarPrimeraLetra(
+                primer_nombre
+              )} ${capitalizarPrimeraLetra(
+                segundo_nombre
+              )} ${capitalizarPrimeraLetra(primer_apellido)}`
+
               const divCandidato = `<li>
-                  <span class="candidato">${capitalizarPrimeraLetra(
-                    primer_nombre
-                  )} ${segundo_nombre} ${primer_apellido}</span>
+                  <span class="candidato">${names}</span>
                   <span class="cant_votos">${number_format(
                     candidato.Votos.V
                   )}</span>
@@ -112,7 +119,61 @@ function mainData() {
             }
           })
         })
+        .catch((err) => {
+          console.log(err)
+        }) // FIn fetch candidatos
+
+      const partidos =
+        result.data.Detalle_Circunscripcion.lin[0].Detalle_Partido.lin
+      fetch('https://elecciones.laopinion.com.co/api/data/partidos-senado')
+        .then((response) => {
+          return response.json()
+        })
+        .then((result) => {
+          // console.log(result.data)
+          console.log(partidos.length)
+          partidos.forEach((partido) => {
+            const infoPartido = result.data.filter((data) => {
+              // console.log(id.id_candidato)
+              if (data.id_partido === partido.Partido.V) {
+                return data
+              }
+            })
+            console.log(infoPartido)
+            if (infoPartido.length > 0) {
+              const { nombre, id_partido } = infoPartido[0]
+              const names = capitalizarPrimeraLetra(nombre)
+              const porc = clearZero(partido.Porc.V)
+              let porcPartido = parseInt(porc)
+              porcPartido = Math.round(porcPartido)
+              // if (id_partido === '0001') {
+
+              // }
+              const divPartido = `<li>
+                  <span class="logo_partido partido_${id_partido}">logo_partido</span>
+                  <span class="partido">${names}</span>
+                  <span class="cant_votos">${number_format(
+                    partido.Votos.V
+                  )}</span>
+                  <span class="porcet_v"
+                    ><progress id="file" max="100" value="${porcPartido}">${porcPartido}</progress></span
+                  >
+                  <span class="posib_curules">20</span>
+                </li>
+              `
+              $('.elecciones_body_senado .elecciones_r_senado_partidos').append(
+                divPartido
+              )
+            }
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     })
+    .catch((err) => {
+      console.log(err)
+    }) // Fin senado nacional
 }
 
 mainData()
