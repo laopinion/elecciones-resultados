@@ -104,6 +104,10 @@
     }
   }
 
+  .inactive {
+    display: none;
+  }
+
   .elecciones_menu {
     list-style: none;
     padding: 0;
@@ -312,14 +316,15 @@
             .pm,
             .partido_0231 {
               // mira
-              background: url('../img/partidos.svg');
-              background-position: -2px -95px;
+              background: url('../img/partidos-2.svg');
+              background-position: -158px -45px;
             }
             .pv,
             .partido_0255 {
               // verde
-              background: url('../img/partidos.svg');
-              background-position: -2px -142px;
+              background: url('../img/partidos-2.svg');
+              // background-position: -2px -142px;
+              background-position: -2px -85px;
             }
             .pc,
             .partido_0002 {
@@ -372,6 +377,31 @@
               // partido colombua justas
               background: url('../img/partidos.svg');
               background-position: -157px -95px;
+            }
+            .partido_1130 {
+              // partido estamos lista colombia
+              background: url('../img/partidos-2.svg');
+              background-position: -120px -85px;
+            }
+            .partido_0013 {
+              // partido comunes
+              background: url('../img/partidos-2.svg');
+              background-position: -2px -4px;
+            }
+            .partido_1039 {
+              // partido movimiento unitario metropolitano
+              background: url('../img/partidos-2.svg');
+              background-position: -43px -85px;
+            }
+            .partido_1186 {
+              // partido movimiento gente nueva
+              background: url('../img/partidos-2.svg');
+              background-position: -158px -85px;
+            }
+            .partido_1073 {
+              // partido movimiento nacional organizado
+              background: url('../img/partidos-2.svg');
+              background-position: -82px -85px;
             }
             .logo_partido {
               width: 40px;
@@ -492,6 +522,11 @@
               width: 15px;
               cursor: pointer;
             }
+            .btn_flecha.activeList {
+              background: url('../img/flecha_top.png') no-repeat;
+              background-size: 130%;
+              background-position: center;
+            }
             .plb,
             .partido_0001 {
               // liberal
@@ -505,7 +540,8 @@
               background-position: -2px -46px;
             }
             .pm,
-            .partido_0231 {
+            .partido_0231,
+            .partido_0007 {
               // mira
               background: url('../img/partidos.svg');
               background-position: -2px -95px;
@@ -522,7 +558,8 @@
               background: url('../img/partidos.svg');
               background-position: -55px -6px;
             }
-            .pcz {
+            .pcz,
+            .partido_0267 {
               // centro esperanza
               background: url('../img/partidos.svg');
               background-position: -55px -47px;
@@ -558,7 +595,8 @@
               background-position: -157px -6px;
             }
             .pph,
-            .partido_0292 {
+            .partido_0292,
+            .partido_0290 {
               // partido pacto historico
               background: url('../img/partidos.svg');
               background-position: -157px -46px;
@@ -656,7 +694,7 @@
           display: grid;
           justify-content: center;
           grid-template-columns: repeat(5, 40px);
-          column-gap: 110px;
+          column-gap: 120px;
           li {
             height: 130px;
             width: 40px;
@@ -707,7 +745,7 @@
           margin: 0;
           display: grid;
           justify-content: center;
-          grid-template-columns: repeat(5, 115px);
+          grid-template-columns: repeat(5, 125px);
           column-gap: 35px;
           .candidato {
             display: flex;
@@ -717,12 +755,75 @@
             .foto {
               height: 65px;
               width: 65px;
-              img {
-                height: 65px;
-                width: 65px;
-                border-radius: 100%;
-                object-fit: cover;
-              }
+
+              // img {
+              //   height: 65px;
+              //   width: 65px;
+              //   border-radius: 100%;
+              //   object-fit: cover;
+              // }
+            }
+            .centro-esperanza.candidato_002 {
+              background: url('../img/centro-esperanza.png') no-repeat;
+              background-position: -152px 0px;
+            }
+            .centro-esperanza.candidato_003 {
+              background: url('../img/centro-esperanza.png') no-repeat;
+              background-position: -305px 0px;
+            }
+            .centro-esperanza.candidato_001 {
+              background: url('../img/centro-esperanza.png') no-repeat;
+              background-position: 0px 0px;
+            }
+            .centro-esperanza.candidato_005 {
+              background: url('../img/centro-esperanza.png') no-repeat;
+              background-position: -605px 0px;
+            }
+            .centro-esperanza.candidato_004 {
+              background: url('../img/centro-esperanza.png') no-repeat;
+              background-position: -454px 0px;
+            }
+
+            .equipo-colombia.candidato_001 {
+              background: url('../img/equipo-colombia.png') no-repeat;
+              background-position: 0px 0px;
+            }
+            .equipo-colombia.candidato_002 {
+              background: url('../img/equipo-colombia.png') no-repeat;
+              background-position: -152px 0px;
+            }
+            .equipo-colombia.candidato_003 {
+              background: url('../img/equipo-colombia.png') no-repeat;
+              background-position: -300px 0px;
+            }
+            .equipo-colombia.candidato_004 {
+              background: url('../img/equipo-colombia.png') no-repeat;
+              background-position: -454px 0px;
+            }
+            .equipo-colombia.candidato_005 {
+              background: url('../img/equipo-colombia.png') no-repeat;
+              background-position: -608px 0px;
+            }
+
+            .pacto-historico.candidato_001 {
+              background: url('../img/pacto-historico.png') no-repeat;
+              background-position: 0px 0px;
+            }
+            .pacto-historico.candidato_002 {
+              background: url('../img/pacto-historico.png') no-repeat;
+              background-position: -150px 0px;
+            }
+            .pacto-historico.candidato_003 {
+              background: url('../img/pacto-historico.png') no-repeat;
+              background-position: -300px 0px;
+            }
+            .pacto-historico.candidato_004 {
+              background: url('../img/pacto-historico.png') no-repeat;
+              background-position: -451px 0px;
+            }
+            .pacto-historico.candidato_005 {
+              background: url('../img/pacto-historico.png') no-repeat;
+              background-position: -602px 0px;
             }
             .name_candidato {
               letter-spacing: 0px;

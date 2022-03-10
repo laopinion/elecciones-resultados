@@ -84,6 +84,7 @@ function senadoData() {
         })
         .then((result) => {
           // console.log(result.data)
+          $('.elecciones_body_senado .eleeciones_r_senado_cantidatos').empty()
           console.log(candidatos.length)
           candidatos.forEach((candidato) => {
             const infoCandidato = result.data.filter((data) => {
@@ -131,6 +132,7 @@ function senadoData() {
         })
         .then((result) => {
           // console.log(result.data)
+          $('.elecciones_body_senado .elecciones_r_senado_partidos').empty()
           console.log(partidos.length)
           partidos.forEach((partido) => {
             const infoPartido = result.data.filter((data) => {
@@ -146,9 +148,12 @@ function senadoData() {
               const porc = clearZero(partido.Porc.V)
               let porcPartido = parseInt(porc)
               porcPartido = Math.round(porcPartido)
-              // if (id_partido === '0001') {
-
-              // }
+              // console.log(partido.Curules.V.trim().length)
+              if (partido.Curules.V.trim().length > 0) {
+                $(
+                  '.elecciones_body_senado .elecciones_partidos_title .posib_curules'
+                ).show()
+              }
               const divPartido = `<li>
                   <span class="logo_partido partido_${id_partido}">logo_partido</span>
                   <span class="partido">${names}</span>
@@ -158,7 +163,11 @@ function senadoData() {
                   <span class="porcet_v"
                     ><progress id="file" max="100" value="${porcPartido}">${porcPartido}</progress></span
                   >
-                  <span class="posib_curules">20</span>
+                  ${
+                    partido.Curules.V.trim().length > 0
+                      ? `<span class="posib_curules">${partido.Curules.V}</span>`
+                      : ''
+                  }
                 </li>
               `
               $('.elecciones_body_senado .elecciones_r_senado_partidos').append(
@@ -234,6 +243,7 @@ function camaraData() {
         })
         .then((result) => {
           // console.log(result.data)
+          $('.elecciones_body_camara .eleeciones_r_camara_partidos').empty()
           console.log(partidos.length)
           listCandidatosInfo().then((resultCandidatoInfo) => {
             partidos.forEach((partido) => {
@@ -257,6 +267,12 @@ function camaraData() {
                   resultCandidatoInfo
                 )
 
+                if (partido.Curules.V.trim().length > 0) {
+                  $(
+                    '.elecciones_body_camara .elecciones_partidos_title .posib_curules'
+                  ).show()
+                }
+
                 const divPartido = `<li class="list_partido">
                 <div class="elecciones_logos_partidos">
                   <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-partido="partido_${
@@ -273,7 +289,11 @@ function camaraData() {
                 <span class="porcet_v"
                   ><progress id="file" max="100" value="${porcPartido}">${porcPartido}</progress></span
                 >
-                <span class="posib_curules">20</span>
+                ${
+                  partido.Curules.V.trim().length > 0
+                    ? `<span class="posib_curules">${partido.Curules.V}</span>`
+                    : ''
+                }
               </li>
               <div class="list_candidatos partido_${partido.Partido.V} hidden">
                 <ul>
@@ -352,6 +372,132 @@ function listCandidatosInfo() {
     }) // FIn fetch candidatos
 }
 
+function consultasData(consulta) {
+  fetch(`https://elecciones.laopinion.com.co/api/data/${consulta}`)
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      console.log(result)
+      const titleResult =
+        '#elecciones_results .elecciones_header .elecciones_title_result'
+      $(titleResult)
+        .find('.elecciones_num_boletin .num_boletin')
+        .text(`Boletín N° ${result.data.Numero.V}`)
+      $(titleResult)
+        .find('.elecciones_num_boletin .hora_boletin')
+        .text(`Hora: ${result.data.Hora.V}:${result.data.Minuto.V} p.m.`)
+      $(titleResult)
+        .find('.elecciones_mesas .cant_m_informadas span')
+        .text(number_format(result.data.Mesas_Informadas.V, 0))
+      $(titleResult)
+        .find('.elecciones_mesas .total_m span')
+        .text(number_format(result.data.Mesas_Instaladas.V, 0))
+
+      const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
+      let porcMesas = parseInt(porc)
+      porcMesas = Math.round(porcMesas)
+      $(titleResult)
+        .find('.elecciones_mesas .porcentaje_m span')
+        .text(porcMesas + '%')
+
+      const footerResult = '.elecciones_footer'
+      $(footerResult)
+        .find('.total_v_title .total_v')
+        .text(
+          number_format(
+            result.data.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales
+              .lin[2].Votos.V
+          )
+        )
+      $(footerResult)
+        .find('.votos_n_title .votos_n')
+        .text(number_format(result.data.Votos_Nulos.V))
+      $(footerResult)
+        .find('.votos_nm_title .votos_nm')
+        .text(number_format(result.data.Votos_No_Marcados.V))
+
+      const candidatos =
+        result.data.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
+
+      console.log(candidatos)
+
+      fetch(
+        `https://elecciones.laopinion.com.co/api/data/candidatos-${consulta}`
+      )
+        .then((response) => {
+          return response.json()
+        })
+        .then((result) => {
+          // console.log(result.data)
+          $(
+            '.elecciones_body_consultas .elecciones_r_consulta .consulta_barras'
+          ).empty()
+          $(
+            '.elecciones_body_consultas .elecciones_r_consulta .consulta_candidatos'
+          ).empty()
+          console.log(candidatos.length)
+          candidatos.forEach((candidato) => {
+            const infoCandidato = result.data.filter((data) => {
+              // console.log(id.id_candidato)
+              if (
+                data.id_candidato === candidato.Candidato.V &&
+                data.id_partido === candidato.Partido.V
+              ) {
+                return data
+              }
+            })
+            // console.log(infoCandidato)
+            if (infoCandidato.length > 0) {
+              const { primer_apellido, primer_nombre, segundo_nombre } =
+                infoCandidato[0]
+
+              const names = `${capitalizarPrimeraLetra(
+                primer_nombre
+              )} ${capitalizarPrimeraLetra(
+                segundo_nombre
+              )} ${capitalizarPrimeraLetra(primer_apellido || '')}`
+
+              const porc = clearZero(candidato.Porc.V)
+              let porcCandidato = parseInt(porc)
+              porcCandidato = Math.round(porcCandidato)
+
+              const divBarra = `
+                  <li>
+                  <div class="progress-bar-vertical porcet_v">
+                    <div class="bar" style="height: ${porcCandidato}%"><span>${porcCandidato}%</span></div>
+                  </div>
+                  <span class="cant_votos">${number_format(
+                    candidato.Votos.V
+                  )}</span>
+                </li> 
+              `
+              $(
+                '.elecciones_body_consultas .elecciones_r_consulta .consulta_barras'
+              ).append(divBarra)
+
+              // let consulta = 'centro-esperanza'
+
+              const divCandidato = `<li class="candidato">
+                  <div class="foto ${consulta} candidato_${candidato.Candidato.V}"></div>
+                  <div class="name_candidato">${names}</div>
+                </li>
+              `
+              $(
+                '.elecciones_body_consultas .elecciones_r_consulta .consulta_candidatos'
+              ).append(divCandidato)
+            }
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        }) // FIn fetch candidatos
+    })
+    .catch((err) => {
+      console.log(err)
+    }) // Fin consultas data
+}
+
 $('#elecciones_results .elecciones_menu li').click(function (e) {
   console.log($(this).data('corporacion'))
   $(this).addClass('active')
@@ -380,31 +526,21 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $(
       '#elecciones_results .elecciones_header .elecciones_title_result h2'
     ).text('Resultados Elecciones Nacionales')
+    consultasData('centro-esperanza')
   }
 })
-
-// $(
-//   '.eleeciones_r_camara_partidos .elecciones_logos_partidos .btn_flecha'
-// ).click(function (e) {
-//   // $(this).slideUp()
-//   console.log(e)
-//   console.log($(this).data('partido'))
-//   const partido = $(this).data('partido')
-//   // $(this).parent().parent().css('height', 'auto')
-//   const resultCamara = $(this).parent().parent().parent()
-
-//   resultCamara.find(`.list_candidatos.${partido}`).toggle()
-//   // const listPartido = $(this).parent().parent()
-//   // $(this).parent().parent().find('.list_candidatos').toggle('slow')
-
-//   console.log('ok')
-// })
 
 function handleClickCandidatos(e) {
   console.log($(e).data('partido'))
   const partido = $(e).data('partido')
   // $(e).parent().parent().css('height', 'auto')
   const resultCamara = $(e).parent().parent().parent()
+
+  if ($(e).hasClass('activeList')) {
+    $(e).removeClass('activeList')
+  } else {
+    $(e).addClass('activeList')
+  }
 
   resultCamara.find(`.list_candidatos.${partido}`).toggle()
   // const listPartido = $(e).parent().parent()
@@ -417,6 +553,15 @@ $('.elecciones_body_consultas .consultas li').click(function (e) {
   console.log($(this).data('consulta'))
   $(this).addClass('active')
   $(this).siblings().removeClass('active')
+  let consulta = $(this).data('consulta')
+  if (consulta === 'ce') {
+    consulta = 'centro-esperanza'
+  } else if (consulta === 'ph') {
+    consulta = 'pacto-historico'
+  } else {
+    consulta = 'equipo-colombia'
+  }
+  consultasData(consulta)
   // $(this).parent().parent().find('.consultas_content').hide()
   // $(this).parent().parent().find(`.consultas_content.${$(this).data('consulta')}`).show()
 })
