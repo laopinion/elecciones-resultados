@@ -242,7 +242,7 @@
             // padding: 9px 0 13px 13px;
             padding: 0px 0 0px 13px;
             display: grid;
-            grid-template-columns: 40px 196px 65px 156px 1fr;
+            grid-template-columns: 40px 196px 65px 170px 1fr;
             column-gap: 18px;
             justify-content: space-around;
             letter-spacing: 0px;
@@ -272,6 +272,8 @@
                 background: none;
                 border: 0;
                 border-radius: 15px;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
                 position: relative;
               }
               progress::-webkit-progress-bar {
@@ -279,6 +281,8 @@
                 width: 100px;
                 background-color: #ffffff;
                 border-radius: 15px;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
                 box-shadow: 0px 0px 6px #777 inset;
               }
               progress::-webkit-progress-value {
@@ -287,13 +291,15 @@
                 margin: 0px -10px 0 0;
                 background: #08b92c;
                 border-radius: 15px;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
                 box-shadow: 0px 0px 6px #777 inset;
               }
               progress::before {
                 padding: 0;
                 content: attr(value) '%';
                 position: absolute;
-                right: -35px;
+                right: -60px;
               }
             }
 
@@ -477,6 +483,8 @@
               background: none;
               border: 0;
               border-radius: 15px;
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
               position: relative;
             }
             progress::-webkit-progress-bar {
@@ -484,6 +492,8 @@
               width: 382px;
               background-color: #ffffff;
               border-radius: 15px;
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
               box-shadow: 0px 0px 6px #777 inset;
             }
             progress::-webkit-progress-value {
@@ -492,13 +502,15 @@
               margin: 0px -10px 0 0;
               background: #08b92c;
               border-radius: 15px;
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
               box-shadow: 0px 0px 6px #777 inset;
             }
             progress::before {
               padding: 0;
               content: attr(value) '%';
               position: absolute;
-              right: -35px;
+              right: -58px;
             }
           }
 

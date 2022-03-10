@@ -20,9 +20,21 @@ function number_format(amount, decimals) {
 }
 
 function clearZero(string) {
-  const numberValor = parseInt(string)
-  const position = string.indexOf(numberValor)
-  return string.substring(position)
+  // const numberValor = parseInt(string)
+  // const position = string.indexOf(numberValor)
+  // return string.substring(position)
+
+  string = string.replaceAll(',', '.')
+  let newString = ''
+
+  if (string.startsWith('00')) {
+    // console.log('0' +newString)
+    newString = string.slice(2)
+  } else if (string.startsWith('0')) {
+    newString = string.slice(1)
+  }
+
+  return newString
 }
 
 function capitalizarPrimeraLetra(str) {
@@ -53,11 +65,11 @@ function senadoData() {
         .text(number_format(result.data.Mesas_Instaladas.V, 0))
 
       const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
-      let porcMesas = parseInt(porc)
-      porcMesas = Math.round(porcMesas)
+      // let porcMesas = parseInt(porc)
+      // porcMesas = Math.round(porcMesas)
       $(titleResult)
         .find('.elecciones_mesas .porcentaje_m span')
-        .text(porcMesas + '%')
+        .text(porc + '%')
 
       const footerResult = '.elecciones_footer'
       $(footerResult)
@@ -85,7 +97,7 @@ function senadoData() {
         .then((result) => {
           // console.log(result.data)
           $('.elecciones_body_senado .eleeciones_r_senado_cantidatos').empty()
-          console.log(candidatos.length)
+          // console.log(candidatos.length)
           candidatos.forEach((candidato) => {
             const infoCandidato = result.data.filter((data) => {
               // console.log(id.id_candidato)
@@ -146,8 +158,8 @@ function senadoData() {
               const { nombre, id_partido } = infoPartido[0]
               const names = capitalizarPrimeraLetra(nombre)
               const porc = clearZero(partido.Porc.V)
-              let porcPartido = parseInt(porc)
-              porcPartido = Math.round(porcPartido)
+              // let porcPartidoReal = parseInt(porc)
+              // const porcPartidoRedondeado = Math.round(porcPartidoReal)
               // console.log(partido.Curules.V.trim().length)
               if (partido.Curules.V.trim().length > 0) {
                 $(
@@ -161,7 +173,7 @@ function senadoData() {
                     partido.Votos.V
                   )}</span>
                   <span class="porcet_v"
-                    ><progress id="file" max="100" value="${porcPartido}">${porcPartido}</progress></span
+                    ><progress id="file" max="100" value="${porc}">${porc}</progress></span
                   >
                   ${
                     partido.Curules.V.trim().length > 0
@@ -210,11 +222,11 @@ function camaraData() {
         .text(number_format(result.data.Mesas_Instaladas.V, 0))
 
       const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
-      let porcMesas = parseInt(porc)
-      porcMesas = Math.round(porcMesas)
+      // let porcMesas = parseInt(porc)
+      // porcMesas = Math.round(porcMesas)
       $(titleResult)
         .find('.elecciones_mesas .porcentaje_m span')
-        .text(porcMesas + '%')
+        .text(porc + '%')
 
       const footerResult = '.elecciones_footer'
       $(footerResult)
@@ -244,7 +256,7 @@ function camaraData() {
         .then((result) => {
           // console.log(result.data)
           $('.elecciones_body_camara .eleeciones_r_camara_partidos').empty()
-          console.log(partidos.length)
+          // console.log(partidos.length)
           listCandidatosInfo().then((resultCandidatoInfo) => {
             partidos.forEach((partido) => {
               const infoPartido = result.data.filter((data) => {
@@ -258,8 +270,8 @@ function camaraData() {
                 const { nombre } = infoPartido[0]
                 const names = capitalizarPrimeraLetra(nombre)
                 const porc = clearZero(partido.Porc.V)
-                let porcPartido = parseInt(porc)
-                porcPartido = Math.round(porcPartido)
+                // let porcPartido = parseInt(porc)
+                // porcPartido = Math.round(porcPartido)
 
                 const divCandidato = candidatosCamara(
                   candidatos,
@@ -287,7 +299,7 @@ function camaraData() {
                   partido.Votos.V
                 )}</span>
                 <span class="porcet_v"
-                  ><progress id="file" max="100" value="${porcPartido}">${porcPartido}</progress></span
+                  ><progress id="file" max="100" value="${porc}">${porc}</progress></span
                 >
                 ${
                   partido.Curules.V.trim().length > 0
@@ -340,8 +352,8 @@ function candidatosCamara(candidatos, id_partido, resultCandidatoInfo) {
       )}`
 
       const porc = clearZero(candidato.Porc.V)
-      let porcCandidato = parseInt(porc)
-      porcCandidato = Math.round(porcCandidato)
+      // let porcCandidato = parseInt(porc)
+      // porcCandidato = Math.round(porcCandidato)
 
       return `<li>
               <span class="candidato">${names}</span>
@@ -395,11 +407,11 @@ function consultasData(consulta) {
         .text(number_format(result.data.Mesas_Instaladas.V, 0))
 
       const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
-      let porcMesas = parseInt(porc)
-      porcMesas = Math.round(porcMesas)
+      // let porcMesas = parseInt(porc)
+      // porcMesas = Math.round(porcMesas)
       $(titleResult)
         .find('.elecciones_mesas .porcentaje_m span')
-        .text(porcMesas + '%')
+        .text(porc + '%')
 
       const footerResult = '.elecciones_footer'
       $(footerResult)
@@ -420,7 +432,7 @@ function consultasData(consulta) {
       const candidatos =
         result.data.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
 
-      console.log(candidatos)
+      // console.log(candidatos)
 
       fetch(
         `https://elecciones.laopinion.com.co/api/data/candidatos-${consulta}`
@@ -436,7 +448,7 @@ function consultasData(consulta) {
           $(
             '.elecciones_body_consultas .elecciones_r_consulta .consulta_candidatos'
           ).empty()
-          console.log(candidatos.length)
+          // console.log(candidatos.length)
           candidatos.forEach((candidato) => {
             const infoCandidato = result.data.filter((data) => {
               // console.log(id.id_candidato)
@@ -499,7 +511,7 @@ function consultasData(consulta) {
 }
 
 $('#elecciones_results .elecciones_menu li').click(function (e) {
-  console.log($(this).data('corporacion'))
+  // console.log($(this).data('corporacion'))
   $(this).addClass('active')
   $(this).siblings().removeClass('active')
   const corporacion = $(this).data('corporacion')
@@ -550,7 +562,7 @@ function handleClickCandidatos(e) {
 }
 
 $('.elecciones_body_consultas .consultas li').click(function (e) {
-  console.log($(this).data('consulta'))
+  // console.log($(this).data('consulta'))
   $(this).addClass('active')
   $(this).siblings().removeClass('active')
   let consulta = $(this).data('consulta')
