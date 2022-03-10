@@ -235,56 +235,57 @@ function camaraData() {
         .then((result) => {
           // console.log(result.data)
           console.log(partidos.length)
-          partidos.forEach((partido) => {
-            const infoPartido = result.data.filter((data) => {
-              // console.log(id.id_candidato)
-              if (data.id_partido === partido.Partido.V) {
-                return data
+          listCandidatosInfo().then((resultCandidatoInfo) => {
+            partidos.forEach((partido) => {
+              const infoPartido = result.data.filter((data) => {
+                // console.log(id.id_candidato)
+                if (data.id_partido === partido.Partido.V) {
+                  return data
+                }
+              })
+              // console.log(infoPartido)
+              if (infoPartido.length > 0) {
+                const { nombre } = infoPartido[0]
+                const names = capitalizarPrimeraLetra(nombre)
+                const porc = clearZero(partido.Porc.V)
+                let porcPartido = parseInt(porc)
+                porcPartido = Math.round(porcPartido)
+
+                const divCandidato = candidatosCamara(
+                  candidatos,
+                  partido.Partido.V,
+                  resultCandidatoInfo
+                )
+
+                const divPartido = `<li class="list_partido">
+                <div class="elecciones_logos_partidos">
+                  <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-partido="partido_${
+                    partido.Partido.V
+                  }"></div>
+                  <span class="logo_partido partido_${
+                    partido.Partido.V
+                  }">Logo</span>
+                  <span class="partido">${names}</span>
+                </div>
+                <span class="cant_votos">${number_format(
+                  partido.Votos.V
+                )}</span>
+                <span class="porcet_v"
+                  ><progress id="file" max="100" value="${porcPartido}">${porcPartido}</progress></span
+                >
+                <span class="posib_curules">20</span>
+              </li>
+              <div class="list_candidatos partido_${partido.Partido.V} hidden">
+                <ul>
+                 ${divCandidato.map((candidato) => candidato).join('')}
+                </ul>
+              </div>
+            `
+                $(
+                  '.elecciones_body_camara .eleeciones_r_camara_partidos'
+                ).append(divPartido)
               }
             })
-            // console.log(infoPartido)
-            if (infoPartido.length > 0) {
-              const { nombre } = infoPartido[0]
-              const names = capitalizarPrimeraLetra(nombre)
-              const porc = clearZero(partido.Porc.V)
-              let porcPartido = parseInt(porc)
-              porcPartido = Math.round(porcPartido)
-
-              candidatosCamara(candidatos, partido.Partido.V).then(
-                (divCandidato) => {
-                  // console.log(divCandidato)
-                  const divPartido = `<li class="list_partido">
-                  <div class="elecciones_logos_partidos">
-                    <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-partido="partido_${
-                      partido.Partido.V
-                    }"></div>
-                    <span class="logo_partido partido_${
-                      partido.Partido.V
-                    }">Logo</span>
-                    <span class="partido">${names}</span>
-                  </div>
-                  <span class="cant_votos">${number_format(
-                    partido.Votos.V
-                  )}</span>
-                  <span class="porcet_v"
-                    ><progress id="file" max="100" value="${porcPartido}">${porcPartido}</progress></span
-                  >
-                  <span class="posib_curules">20</span>
-                </li>
-                <div class="list_candidatos partido_${
-                  partido.Partido.V
-                } hidden">
-                  <ul>
-                   ${divCandidato.map((candidato) => candidato).join('')}
-                  </ul>
-                </div>
-              `
-                  $(
-                    '.elecciones_body_camara .eleeciones_r_camara_partidos'
-                  ).append(divPartido)
-                }
-              )
-            }
           })
         })
         .catch((err) => {
@@ -296,53 +297,55 @@ function camaraData() {
     }) // Fin camara departamental
 }
 
-function candidatosCamara(candidatos, id_partido) {
+function candidatosCamara(candidatos, id_partido, resultCandidatoInfo) {
+  // console.log(resultCandidatoInfo)
+  const divCandidato = candidatos.map((candidato) => {
+    const infoCandidato = resultCandidatoInfo.filter((data) => {
+      if (
+        id_partido === data.id_partido &&
+        data.id_candidato === candidato.Candidato.V
+      ) {
+        return data
+      }
+    })
+    // console.log(infoCandidato)
+    if (infoCandidato.length > 0 && candidato.Partido.V === id_partido) {
+      const { primer_apellido, primer_nombre, segundo_nombre } =
+        infoCandidato[0]
+
+      const names = `${capitalizarPrimeraLetra(
+        primer_nombre
+      )} ${capitalizarPrimeraLetra(segundo_nombre)} ${capitalizarPrimeraLetra(
+        primer_apellido
+      )}`
+
+      const porc = clearZero(candidato.Porc.V)
+      let porcCandidato = parseInt(porc)
+      porcCandidato = Math.round(porcCandidato)
+
+      return `<li>
+              <span class="candidato">${names}</span>
+              <span class="cant_votos">${number_format(
+                candidato.Votos.V
+              )} (${porc}%)</span>
+            </li>
+                  `
+    }
+    // else {
+    //   // console.log(candidato.Candidato.V)
+    // }
+  })
+
+  return divCandidato
+}
+
+function listCandidatosInfo() {
   return fetch('https://elecciones.laopinion.com.co/api/data/candidatos-camara')
     .then((response) => {
       return response.json()
     })
     .then((result) => {
-      // console.log(result.data)
-      console.log(candidatos.length)
-      // return result.data
-      const divCandidato = candidatos.map((candidato) => {
-        const infoCandidato = result.data.filter((data) => {
-          if (
-            id_partido === data.id_partido &&
-            data.id_candidato === candidato.Candidato.V
-          ) {
-            return data
-          }
-        })
-        // console.log(infoCandidato)
-        if (infoCandidato.length > 0 && candidato.Partido.V === id_partido) {
-          const { primer_apellido, primer_nombre, segundo_nombre } =
-            infoCandidato[0]
-
-          const names = `${capitalizarPrimeraLetra(
-            primer_nombre
-          )} ${capitalizarPrimeraLetra(
-            segundo_nombre
-          )} ${capitalizarPrimeraLetra(primer_apellido)}`
-
-          const porc = clearZero(candidato.Porc.V)
-          let porcCandidato = parseInt(porc)
-          porcCandidato = Math.round(porcCandidato)
-
-          return `<li>
-                  <span class="candidato">${names}</span>
-                  <span class="cant_votos">${number_format(
-                    candidato.Votos.V
-                  )} (${porc}%)</span>
-                </li>
-                      `
-        }
-        // else {
-        //   // console.log(candidato.Candidato.V)
-        // }
-      })
-
-      return divCandidato
+      return result.data
     })
     .catch((err) => {
       console.log(err)
