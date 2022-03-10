@@ -538,6 +538,10 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $(
       '#elecciones_results .elecciones_header .elecciones_title_result h2'
     ).text('Resultados Elecciones Nacionales')
+    $('.elecciones_body_consultas .consultas li')
+      .siblings()
+      .removeClass('active')
+    $('.elecciones_body_consultas .consultas .consulta_ce').addClass('active')
     consultasData('centro-esperanza')
   }
 })
@@ -563,8 +567,8 @@ function handleClickCandidatos(e) {
 
 $('.elecciones_body_consultas .consultas li').click(function (e) {
   // console.log($(this).data('consulta'))
-  $(this).addClass('active')
   $(this).siblings().removeClass('active')
+  $(this).addClass('active')
   let consulta = $(this).data('consulta')
   if (consulta === 'ce') {
     consulta = 'centro-esperanza'
@@ -576,4 +580,33 @@ $('.elecciones_body_consultas .consultas li').click(function (e) {
   consultasData(consulta)
   // $(this).parent().parent().find('.consultas_content').hide()
   // $(this).parent().parent().find(`.consultas_content.${$(this).data('consulta')}`).show()
+})
+
+$(
+  '#elecciones_results .elecciones_body_senado .menu_mobile_candidatos_partidos li'
+).click(function (e) {
+  $(this).siblings().removeClass('active')
+  $(this).addClass('active')
+  const option = $(this).data('option')
+  if (option === 'partidos') {
+    $(
+      '#elecciones_results .elecciones_body_senado .elecciones_cantidados'
+    ).hide()
+    $('#elecciones_results .elecciones_body_senado .elecciones_partidos').show()
+  } else {
+    $(
+      '#elecciones_results .elecciones_body_senado .elecciones_cantidados'
+    ).show()
+    $('#elecciones_results .elecciones_body_senado .elecciones_partidos').hide()
+  }
+})
+
+$(
+  '#elecciones_results .elecciones_body_senado .menu_mobile_candidatos_partidos li input[type=radio]'
+).on('click', function (e) {
+  // Uncheck others
+  $('input[type=radio]').prop('checked', false)
+
+  $(this).prop('checked', true)
+  console.log($(this).prop('checked')) // this return true
 })
