@@ -1077,6 +1077,26 @@
           }
         }
       }
+
+      .elecciones_body_consultas {
+        .consultas {
+          width: 100%;
+        }
+        .elecciones_r_consulta {
+          width: 100%;
+          .consulta_barras {
+            column-gap: 55px;
+          }
+          .consulta_candidatos {
+            grid-template-columns: repeat(5, 80px);
+            column-gap: 20px;
+            .candidato .name_candidato {
+              text-align: center;
+              line-height: 15px;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -1115,19 +1135,42 @@
         }
         .eleeciones_r_camara_partidos {
           .list_partido {
-            grid-template-columns: 88px 50px 120px;
+            grid-template-columns: 88px 50px 90px;
             justify-content: flex-start;
             column-gap: 5px;
-            padding: 0 10px;
+            padding: 0 0px 0 15%;
+            .porcet_v progress::before {
+              right: -48px;
+              font-size: 14px;
+            }
           }
           .list_candidatos {
-            padding-left: 8%;
-            width: 92%;
+            padding-left: 19%;
+            width: 80%;
             ul {
               li {
                 grid-template-columns: 165px 120px;
               }
             }
+          }
+        }
+      }
+
+      .elecciones_body_consultas {
+        .consultas {
+          column-gap: 10px;
+          li {
+            font-size: 14px;
+          }
+        }
+        .elecciones_r_consulta {
+          .consulta_barras {
+            column-gap: 30px;
+            margin-top: 18px;
+          }
+          .consulta_candidatos {
+            grid-template-columns: repeat(5, 50px);
+            column-gap: 25px;
           }
         }
       }
@@ -1139,6 +1182,39 @@
           flex-direction: column;
           align-items: center;
           row-gap: 8px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  #elecciones_results {
+    .elecciones_container {
+      .elecciones_body_camara {
+        .eleeciones_r_camara_partidos {
+          .list_partido {
+            padding: 0 0px 0 12%;
+          }
+          .list_candidatos {
+            padding-left: 14%;
+            width: 80%;
+            ul {
+              li {
+                grid-template-columns: 165px 90px;
+                column-gap: 10px;
+              }
+            }
+          }
+        }
+      }
+
+      .elecciones_body_consultas {
+        .elecciones_r_consulta {
+          .consulta_candidatos {
+            grid-template-columns: repeat(5, 48px);
+            column-gap: 18px;
+          }
         }
       }
     }
