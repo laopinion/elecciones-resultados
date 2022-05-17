@@ -69,7 +69,7 @@
         letter-spacing: 0px;
         color: #000000;
         opacity: 1;
-        font-size: 32px;
+        font-size: 29px;
         line-height: 40px;
         text-align: center;
         margin: 28px auto 5px;
@@ -134,6 +134,7 @@
       background: #dfdfdf 0% 0% no-repeat padding-box;
       border-radius: 7px 7px 0px 0px;
       font-weight: 700;
+      padding: 10px 20px 7px 20px;
     }
     .corporacion_senado,
     .corporacion_camara,
@@ -155,7 +156,7 @@
     .elecciones_body_senado {
       display: grid;
       grid-template-columns: 400px 1px 1fr;
-      // display: none;
+      display: none;
       .elecciones_cantidados {
         .elecciones_cantidatos_title {
           display: flex;
@@ -424,7 +425,7 @@
       }
     } // Fin senado body
 
-    .elecciones_body_camara {
+    .elecciones_body_presidenciales_departamental {
       display: none;
       .elecciones_partidos_title {
         margin: 0;
@@ -674,8 +675,9 @@
       }
     } // Fin camara body
 
-    .elecciones_body_consultas {
-      display: none;
+    .elecciones_body_presidenciales_nacional {
+      display: block;
+      padding-top: 15px;
       .consultas {
         list-style: none;
         padding: 20px 0 0;
@@ -696,17 +698,17 @@
           font-weight: 700;
         }
       }
-      .elecciones_r_consulta {
+      .elecciones_r_presidenciales {
         margin: 0 auto;
-        width: 710px;
+        width: 1021px;
         .consulta_barras {
           list-style: none;
           padding: 0;
           margin: 30px 0 10px;
           display: grid;
           justify-content: center;
-          grid-template-columns: repeat(5, 40px);
-          column-gap: 120px;
+          grid-template-columns: repeat(7, 40px);
+          column-gap: 110px;
           li {
             height: 130px;
             width: 40px;
@@ -757,7 +759,7 @@
           margin: 0;
           display: grid;
           justify-content: center;
-          grid-template-columns: repeat(5, 125px);
+          grid-template-columns: repeat(7, 115px);
           column-gap: 35px;
           .candidato {
             display: flex;
@@ -765,8 +767,8 @@
             align-items: center;
             justify-content: center;
             .foto {
-              height: 65px;
-              width: 65px;
+              height: 100px;
+              width: 100px;
 
               // img {
               //   height: 65px;
@@ -775,74 +777,52 @@
               //   object-fit: cover;
               // }
             }
-            .centro-esperanza.candidato_002 {
-              background: url('../img/centro-esperanza.png') no-repeat;
-              background-position: -152px 0px;
+            .candidato_002 {
+              // john milton
+              background: url('../img/candidatos.png') no-repeat;
+              background-position: -746px 0;
             }
-            .centro-esperanza.candidato_003 {
-              background: url('../img/centro-esperanza.png') no-repeat;
-              background-position: -305px 0px;
+            .candidato_003 {
+              // Fico
+              background: url('../img/candidatos.png') no-repeat;
+              background-position: -895px 0px;
             }
-            .centro-esperanza.candidato_001 {
-              background: url('../img/centro-esperanza.png') no-repeat;
+            .candidato_001 {
+              // rodolfo
+              background: url('../img/candidatos.png') no-repeat;
+              background-position: -597px 0px;
+            }
+            .candidato_005 {
+              // enrique
+              background: url('../img/candidatos.png') no-repeat;
+              background-position: -298px 0px;
+            }
+            .candidato_004 {
+              // fajardo
+              background: url('../img/candidatos.png') no-repeat;
               background-position: 0px 0px;
             }
-            .centro-esperanza.candidato_005 {
-              background: url('../img/centro-esperanza.png') no-repeat;
-              background-position: -605px 0px;
+            .candidato_006 {
+              // petro
+              background: url('../img/candidatos.png') no-repeat;
+              background-position: -149px 0;
             }
-            .centro-esperanza.candidato_004 {
-              background: url('../img/centro-esperanza.png') no-repeat;
+            .candidato_007 {
+              background: url('../img/candidatos.png') no-repeat;
               background-position: -454px 0px;
             }
-
-            .equipo-colombia.candidato_001 {
-              background: url('../img/equipo-colombia.png') no-repeat;
-              background-position: 0px 0px;
-            }
-            .equipo-colombia.candidato_002 {
-              background: url('../img/equipo-colombia.png') no-repeat;
-              background-position: -152px 0px;
-            }
-            .equipo-colombia.candidato_003 {
-              background: url('../img/equipo-colombia.png') no-repeat;
-              background-position: -300px 0px;
-            }
-            .equipo-colombia.candidato_004 {
-              background: url('../img/equipo-colombia.png') no-repeat;
-              background-position: -454px 0px;
-            }
-            .equipo-colombia.candidato_005 {
-              background: url('../img/equipo-colombia.png') no-repeat;
-              background-position: -608px 0px;
-            }
-
-            .pacto-historico.candidato_001 {
-              background: url('../img/pacto-historico.png') no-repeat;
-              background-position: 0px 0px;
-            }
-            .pacto-historico.candidato_002 {
-              background: url('../img/pacto-historico.png') no-repeat;
-              background-position: -150px 0px;
-            }
-            .pacto-historico.candidato_003 {
-              background: url('../img/pacto-historico.png') no-repeat;
-              background-position: -300px 0px;
-            }
-            .pacto-historico.candidato_004 {
-              background: url('../img/pacto-historico.png') no-repeat;
-              background-position: -451px 0px;
-            }
-            .pacto-historico.candidato_005 {
-              background: url('../img/pacto-historico.png') no-repeat;
-              background-position: -602px 0px;
+            .candidato_008 {
+              // ingrid
+              background: url('../img/candidatos.png') no-repeat;
+              background-position: -448px 0px;
             }
             .name_candidato {
               letter-spacing: 0px;
               color: #000000;
-              font-size: 13px;
+              font-size: 12px;
               line-height: 16px;
               font-weight: 700;
+              text-align: center;
               margin: 5px 0 0 0;
             }
           }
@@ -852,7 +832,7 @@
   }
 
   .elecciones_footer {
-    margin: 30px auto 10px;
+    margin: 20px auto 10px;
     max-width: 550px;
     ul {
       list-style: none;
@@ -1037,7 +1017,7 @@
         }
       }
 
-      .elecciones_body_camara {
+      .elecciones_body_presidenciales_departamental {
         .elecciones_partidos_title {
           grid-template-columns: 190px 78px 225px;
           justify-content: center;
@@ -1082,7 +1062,7 @@
         .consultas {
           width: 100%;
         }
-        .elecciones_r_consulta {
+        .elecciones_r_presidenciales {
           width: 100%;
           .consulta_barras {
             column-gap: 55px;
@@ -1129,7 +1109,7 @@
           }
         }
       }
-      .elecciones_body_camara {
+      .elecciones_body_presidenciales_departamental {
         .elecciones_partidos_title {
           grid-template-columns: 125px 78px 100px;
         }
@@ -1163,7 +1143,7 @@
             font-size: 14px;
           }
         }
-        .elecciones_r_consulta {
+        .elecciones_r_presidenciales {
           .consulta_barras {
             column-gap: 30px;
             margin-top: 18px;
@@ -1191,7 +1171,7 @@
 @media (max-width: 380px) {
   #elecciones_results {
     .elecciones_container {
-      .elecciones_body_camara {
+      .elecciones_body_presidenciales_departamental {
         .eleeciones_r_camara_partidos {
           .list_partido {
             padding: 0 0px 0 12%;
@@ -1210,7 +1190,7 @@
       }
 
       .elecciones_body_consultas {
-        .elecciones_r_consulta {
+        .elecciones_r_presidenciales {
           .consulta_candidatos {
             grid-template-columns: repeat(5, 48px);
             column-gap: 18px;

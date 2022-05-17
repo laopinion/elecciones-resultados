@@ -98,7 +98,11 @@ function senadoData() {
           // console.log(result.data)
           $('.elecciones_body_senado .eleeciones_r_senado_cantidatos').empty()
           // console.log(candidatos.length)
-          candidatos.forEach((candidato) => {
+          let newArrayCandidatos = candidatos.sort(
+            (a, b) => b.Votos.V - a.Votos.V
+          )
+          console.log(newArrayCandidatos)
+          newArrayCandidatos.forEach((candidato) => {
             const infoCandidato = result.data.filter((data) => {
               // console.log(id.id_candidato)
               if (
@@ -197,136 +201,238 @@ function senadoData() {
     }) // Fin senado nacional
 }
 
-senadoData()
+// senadoData()
 
-function camaraData() {
-  fetch('https://elecciones.laopinion.com.co/api/data/camara-departamental')
+function departamentalData() {
+  fetch(
+    'https://elecciones.laopinion.com.co/api/data/presidenciales-departamental'
+  )
     .then((response) => {
       return response.json()
     })
     .then((result) => {
       console.log(result)
-      const titleResult =
-        '#elecciones_results .elecciones_header .elecciones_title_result'
-      $(titleResult)
-        .find('.elecciones_num_boletin .num_boletin')
-        .text(`Boletín N° ${result.data.Numero.V}`)
-      $(titleResult)
-        .find('.elecciones_num_boletin .hora_boletin')
-        .text(`Hora: ${result.data.Hora.V}:${result.data.Minuto.V} p.m.`)
-      $(titleResult)
-        .find('.elecciones_mesas .cant_m_informadas span')
-        .text(number_format(result.data.Mesas_Informadas.V, 0))
-      $(titleResult)
-        .find('.elecciones_mesas .total_m span')
-        .text(number_format(result.data.Mesas_Instaladas.V, 0))
+      // const titleResult =
+      //   '#elecciones_results .elecciones_header .elecciones_title_result'
+      // $(titleResult)
+      //   .find('.elecciones_num_boletin .num_boletin')
+      //   .text(`Boletín N° ${result.data.Numero.V}`)
+      // $(titleResult)
+      //   .find('.elecciones_num_boletin .hora_boletin')
+      //   .text(`Hora: ${result.data.Hora.V}:${result.data.Minuto.V} p.m.`)
+      // $(titleResult)
+      //   .find('.elecciones_mesas .cant_m_informadas span')
+      //   .text(number_format(result.data.Mesas_Informadas.V, 0))
+      // $(titleResult)
+      //   .find('.elecciones_mesas .total_m span')
+      //   .text(number_format(result.data.Mesas_Instaladas.V, 0))
 
-      const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
-      // let porcMesas = parseInt(porc)
-      // porcMesas = Math.round(porcMesas)
-      $(titleResult)
-        .find('.elecciones_mesas .porcentaje_m span')
-        .text(porc + '%')
+      // const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
+      // // let porcMesas = parseInt(porc)
+      // // porcMesas = Math.round(porcMesas)
+      // $(titleResult)
+      //   .find('.elecciones_mesas .porcentaje_m span')
+      //   .text(porc + '%')
 
-      const footerResult = '.elecciones_footer'
-      $(footerResult)
-        .find('.total_v_title .total_v')
-        .text(
-          number_format(
-            result.data.Detalle_Circunscripcion.lin[0].Detalle_Partidos_Totales
-              .lin[2].Votos.V
-          )
-        )
-      $(footerResult)
-        .find('.votos_n_title .votos_n')
-        .text(number_format(result.data.Votos_Nulos.V))
-      $(footerResult)
-        .find('.votos_nm_title .votos_nm')
-        .text(number_format(result.data.Votos_No_Marcados.V))
+      // const footerResult = '.elecciones_footer'
+      // $(footerResult)
+      //   .find('.total_v_title .total_v')
+      //   .text(
+      //     number_format(
+      //       result.data.Detalle_Circunscripcion.lin[0].Detalle_Partidos_Totales
+      //         .lin[2].Votos.V
+      //     )
+      //   )
+      // $(footerResult)
+      //   .find('.votos_n_title .votos_n')
+      //   .text(number_format(result.data.Votos_Nulos.V))
+      // $(footerResult)
+      //   .find('.votos_nm_title .votos_nm')
+      //   .text(number_format(result.data.Votos_No_Marcados.V))
 
-      const candidatos =
-        result.data.Detalle_Circunscripcion.lin[0].Detalle_Candidato.lin
+      // const candidatos =
+      //   result.data.Detalle_Circunscripcion.lin[0].Detalle_Candidato.lin
 
-      const partidos =
-        result.data.Detalle_Circunscripcion.lin[0].Detalle_Partido.lin
-      fetch('https://elecciones.laopinion.com.co/api/data/partidos-camara')
-        .then((response) => {
-          return response.json()
-        })
-        .then((result) => {
-          // console.log(result.data)
-          $('.elecciones_body_camara .eleeciones_r_camara_partidos').empty()
-          // console.log(partidos.length)
-          listCandidatosInfo().then((resultCandidatoInfo) => {
-            partidos.forEach((partido) => {
-              const infoPartido = result.data.filter((data) => {
-                // console.log(id.id_candidato)
-                if (data.id_partido === partido.Partido.V) {
-                  return data
-                }
-              })
-              // console.log(infoPartido)
-              if (infoPartido.length > 0) {
-                const { nombre } = infoPartido[0]
-                const names = capitalizarPrimeraLetra(nombre)
-                const porc = clearZero(partido.Porc.V)
-                // let porcPartido = parseInt(porc)
-                // porcPartido = Math.round(porcPartido)
+      // const partidos =
+      //   result.data.Detalle_Circunscripcion.lin[0].Detalle_Partido.lin
 
-                const divCandidato = candidatosCamara(
-                  candidatos,
-                  partido.Partido.V,
-                  resultCandidatoInfo
-                )
+      let newArrayDepartamentos = result.data.sort(
+        (a, b) =>
+          b.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos
+            .V -
+          a.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
+      )
+      listCandidatosInfo()
+        .then((resultCandidatoInfo) => {
+          $(
+            '.elecciones_body_presidenciales_departamental .eleeciones_r_camara_partidos'
+          ).empty()
+          // List departamentos
+          newArrayDepartamentos.forEach((el) => {
+            console.log(el)
+            const votos =
+              el.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2]
+                .Votos.V
+            const porc =
+              el.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2]
+                .Porc.V
+            const candidatos =
+              el.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
 
-                if (partido.Curules.V.trim().length > 0) {
-                  $(
-                    '.elecciones_body_camara .elecciones_partidos_title .posib_curules'
-                  ).show()
-                }
+            const divCandidato = candidatosPresidenciales(
+              candidatos,
+              resultCandidatoInfo
+            )
 
-                const divPartido = `<li class="list_partido">
-                <div class="elecciones_logos_partidos">
-                  <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-partido="partido_${
-                    partido.Partido.V
-                  }"></div>
-                  <span class="logo_partido partido_${
-                    partido.Partido.V
-                  }">Logo</span>
-                  <span class="partido">${names}</span>
-                </div>
-                <span class="cant_votos">${number_format(
-                  partido.Votos.V
-                )}</span>
-                <span class="porcet_v"
-                  ><progress id="file" max="100" value="${porc}">${porc}</progress></span
-                >
-                ${
-                  partido.Curules.V.trim().length > 0
-                    ? `<span class="posib_curules">${partido.Curules.V}</span>`
-                    : ''
-                }
-              </li>
-              <div class="list_candidatos partido_${partido.Partido.V} hidden">
-                <ul>
-                 ${divCandidato.map((candidato) => candidato).join('')}
-                </ul>
-              </div>
-            `
-                $(
-                  '.elecciones_body_camara .eleeciones_r_camara_partidos'
-                ).append(divPartido)
-              }
-            })
+            // console.log(divCandidato)
+
+            const divPartido = `<li class="list_partido list_departamento">
+            <div class="elecciones_logos_partidos name_departamento">
+              <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-departamento="departamento_${
+                el.Departamento.V
+              }"></div>
+              <span class="partido departamento">${
+                el.Desc_Departamento.V
+              }</span>
+            </div>
+            <span class="cant_votos">${number_format(votos)}</span>
+            <span class="porcet_v"
+              ><progress id="file" max="100" value="${porc}">${porc}</progress></span
+            >
+          </li>
+          <div class="list_candidatos hidden">
+            <ul>
+              ${divCandidato.map((candidato) => candidato).join('')}
+            </ul>
+          </div>
+        `
+            $(
+              '.elecciones_body_presidenciales_departamental .eleeciones_r_camara_partidos'
+            ).append(divPartido)
           })
         })
         .catch((err) => {
           console.log(err)
         })
+
+      // fetch('https://elecciones.laopinion.com.co/api/data/partidos-camara')
+      //   .then((response) => {
+      //     return response.json()
+      //   })
+      //   .then((result) => {
+      //     // console.log(result.data)
+      //     $(
+      //       '.elecciones_body_presidenciales_departamental .eleeciones_r_camara_partidos'
+      //     ).empty()
+      //     // console.log(partidos.length)
+      //     listCandidatosInfo().then((resultCandidatoInfo) => {
+      //       partidos.forEach((partido) => {
+      //         const infoPartido = result.data.filter((data) => {
+      //           // console.log(id.id_candidato)
+      //           if (data.cod_candidato === partido.Partido.V) {
+      //             return data
+      //           }
+      //         })
+      //         console.log(infoPartido)
+      //         if (infoPartido.length > 0) {
+      //           const { nombre } = infoPartido[0]
+      //           const names = capitalizarPrimeraLetra(nombre)
+      //           const porc = clearZero(partido.Porc.V)
+      //           // let porcPartido = parseInt(porc)
+      //           // porcPartido = Math.round(porcPartido)
+
+      //           const divCandidato = candidatosCamara(
+      //             candidatos,
+      //             partido.Partido.V,
+      //             resultCandidatoInfo
+      //           )
+
+      //           if (partido.Curules.V.trim().length > 0) {
+      //             $(
+      //               '.elecciones_body_presidenciales_departamental .elecciones_partidos_title .posib_curules'
+      //             ).show()
+      //           }
+
+      //           const divPartido = `<li class="list_partido">
+      //           <div class="elecciones_logos_partidos">
+      //             <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-partido="partido_${
+      //               partido.Partido.V
+      //             }"></div>
+      //             <span class="logo_partido partido_${
+      //               partido.Partido.V
+      //             }">Logo</span>
+      //             <span class="partido">${names}</span>
+      //           </div>
+      //           <span class="cant_votos">${number_format(
+      //             partido.Votos.V
+      //           )}</span>
+      //           <span class="porcet_v"
+      //             ><progress id="file" max="100" value="${porc}">${porc}</progress></span
+      //           >
+      //           ${
+      //             partido.Curules.V.trim().length > 0
+      //               ? `<span class="posib_curules">${partido.Curules.V}</span>`
+      //               : ''
+      //           }
+      //         </li>
+      //         <div class="list_candidatos partido_${partido.Partido.V} hidden">
+      //           <ul>
+      //            ${divCandidato.map((candidato) => candidato).join('')}
+      //           </ul>
+      //         </div>
+      //       `
+      //           $(
+      //             '.elecciones_body_presidenciales_departamental .eleeciones_r_camara_partidos'
+      //           ).append(divPartido)
+      //         }
+      //       })
+      //     })
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //   })
     })
     .catch((err) => {
       console.log(err)
     }) // Fin camara departamental
+}
+
+function candidatosPresidenciales(candidatos, resultCandidatoInfo) {
+  // console.log(resultCandidatoInfo)
+  // console.log(candidatos)
+  // console.log(resultCandidatoInfo)
+  const divCandidato = candidatos.map((candidato) => {
+    const infoCandidato = resultCandidatoInfo.filter((data) => {
+      if (candidato.Candidato.V === data.cod_candidato) {
+        return data
+      }
+    })
+    // console.log(infoCandidato)
+    if (infoCandidato.length > 0) {
+      const { nombre_candidato, apellido_candidato } = infoCandidato[0]
+
+      const names = `${capitalizarPrimeraLetra(
+        nombre_candidato
+      )} ${capitalizarPrimeraLetra(apellido_candidato)} `
+
+      const porc = clearZero(candidato.Porc.V)
+      // let porcCandidato = parseInt(porc)
+      // porcCandidato = Math.round(porcCandidato)
+
+      return `<li>
+              <span class="candidato">${names}</span>
+              <span class="cant_votos">${number_format(
+                candidato.Votos.V
+              )} (${porc}%)</span>
+            </li>
+                  `
+    }
+    // else {
+    //   // console.log(candidato.Candidato.V)
+    // }
+  })
+
+  return divCandidato
 }
 
 function candidatosCamara(candidatos, id_partido, resultCandidatoInfo) {
@@ -372,7 +478,9 @@ function candidatosCamara(candidatos, id_partido, resultCandidatoInfo) {
 }
 
 function listCandidatosInfo() {
-  return fetch('https://elecciones.laopinion.com.co/api/data/candidatos-camara')
+  return fetch(
+    'https://elecciones.laopinion.com.co/api/data/candidatos-presidenciales'
+  )
     .then((response) => {
       return response.json()
     })
@@ -384,8 +492,21 @@ function listCandidatosInfo() {
     }) // FIn fetch candidatos
 }
 
+// function listCandidatosInfo() {
+//   return fetch('https://elecciones.laopinion.com.co/api/data/candidatos-camara')
+//     .then((response) => {
+//       return response.json()
+//     })
+//     .then((result) => {
+//       return result.data
+//     })
+//     .catch((err) => {
+//       console.log(err)
+//     }) // FIn fetch candidatos
+// }
+
 function consultasData(consulta) {
-  fetch(`https://elecciones.laopinion.com.co/api/data/${consulta}`)
+  fetch(`https://elecciones.laopinion.com.co/api/data/presidenciales-nacional`)
     .then((response) => {
       return response.json()
     })
@@ -435,7 +556,7 @@ function consultasData(consulta) {
       // console.log(candidatos)
 
       fetch(
-        `https://elecciones.laopinion.com.co/api/data/candidatos-${consulta}`
+        `https://elecciones.laopinion.com.co/api/data/candidatos-presidenciales`
       )
         .then((response) => {
           return response.json()
@@ -443,32 +564,30 @@ function consultasData(consulta) {
         .then((result) => {
           // console.log(result.data)
           $(
-            '.elecciones_body_consultas .elecciones_r_consulta .consulta_barras'
+            '.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_barras'
           ).empty()
           $(
-            '.elecciones_body_consultas .elecciones_r_consulta .consulta_candidatos'
+            '.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_candidatos'
           ).empty()
           // console.log(candidatos.length)
           candidatos.forEach((candidato) => {
             const infoCandidato = result.data.filter((data) => {
-              // console.log(id.id_candidato)
-              if (
-                data.id_candidato === candidato.Candidato.V &&
-                data.id_partido === candidato.Partido.V
-              ) {
+              // console.log(data.cod_candidato)
+              // console.log(candidato.Candidato.V)
+              if (data.cod_candidato === candidato.Candidato.V) {
                 return data
               }
             })
             // console.log(infoCandidato)
-            if (infoCandidato.length > 0) {
-              const { primer_apellido, primer_nombre, segundo_nombre } =
-                infoCandidato[0]
+            if (
+              infoCandidato.length > 0 &&
+              infoCandidato[0].cod_candidato !== '007'
+            ) {
+              const { nombre_candidato, apellido_candidato } = infoCandidato[0]
 
               const names = `${capitalizarPrimeraLetra(
-                primer_nombre
-              )} ${capitalizarPrimeraLetra(
-                segundo_nombre
-              )} ${capitalizarPrimeraLetra(primer_apellido || '')}`
+                nombre_candidato
+              )} ${capitalizarPrimeraLetra(apellido_candidato || '')}`
 
               const porc = clearZero(candidato.Porc.V)
               let porcCandidato = parseInt(porc)
@@ -485,18 +604,18 @@ function consultasData(consulta) {
                 </li> 
               `
               $(
-                '.elecciones_body_consultas .elecciones_r_consulta .consulta_barras'
+                '.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_barras'
               ).append(divBarra)
 
               // let consulta = 'centro-esperanza'
 
               const divCandidato = `<li class="candidato">
-                  <div class="foto ${consulta} candidato_${candidato.Candidato.V}"></div>
+                  <div class="foto candidato_${candidato.Candidato.V}"></div>
                   <div class="name_candidato">${names}</div>
                 </li>
               `
               $(
-                '.elecciones_body_consultas .elecciones_r_consulta .consulta_candidatos'
+                '.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_candidatos'
               ).append(divCandidato)
             }
           })
@@ -510,39 +629,32 @@ function consultasData(consulta) {
     }) // Fin consultas data
 }
 
+consultasData()
+
 $('#elecciones_results .elecciones_menu li').click(function (e) {
   // console.log($(this).data('corporacion'))
   $(this).addClass('active')
   $(this).siblings().removeClass('active')
   const corporacion = $(this).data('corporacion')
-  if (corporacion === 'senado') {
-    $('#elecciones_results .elecciones_body_senado').show()
-    $('#elecciones_results .elecciones_body_camara').hide()
-    $('#elecciones_results .elecciones_body_consultas').hide()
+  console.log(corporacion)
+  if (corporacion === 'departamental') {
+    $('#elecciones_results .elecciones_body_presidenciales_nacional').hide()
     $(
-      '#elecciones_results .elecciones_header .elecciones_title_result h2'
-    ).text('Resultados Elecciones Nacionales')
-    senadoData()
-  } else if (corporacion === 'camara') {
-    $('#elecciones_results .elecciones_body_camara').show()
-    $('#elecciones_results .elecciones_body_senado').hide()
-    $('#elecciones_results .elecciones_body_consultas').hide()
+      '#elecciones_results .elecciones_body_presidenciales_departamental'
+    ).show()
+    // $(
+    //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
+    // ).text('Resultados Elecciones Nacionales')
+    departamentalData()
+  } else if (corporacion === 'nacional') {
     $(
-      '#elecciones_results .elecciones_header .elecciones_title_result h2'
-    ).text('Resultados Norte de Santander')
-    camaraData()
-  } else {
-    $('#elecciones_results .elecciones_body_consultas').show()
-    $('#elecciones_results .elecciones_body_camara').hide()
-    $('#elecciones_results .elecciones_body_senado').hide()
-    $(
-      '#elecciones_results .elecciones_header .elecciones_title_result h2'
-    ).text('Resultados Elecciones Nacionales')
-    $('.elecciones_body_consultas .consultas li')
-      .siblings()
-      .removeClass('active')
-    $('.elecciones_body_consultas .consultas .consulta_ce').addClass('active')
-    consultasData('centro-esperanza')
+      '#elecciones_results .elecciones_body_presidenciales_departamental'
+    ).hide()
+    $('#elecciones_results .elecciones_body_presidenciales_nacional').show()
+    // $(
+    //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
+    // ).text('Resultados Norte de Santander')
+    consultasData()
   }
 })
 

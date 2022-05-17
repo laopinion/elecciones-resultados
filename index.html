@@ -19,7 +19,7 @@
           <img src="./img/bandera.png" alt="elecciones-bandera" />
         </div>
         <div class="elecciones_title_result">
-          <h2>Resultados Elecciones Nacionales</h2>
+          <h2>Resultados Elecciones Presidenciales</h2>
           <div class="elecciones_num_boletin">
             <span class="num_boletin">Boletín N°</span>
             <span class="hora_boletin">Hora: 4:55 p.m.</span>
@@ -40,12 +40,11 @@
       </div>
 
       <ul class="elecciones_menu">
-        <li class="corporacion_senado active" data-corporacion="senado">
-          Senado
+        <li class="presidencial_nacional active" data-corporacion="nacional">
+          Nacional
         </li>
-        <li class="corporacion_camara" data-corporacion="camara">Cámara</li>
-        <li class="corporacion_consultas" data-corporacion="consultas">
-          Consultas
+        <li class="presidencial_departamental" data-corporacion="departamental">
+          Por Departamentos
         </li>
       </ul>
 
@@ -143,7 +142,7 @@
           </div>
         </div>
 
-        <div class="elecciones_body_camara">
+        <div class="elecciones_body_presidenciales_departamental">
           <ul class="elecciones_partidos_title">
             <li>
               Partidos <span>Haga clic en la flecha para ver más detalles</span>
@@ -153,7 +152,9 @@
             <li class="posib_curules inactive">Posibles Curules</li>
           </ul>
 
-          <ul class="eleeciones_r_camara_partidos">
+          <ul
+            class="eleeciones_r_camara_partidos eleeciones_r_presidenciales_candidatos"
+          >
             <!-- <li class="list_partido">
               <div class="elecciones_logos_partidos">
                 <div class="btn_flecha" data-partido="pv"></div>
@@ -229,8 +230,9 @@
           </ul>
         </div>
 
-        <div class="elecciones_body_consultas">
-          <ul class="consultas">
+        <div class="elecciones_body_presidenciales_nacional">
+          <!--
+          <ul class="presidenciales_nacional">
             <li class="consulta_epc" data-consulta="epc">
               Equipo Por Colombia
             </li>
@@ -239,7 +241,8 @@
             </li>
             <li class="consulta_ph" data-consulta="ph">Pacto Histórico</li>
           </ul>
-          <div class="elecciones_r_consulta">
+          -->
+          <div class="elecciones_r_presidenciales">
             <ul class="consulta_barras">
               <!-- <li>
                 <div class="progress-bar-vertical porcet_v">
