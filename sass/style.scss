@@ -457,7 +457,7 @@
         }
       }
 
-      .eleeciones_r_camara_partidos {
+      .eleeciones_r_presidenciales_candidatos {
         list-style: none;
         padding: 0;
         margin: 0;
@@ -465,17 +465,22 @@
         overflow-y: scroll;
         .list_partido {
           display: grid;
-          grid-template-columns: 325px 80px 442px 100px;
+          grid-template-columns: 325px 80px 1fr;
           // justify-items: center;
           justify-content: space-evenly;
           // column-gap: 20px;
           height: 42px;
           align-items: center;
+          padding: 0 40px;
           .cant_votos {
             justify-self: center;
           }
           .porcet_v {
-            display: block;
+            // display: block;
+            display: flex;
+            column-gap: 5px;
+            align-items: center;
+            margin-left: 40px;
             progress {
               display: flex;
               width: 382px;
@@ -507,12 +512,12 @@
               border-bottom-left-radius: 0;
               box-shadow: 0px 0px 6px #777 inset;
             }
-            progress::before {
-              padding: 0;
-              content: attr(value) '%';
-              position: absolute;
-              right: -58px;
-            }
+            // progress::before {
+            //   padding: 0;
+            //   content: attr(value) '%';
+            //   position: absolute;
+            //   right: -58px;
+            // }
           }
 
           .posib_curules {
@@ -526,6 +531,7 @@
             // column-gap: 10px;
             .partido {
               max-width: 230px;
+              margin-left: 10px;
             }
             .btn_flecha {
               background: url('../img/flecha_down.png') no-repeat;
@@ -1035,7 +1041,7 @@
           }
         }
 
-        .eleeciones_r_camara_partidos {
+        .eleeciones_r_presidenciales_candidatos {
           .list_partido {
             grid-template-columns: 85px 60px 120px;
             justify-content: center;
@@ -1113,7 +1119,7 @@
         .elecciones_partidos_title {
           grid-template-columns: 125px 78px 100px;
         }
-        .eleeciones_r_camara_partidos {
+        .eleeciones_r_presidenciales_candidatos {
           .list_partido {
             grid-template-columns: 88px 50px 90px;
             justify-content: flex-start;
@@ -1172,7 +1178,7 @@
   #elecciones_results {
     .elecciones_container {
       .elecciones_body_presidenciales_departamental {
-        .eleeciones_r_camara_partidos {
+        .eleeciones_r_presidenciales_candidatos {
           .list_partido {
             padding: 0 0px 0 12%;
           }

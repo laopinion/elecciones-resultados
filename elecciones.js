@@ -262,20 +262,34 @@ function departamentalData() {
             .V -
           a.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
       )
+
+      const arrayDepartamentos = []
+
+      newArrayDepartamentos.forEach((e) => {
+        if (e.Departamento.V === '2500') {
+          // console.log('paso' + e.Departamento.V)
+          arrayDepartamentos.unshift(e)
+        } else {
+          arrayDepartamentos.push(e)
+        }
+      })
+
       listCandidatosInfo()
         .then((resultCandidatoInfo) => {
           $(
             '.elecciones_body_presidenciales_departamental .eleeciones_r_camara_partidos'
           ).empty()
           // List departamentos
-          newArrayDepartamentos.forEach((el) => {
-            console.log(el)
+          arrayDepartamentos.forEach((el) => {
+            // console.log(el)
             const votos =
               el.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2]
                 .Votos.V
-            const porc =
+            const porc = clearZero(
               el.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2]
                 .Porc.V
+            )
+
             const candidatos =
               el.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
 
@@ -297,10 +311,10 @@ function departamentalData() {
             </div>
             <span class="cant_votos">${number_format(votos)}</span>
             <span class="porcet_v"
-              ><progress id="file" max="100" value="${porc}">${porc}</progress></span
+              ><progress id="file" max="100" value="${porc}">${porc}</progress> <aside>${porc}%</aside></span
             >
           </li>
-          <div class="list_candidatos hidden">
+          <div class="list_candidatos departamento_${el.Departamento.V} hidden">
             <ul>
               ${divCandidato.map((candidato) => candidato).join('')}
             </ul>
@@ -408,7 +422,7 @@ function candidatosPresidenciales(candidatos, resultCandidatoInfo) {
       }
     })
     // console.log(infoCandidato)
-    if (infoCandidato.length > 0) {
+    if (infoCandidato.length > 0 && infoCandidato[0].cod_candidato !== '007') {
       const { nombre_candidato, apellido_candidato } = infoCandidato[0]
 
       const names = `${capitalizarPrimeraLetra(
@@ -659,10 +673,12 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
 })
 
 function handleClickCandidatos(e) {
-  console.log($(e).data('partido'))
-  const partido = $(e).data('partido')
+  console.log($(e).data('departamento'))
+  const departamento = $(e).data('departamento')
   // $(e).parent().parent().css('height', 'auto')
-  const resultCamara = $(e).parent().parent().parent()
+  const resultDepartamento = $(e).parent().parent().parent()
+
+  console.log(resultDepartamento)
 
   if ($(e).hasClass('activeList')) {
     $(e).removeClass('activeList')
@@ -670,11 +686,11 @@ function handleClickCandidatos(e) {
     $(e).addClass('activeList')
   }
 
-  resultCamara.find(`.list_candidatos.${partido}`).toggle()
-  // const listPartido = $(e).parent().parent()
+  resultDepartamento.find(`.list_candidatos.${departamento}`).toggle()
+  // const listdepartamento = $(e).parent().parent()
   // $(e).parent().parent().find('.list_candidatos').toggle('slow')
 
-  console.log('ok')
+  // console.log('ok')
 }
 
 $('.elecciones_body_consultas .consultas li').click(function (e) {
