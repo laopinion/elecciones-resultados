@@ -123,7 +123,7 @@
       letter-spacing: 0px;
       color: #000000;
       opacity: 1;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 26px;
       display: flex;
       align-items: center;
@@ -425,7 +425,8 @@
       }
     } // Fin senado body
 
-    .elecciones_body_presidenciales_departamental {
+    .elecciones_body_presidenciales_departamental,
+    .elecciones_body_presidenciales_capitales {
       display: none;
       .elecciones_partidos_title {
         margin: 0;
@@ -1112,7 +1113,8 @@
         }
       }
 
-      .elecciones_body_presidenciales_departamental {
+      .elecciones_body_presidenciales_departamental,
+      .elecciones_body_presidenciales_capitales {
         .elecciones_partidos_title {
           grid-template-columns: 190px 78px 225px;
           justify-content: center;
@@ -1210,7 +1212,8 @@
           }
         }
       }
-      .elecciones_body_presidenciales_departamental {
+      .elecciones_body_presidenciales_departamental,
+      .elecciones_body_presidenciales_capitales {
         .elecciones_partidos_title {
           grid-template-columns: 125px 78px 100px;
         }
@@ -1271,8 +1274,12 @@
 
 @media (max-width: 380px) {
   #elecciones_results {
+    .elecciones_menu li {
+      font-size: 14px;
+    }
     .elecciones_container {
-      .elecciones_body_presidenciales_departamental {
+      .elecciones_body_presidenciales_departamental,
+      .elecciones_body_presidenciales_capitales {
         .eleeciones_r_presidenciales_candidatos {
           .list_partido {
             // padding: 0 0px 0 12%;

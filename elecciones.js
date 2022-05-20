@@ -211,50 +211,7 @@ function departamentalData() {
       return response.json()
     })
     .then((result) => {
-      console.log(result)
-      // const titleResult =
-      //   '#elecciones_results .elecciones_header .elecciones_title_result'
-      // $(titleResult)
-      //   .find('.elecciones_num_boletin .num_boletin')
-      //   .text(`Boletín N° ${result.data.Numero.V}`)
-      // $(titleResult)
-      //   .find('.elecciones_num_boletin .hora_boletin')
-      //   .text(`Hora: ${result.data.Hora.V}:${result.data.Minuto.V} p.m.`)
-      // $(titleResult)
-      //   .find('.elecciones_mesas .cant_m_informadas span')
-      //   .text(number_format(result.data.Mesas_Informadas.V, 0))
-      // $(titleResult)
-      //   .find('.elecciones_mesas .total_m span')
-      //   .text(number_format(result.data.Mesas_Instaladas.V, 0))
-
-      // const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
-      // // let porcMesas = parseInt(porc)
-      // // porcMesas = Math.round(porcMesas)
-      // $(titleResult)
-      //   .find('.elecciones_mesas .porcentaje_m span')
-      //   .text(porc + '%')
-
-      // const footerResult = '.elecciones_footer'
-      // $(footerResult)
-      //   .find('.total_v_title .total_v')
-      //   .text(
-      //     number_format(
-      //       result.data.Detalle_Circunscripcion.lin[0].Detalle_Partidos_Totales
-      //         .lin[2].Votos.V
-      //     )
-      //   )
-      // $(footerResult)
-      //   .find('.votos_n_title .votos_n')
-      //   .text(number_format(result.data.Votos_Nulos.V))
-      // $(footerResult)
-      //   .find('.votos_nm_title .votos_nm')
-      //   .text(number_format(result.data.Votos_No_Marcados.V))
-
-      // const candidatos =
-      //   result.data.Detalle_Circunscripcion.lin[0].Detalle_Candidato.lin
-
-      // const partidos =
-      //   result.data.Detalle_Circunscripcion.lin[0].Detalle_Partido.lin
+      // console.log(result)
 
       let newArrayDepartamentos = result.data.sort(
         (a, b) =>
@@ -328,83 +285,90 @@ function departamentalData() {
         .catch((err) => {
           console.log(err)
         })
+    })
+    .catch((err) => {
+      console.log(err)
+    }) // Fin camara departamental
+}
 
-      // fetch('https://elecciones.laopinion.com.co/api/data/partidos-camara')
-      //   .then((response) => {
-      //     return response.json()
-      //   })
-      //   .then((result) => {
-      //     // console.log(result.data)
-      //     $(
-      //       '.elecciones_body_presidenciales_departamental .eleeciones_r_camara_partidos'
-      //     ).empty()
-      //     // console.log(partidos.length)
-      //     listCandidatosInfo().then((resultCandidatoInfo) => {
-      //       partidos.forEach((partido) => {
-      //         const infoPartido = result.data.filter((data) => {
-      //           // console.log(id.id_candidato)
-      //           if (data.cod_candidato === partido.Partido.V) {
-      //             return data
-      //           }
-      //         })
-      //         console.log(infoPartido)
-      //         if (infoPartido.length > 0) {
-      //           const { nombre } = infoPartido[0]
-      //           const names = capitalizarPrimeraLetra(nombre)
-      //           const porc = clearZero(partido.Porc.V)
-      //           // let porcPartido = parseInt(porc)
-      //           // porcPartido = Math.round(porcPartido)
+function capitalData() {
+  fetch('https://elecciones.laopinion.com.co/api/data/presidenciales-capitales')
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      console.log(result)
 
-      //           const divCandidato = candidatosCamara(
-      //             candidatos,
-      //             partido.Partido.V,
-      //             resultCandidatoInfo
-      //           )
+      let newArrayCapitales = result.data.sort(
+        (a, b) =>
+          b.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos
+            .V -
+          a.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
+      )
 
-      //           if (partido.Curules.V.trim().length > 0) {
-      //             $(
-      //               '.elecciones_body_presidenciales_departamental .elecciones_partidos_title .posib_curules'
-      //             ).show()
-      //           }
+      const arrayCapitales = []
 
-      //           const divPartido = `<li class="list_partido">
-      //           <div class="elecciones_logos_partidos">
-      //             <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-partido="partido_${
-      //               partido.Partido.V
-      //             }"></div>
-      //             <span class="logo_partido partido_${
-      //               partido.Partido.V
-      //             }">Logo</span>
-      //             <span class="partido">${names}</span>
-      //           </div>
-      //           <span class="cant_votos">${number_format(
-      //             partido.Votos.V
-      //           )}</span>
-      //           <span class="porcet_v"
-      //             ><progress id="file" max="100" value="${porc}">${porc}</progress></span
-      //           >
-      //           ${
-      //             partido.Curules.V.trim().length > 0
-      //               ? `<span class="posib_curules">${partido.Curules.V}</span>`
-      //               : ''
-      //           }
-      //         </li>
-      //         <div class="list_candidatos partido_${partido.Partido.V} hidden">
-      //           <ul>
-      //            ${divCandidato.map((candidato) => candidato).join('')}
-      //           </ul>
-      //         </div>
-      //       `
-      //           $(
-      //             '.elecciones_body_presidenciales_departamental .eleeciones_r_camara_partidos'
-      //           ).append(divPartido)
-      //         }
-      //       })
-      //     })
-      //   })
-      //   .catch((err) => {
-      //     console.log(err)
-      //   })
+      newArrayCapitales.forEach((e) => {
+        if (e.Departamento.V === '2500') {
+          // console.log('paso' + e.Departamento.V)
+          arrayCapitales.unshift(e)
+        } else {
+          arrayCapitales.push(e)
+        }
+      })
+
+      listCandidatosInfo()
+        .then((resultCandidatoInfo) => {
+          $(
+            '.elecciones_body_presidenciales_capitales .eleeciones_r_camara_partidos'
+          ).empty()
+          // List departamentos
+          arrayCapitales.forEach((el) => {
+            // console.log(el)
+            const votos =
+              el.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2]
+                .Votos.V
+            const porc = clearZero(
+              el.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2]
+                .Porc.V
+            )
+
+            const candidatos =
+              el.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
+
+            const divCandidato = candidatosPresidenciales(
+              candidatos,
+              resultCandidatoInfo
+            )
+
+            // console.log(divCandidato)
+
+            const divPartido = `<li class="list_partido list_departamento">
+            <div class="elecciones_logos_partidos name_departamento">
+              <div class="btn_flecha" onclick="handleClickCandidatos(this)" data-departamento="departamento_${
+                el.Departamento.V
+              }"></div>
+              <span class="partido departamento">${el.Desc_Municipio.V}</span>
+            </div>
+            <span class="cant_votos">${number_format(votos)}</span>
+            <span class="porcet_v"
+              ><progress id="file" max="100" value="${porc}">${porc}</progress> <aside>${porc}%</aside></span
+            >
+          </li>
+          <div class="list_candidatos departamento_${el.Departamento.V} hidden">
+            <ul>
+              ${divCandidato.map((candidato) => candidato).join('')}
+            </ul>
+          </div>
+        `
+            $(
+              '.elecciones_body_presidenciales_capitales .eleeciones_r_camara_partidos'
+            ).append(divPartido)
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     })
     .catch((err) => {
       console.log(err)
@@ -658,6 +622,7 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
   console.log(corporacion)
   if (corporacion === 'departamental') {
     $('#elecciones_results .elecciones_body_presidenciales_nacional').hide()
+    $('#elecciones_results .elecciones_body_presidenciales_capitales').hide()
     $(
       '#elecciones_results .elecciones_body_presidenciales_departamental'
     ).show()
@@ -669,11 +634,22 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $(
       '#elecciones_results .elecciones_body_presidenciales_departamental'
     ).hide()
+    $('#elecciones_results .elecciones_body_presidenciales_capitales').hide()
     $('#elecciones_results .elecciones_body_presidenciales_nacional').show()
     // $(
     //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
     // ).text('Resultados Norte de Santander')
     consultasData()
+  } else if (corporacion === 'capital') {
+    $(
+      '#elecciones_results .elecciones_body_presidenciales_departamental'
+    ).hide()
+    $('#elecciones_results .elecciones_body_presidenciales_nacional').hide()
+    $('#elecciones_results .elecciones_body_presidenciales_capitales').show()
+    // $(
+    //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
+    // ).text('Resultados Norte de Santander')
+    capitalData()
   }
 })
 
