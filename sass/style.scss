@@ -664,9 +664,9 @@
             overflow-y: scroll;
             li {
               display: grid;
-              grid-template-columns: 255px 115px;
-              column-gap: 20px;
-              margin-bottom: 5px;
+              grid-template-columns: 30px 195px 115px;
+              column-gap: 10px;
+              margin-bottom: 10px;
               letter-spacing: 0px;
               color: #585858;
               opacity: 1;
@@ -674,6 +674,57 @@
               .cant_votos {
                 color: #585858;
                 font-weight: 700;
+              }
+              .img_profile {
+                height: 30px;
+                width: 30px;
+              }
+              .candidato_002 {
+                // john milton
+                background: url('../img/candidatos.png') no-repeat;
+                background-position: -225px 0;
+                background-size: 300px;
+              }
+              .candidato_003 {
+                // Fico
+                background: url('../img/candidatos.png') no-repeat;
+                background-position: -270px 0;
+                background-size: 300px;
+              }
+              .candidato_001 {
+                // rodolfo
+                background: url('../img/candidatos.png') no-repeat;
+                background-position: -180px 0;
+                background-size: 300px;
+              }
+              .candidato_005 {
+                // enrique
+                background: url('../img/candidatos.png') no-repeat;
+                background-position: -90px 0;
+                background-size: 300px;
+              }
+              .candidato_004 {
+                // fajardo
+                background: url('../img/candidatos.png') no-repeat;
+                background-position: 0 0;
+                background-size: 300px;
+              }
+              .candidato_006 {
+                // petro
+                background: url('../img/candidatos.png') no-repeat;
+                background-position: -45px 0;
+                background-size: 300px;
+              }
+              .candidato_007 {
+                background: url('../img/candidatos.png') no-repeat;
+                background-position: -454px 0px;
+                background-size: 300px;
+              }
+              .candidato_008 {
+                // ingrid
+                background: url('../img/candidatos.png') no-repeat;
+                background-position: -135px 0;
+                background-size: 300px;
               }
             }
           }
@@ -1023,6 +1074,44 @@
         }
       }
 
+      .elecciones_body_presidenciales_nacional {
+        .elecciones_r_presidenciales {
+          display: flex;
+          /* flex-direction: column; */
+          column-gap: 65px;
+          justify-content: center;
+          width: 100%;
+          .consulta_barras {
+            display: flex;
+            flex-direction: column;
+            order: 1;
+            margin: 0;
+            column-gap: 0;
+            justify-content: flex-start;
+            width: 130px;
+            li {
+              transform: rotate(90deg);
+              row-gap: 30px;
+              .progress-bar-vertical .bar span {
+                transform: rotate(-90deg);
+                margin-top: -10px;
+              }
+              .cant_votos {
+                transform: rotate(-90deg);
+              }
+            }
+          }
+          .consulta_candidatos {
+            display: flex;
+            flex-direction: column;
+            column-gap: 0;
+            justify-content: flex-start;
+            row-gap: 12px;
+            margin-right: 25px;
+          }
+        }
+      }
+
       .elecciones_body_presidenciales_departamental {
         .elecciones_partidos_title {
           grid-template-columns: 190px 78px 225px;
@@ -1043,13 +1132,15 @@
 
         .eleeciones_r_presidenciales_candidatos {
           .list_partido {
-            grid-template-columns: 85px 60px 120px;
+            grid-template-columns: 140px 80px 130px;
+            column-gap: 8px;
             justify-content: center;
-            column-gap: 20px;
-            .elecciones_logos_partidos .partido {
-              display: none;
-            }
+            padding: 0 8px;
+            // .elecciones_logos_partidos .partido {
+            //   display: none;
+            // }
             .porcet_v {
+              margin: 0;
               progress {
                 width: 100%;
               }
@@ -1060,6 +1151,10 @@
           }
           .list_candidatos {
             width: 80%;
+            ul li {
+              grid-template-columns: 30px 1fr 1fr;
+              align-items: center;
+            }
           }
         }
       }
@@ -1121,10 +1216,10 @@
         }
         .eleeciones_r_presidenciales_candidatos {
           .list_partido {
-            grid-template-columns: 88px 50px 90px;
-            justify-content: flex-start;
-            column-gap: 5px;
-            padding: 0 0px 0 15%;
+            // grid-template-columns: 88px 50px 90px;
+            // justify-content: flex-start;
+            // column-gap: 5px;
+            // padding: 0 0px 0 15%;
             .porcet_v progress::before {
               right: -48px;
               font-size: 14px;
@@ -1134,9 +1229,9 @@
             padding-left: 19%;
             width: 80%;
             ul {
-              li {
-                grid-template-columns: 165px 120px;
-              }
+              // li {
+              //   grid-template-columns: 165px 120px;
+              // }
             }
           }
         }
@@ -1180,16 +1275,20 @@
       .elecciones_body_presidenciales_departamental {
         .eleeciones_r_presidenciales_candidatos {
           .list_partido {
-            padding: 0 0px 0 12%;
+            // padding: 0 0px 0 12%;
+            grid-template-columns: 140px 1fr 1fr;
+            .porcet_v progress {
+              display: none;
+            }
           }
           .list_candidatos {
             padding-left: 14%;
             width: 80%;
             ul {
-              li {
-                grid-template-columns: 165px 90px;
-                column-gap: 10px;
-              }
+              // li {
+              //   grid-template-columns: 165px 90px;
+              //   column-gap: 10px;
+              // }
             }
           }
         }

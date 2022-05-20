@@ -434,6 +434,9 @@ function candidatosPresidenciales(candidatos, resultCandidatoInfo) {
       // porcCandidato = Math.round(porcCandidato)
 
       return `<li>
+              <div class="img_profile candidato_${
+                infoCandidato[0].cod_candidato
+              }"></div>
               <span class="candidato">${names}</span>
               <span class="cant_votos">${number_format(
                 candidato.Votos.V
@@ -564,10 +567,12 @@ function consultasData(consulta) {
         .find('.votos_nm_title .votos_nm')
         .text(number_format(result.data.Votos_No_Marcados.V))
 
-      const candidatos =
+      let candidatos =
         result.data.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
 
       // console.log(candidatos)
+
+      const newCandidatos = candidatos.sort((a, b) => b.Votos.V - a.Votos.V)
 
       fetch(
         `https://elecciones.laopinion.com.co/api/data/candidatos-presidenciales`
@@ -584,7 +589,7 @@ function consultasData(consulta) {
             '.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_candidatos'
           ).empty()
           // console.log(candidatos.length)
-          candidatos.forEach((candidato) => {
+          newCandidatos.forEach((candidato) => {
             const infoCandidato = result.data.filter((data) => {
               // console.log(data.cod_candidato)
               // console.log(candidato.Candidato.V)
@@ -678,7 +683,7 @@ function handleClickCandidatos(e) {
   // $(e).parent().parent().css('height', 'auto')
   const resultDepartamento = $(e).parent().parent().parent()
 
-  console.log(resultDepartamento)
+  // console.log(resultDepartamento)
 
   if ($(e).hasClass('activeList')) {
     $(e).removeClass('activeList')
