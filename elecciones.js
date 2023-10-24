@@ -555,9 +555,9 @@ function getVotosAlcalde() {
           return response.json()
         })
         .then(dataCandidatos => {
-          // $('.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_barras').empty()
-          // $('.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_candidatos').empty()
-          console.log({ dataCandidatos })
+          $('.elecciones_body_alcalde .left .elecciones_body_alcalde_result').empty()
+          $('.elecciones_body_alcalde .right .elecciones_body_alcalde_result').empty()
+          // console.log({ dataCandidatos })
           newCandidatos.forEach((candidato, index) => {
             const infoCandidato = dataCandidatos.data.filter(data => {
               // console.log(data.cod_candidato)
@@ -570,14 +570,13 @@ function getVotosAlcalde() {
             // if (infoCandidato.length > 0 && infoCandidato[0].cod_candidato !== '007') {
             if (infoCandidato.length > 0) {
               const { nombre_candidato, apellido_candidato } = infoCandidato[0]
-              console.log(infoCandidato[0])
+              // console.log(infoCandidato[0])
 
               const names = `${capitalizarPrimeraLetra(nombre_candidato)} ${capitalizarPrimeraLetra(
                 apellido_candidato || ''
               )}`
 
-              console.log({ names })
-
+              // console.log({ names })
               const porc = clearZero(candidato.Porc.V)
               let porcCandidato = parseInt(porc)
               porcCandidato = Math.round(porcCandidato)
@@ -612,28 +611,29 @@ function getVotosAlcalde() {
 
 getVotosAlcalde()
 
+function getVotosGobernador() {
+  console.log('get data gobernador')
+}
+
 $('#elecciones_results .elecciones_menu li').click(function (e) {
   // console.log($(this).data('corporacion'))
   $(this).addClass('active')
   $(this).siblings().removeClass('active')
   const corporacion = $(this).data('corporacion')
-  console.log(corporacion)
-  if (corporacion === 'departamental') {
-    $('#elecciones_results .elecciones_body_presidenciales_nacional').hide()
+  console.log({ corporacion })
+  if (corporacion === 'alcalde') {
+    $('#elecciones_results .elecciones_body_gobernador').hide()
     $('#elecciones_results .elecciones_body_presidenciales_capitales').hide()
-    $('#elecciones_results .elecciones_body_presidenciales_departamental').show()
-    // $(
-    //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
-    // ).text('Resultados Elecciones Nacionales')
-    departamentalData()
-  } else if (corporacion === 'nacional') {
-    $('#elecciones_results .elecciones_body_presidenciales_departamental').hide()
-    $('#elecciones_results .elecciones_body_presidenciales_capitales').hide()
-    $('#elecciones_results .elecciones_body_presidenciales_nacional').show()
+    $('#elecciones_results .elecciones_body_alcalde').show()
+
+    getVotosAlcalde()
+  } else if (corporacion === 'gobernador') {
+    $('#elecciones_results .elecciones_body_alcalde').hide()
+    $('#elecciones_results .elecciones_body_gobernador').show()
     // $(
     //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
     // ).text('Resultados Norte de Santander')
-    consultasData()
+    getVotosGobernador()
   } else if (corporacion === 'capital') {
     $('#elecciones_results .elecciones_body_presidenciales_departamental').hide()
     $('#elecciones_results .elecciones_body_presidenciales_nacional').hide()
