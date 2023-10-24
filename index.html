@@ -5,65 +5,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Elecciones</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
     <link rel="stylesheet" href="./css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
   <body>
     <section id="elecciones_results">
-      <div class="elecciones_header">
-        <div class="logo_bandera">
-          <img src="./img/bandera.png" alt="elecciones-bandera" />
-        </div>
-        <div class="elecciones_title_result">
-          <h2>Resultados Elecciones Presidenciales</h2>
-          <div class="elecciones_num_boletin">
-            <span class="num_boletin">Boletín N°</span>
-            <span class="hora_boletin">Hora: 4:55 p.m.</span>
-          </div>
-          <div class="elecciones_mesas">
-            <p class="cant_m_informadas">
-              <strong>Cant. Mesas Informadas: </strong><span>0</span>
-            </p>
-            <p class="total_m"><strong>Total Mesas: </strong><span>0</span></p>
-            <p class="porcentaje_m">
-              <strong>% de Mesas informadas: </strong><span>0</span>
-            </p>
-          </div>
-        </div>
+      <header class="elecciones_header">
         <div class="logo_elecciones">
-          <img src="./img/logo.png" alt="elecciones-2022" />
+          <img src="./img/logo-elecciones-2023.svg" alt="elecciones-2023" width="100%" height="50px" />
         </div>
-      </div>
-
-      <ul class="elecciones_menu">
-        <li class="presidencial_nacional active" data-corporacion="nacional">
-          Nacional
-        </li>
-        <li class="presidencial_departamental" data-corporacion="departamental">
-          Por Departamentos
-        </li>
-        <li class="presidencial_capital" data-corporacion="capital">
-          Por capitales
-        </li>
-      </ul>
+        <div class="elecciones_num_boletin">
+          <span class="num_boletin">Boletín N°</span>
+          <span class="hora_boletin">Hora: 4:55 p.m.</span>
+        </div>
+      </header>
 
       <div class="elecciones_container">
+        <ul class="elecciones_menu">
+          <li class="alcalde active" data-corporacion="alcalde">Alcaldía</li>
+          <li class="gobernador" data-corporacion="gobernador">Gobernación</li>
+          <li class="municipios" data-corporacion="municipios">Municipios</li>
+          <li class="concejo" data-corporacion="concejo">Concejo Cúcuta</li>
+          <li class="asamblea" data-corporacion="asamblea">Asamblea</li>
+        </ul>
+
+        <section class="elecciones_body_alcalde">
+          <div class="left">
+            <header class="elecciones_body_alcalde_title">
+              <div class="title">Candidato</div>
+              <div class="cant_v">Cant. Votos</div>
+              <div class="porcet_v">% de votación</div>
+            </header>
+            <ul class="elecciones_body_alcalde_result">
+              <li>
+                <span class="foto candidato_nombre"></span>
+                <span class="name_candidato">Martín Rojas</span>
+                <div class="cant_votos">
+                  <span> 2,513,320 </span>
+                  <progress id="file" max="100" value="50">50</progress>
+                </div>
+                <span class="porce_votos">15,5%</span>
+              </li>
+            </ul>
+          </div>
+          <div class="right">
+            <header class="elecciones_body_alcalde_title">
+              <div class="title">Candidato</div>
+              <div class="cant_v">Cant. Votos</div>
+              <div class="porcet_v">% de votación</div>
+            </header>
+          </div>
+        </section>
+
         <div class="elecciones_body_senado">
           <ul class="menu_mobile_candidatos_partidos">
             <li class="candidatos active" data-option="candidatos">
-              <input
-                type="radio"
-                name="candidatos"
-                id="senado_mobile_candidatos"
-                checked="checked"
-              />
-              <label for="senado_mobile_candidatos"
-                >Votación por candidatos</label
-              >
+              <input type="radio" name="candidatos" id="senado_mobile_candidatos" checked="checked" />
+              <label for="senado_mobile_candidatos">Votación por candidatos</label>
             </li>
             <li class="partidos" data-option="partidos">
               <input type="radio" name="partidos" id="senado_mobile_partidos" />
@@ -156,9 +155,7 @@
             <li class="posib_curules inactive">Posibles Curules</li>
           </ul>
 
-          <ul
-            class="eleeciones_r_camara_partidos eleeciones_r_presidenciales_candidatos"
-          ></ul>
+          <ul class="eleeciones_r_camara_partidos eleeciones_r_presidenciales_candidatos"></ul>
         </div>
 
         <div class="elecciones_body_presidenciales_capitales">
@@ -172,9 +169,7 @@
             <li class="posib_curules inactive">Posibles Curules</li>
           </ul>
 
-          <ul
-            class="eleeciones_r_camara_partidos eleeciones_r_presidenciales_candidatos"
-          ></ul>
+          <ul class="eleeciones_r_camara_partidos eleeciones_r_presidenciales_candidatos"></ul>
         </div>
 
         <div class="elecciones_body_presidenciales_nacional">
@@ -208,33 +203,43 @@
             </ul>
           </div>
         </div>
-
-        <div class="elecciones_footer">
-          <ul>
-            <li>
-              <div class="logo_total_v"></div>
-              <div class="total_v_title">
-                <span>Total de votos</span>
-                <span class="total_v">2,513,320</span>
-              </div>
-            </li>
-            <li>
-              <div class="logo_votos_n"></div>
-              <div class="votos_n_title">
-                <span>Votos Nulos</span>
-                <span class="votos_n">2,513,320</span>
-              </div>
-            </li>
-            <li>
-              <div class="logo_votos_nm"></div>
-              <div class="votos_nm_title">
-                <span>Votos No Marcados</span>
-                <span class="votos_nm">2,513,320</span>
-              </div>
-            </li>
-          </ul>
-        </div>
       </div>
+      <footer class="elecciones_footer">
+        <div class="elecciones_mesas">
+          <div class="left">
+            <p class="cant_m_informadas"><strong>Cant. Mesas Instaladas: </strong><span>0</span></p>
+            <p class="porcentaje_m"><strong>% Mesas Informadas: </strong><span>0</span></p>
+          </div>
+
+          <div class="right">
+            <p class="total_m"><strong>Total Mesas: </strong><span>0</span></p>
+            <p class="porcentaje_votos"><strong>% de votos: </strong><span>0</span></p>
+          </div>
+        </div>
+        <ul>
+          <li>
+            <div class="logo_total_v"></div>
+            <div class="total_v_title">
+              <span>Total de votos</span>
+              <span class="total_v">2,513,320</span>
+            </div>
+          </li>
+          <li>
+            <div class="logo_votos_n"></div>
+            <div class="votos_n_title">
+              <span>Votos Nulos</span>
+              <span class="votos_n">2,513,320</span>
+            </div>
+          </li>
+          <li>
+            <div class="logo_votos_nm"></div>
+            <div class="votos_nm_title">
+              <span>Votos No Marcados</span>
+              <span class="votos_nm">2,513,320</span>
+            </div>
+          </li>
+        </ul>
+      </footer>
     </section>
 
     <script src="./elecciones.js"></script>
