@@ -38,7 +38,9 @@ function clearZero(string) {
 
 function capitalizarPrimeraLetra(str) {
   str = str.toLowerCase() // minuscula
-  return str.charAt(0).toUpperCase() + str.slice(1)
+  str = str.split(' ')
+  str = str.map(text => text.charAt(0).toUpperCase() + text.slice(1)).join(' ')
+  return str
 }
 
 const URL_API = 'https://elecciones.laopinion.com.co/api/data' // https://elecciones.laopinion.com.co/api/data
@@ -543,7 +545,69 @@ function getVotosAlcalde() {
     .then(result => {
       console.log(result)
       getVotosGlobales({ result })
+
+      let candidatos = result.data.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
+
+      // console.log(candidatos)
+      const newCandidatos = candidatos.sort((a, b) => b.Votos.V - a.Votos.V)
+      fetch(`${URL_API}/candidatos-alcalde`)
+        .then(response => {
+          return response.json()
+        })
+        .then(dataCandidatos => {
+          // $('.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_barras').empty()
+          // $('.elecciones_body_presidenciales_nacional .elecciones_r_presidenciales .consulta_candidatos').empty()
+          console.log({ dataCandidatos })
+          newCandidatos.forEach((candidato, index) => {
+            const infoCandidato = dataCandidatos.data.filter(data => {
+              // console.log(data.cod_candidato)
+              // console.log(candidato.Candidato.V)
+              if (data.cod_candidato === candidato.Candidato.V) {
+                return data
+              }
+            })
+            // console.log(infoCandidato)
+            // if (infoCandidato.length > 0 && infoCandidato[0].cod_candidato !== '007') {
+            if (infoCandidato.length > 0) {
+              const { nombre_candidato, apellido_candidato } = infoCandidato[0]
+              console.log(infoCandidato[0])
+
+              const names = `${capitalizarPrimeraLetra(nombre_candidato)} ${capitalizarPrimeraLetra(
+                apellido_candidato || ''
+              )}`
+
+              console.log({ names })
+
+              const porc = clearZero(candidato.Porc.V)
+              let porcCandidato = parseInt(porc)
+              porcCandidato = Math.round(porcCandidato)
+
+              const elCandidatoResult = `
+                <li>
+                  <div class="info">
+                    <div class="candidato">
+                      <span class="foto_candidato candidato_${candidato.Candidato.V}"></span>
+                      <span class="name_candidato">${names}</span>
+                    </div>
+                    <div class="cant_votos">
+                      <span>${number_format(candidato.Votos.V)}</span>
+                      <progress id="file" max="100" value="${porcCandidato}">${porcCandidato}</progress>
+                    </div>
+                  </div>
+                  <span class="porce_votos">${porcCandidato}%</span>
+                </li>
+              `
+              if (index <= 6) {
+                $('.elecciones_body_alcalde .left .elecciones_body_alcalde_result').append(elCandidatoResult)
+              } else {
+                $('.elecciones_body_alcalde .right .elecciones_body_alcalde_result').append(elCandidatoResult)
+              }
+            }
+          })
+        })
+        .catch(err => console.log(err))
     })
+    .catch(err => console.log(err))
 }
 
 getVotosAlcalde()

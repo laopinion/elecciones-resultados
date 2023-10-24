@@ -151,14 +151,14 @@
         }
       }
       .elecciones_body_alcalde_result {
-        padding: 0;
+        padding: 0 20px;
         margin: 13px 0 0 0;
         list-style: none;
         display: grid;
         gap: 7px;
         li {
           display: flex;
-          justify-content: space-around;
+          justify-content: space-between;
           align-items: center;
         }
         .info {
@@ -181,55 +181,55 @@
         }
         .candidato_002 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -35px;
         }
         .candidato_003 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -70px;
         }
         .candidato_004 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -105px;
         }
         .candidato_005 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -140px;
         }
         .candidato_006 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -180px;
         }
         .candidato_007 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -215px;
         }
         .candidato_008 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -250px;
         }
         .candidato_009 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -287px;
         }
         .candidato_010 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -320px;
         }
         .candidato_011 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -359px;
         }
         .candidato_012 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -397px;
         }
         .candidato_013 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -430px;
         }
         .candidato_014 {
           background: url('../img/candidatos-alcalde.svg') no-repeat;
-          background-position: 0 0;
+          background-position: 0 -468px;
         }
         .cant_votos {
           position: relative;
