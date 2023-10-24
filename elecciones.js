@@ -612,7 +612,69 @@ function getVotosAlcalde() {
 getVotosAlcalde()
 
 function getVotosGobernador() {
-  console.log('get data gobernador')
+  fetch(`${URL_API}/gobernador`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      console.log(result)
+      getVotosGlobales({ result })
+
+      let candidatos = result.data.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
+
+      // console.log(candidatos)
+      const newCandidatos = candidatos.sort((a, b) => b.Votos.V - a.Votos.V)
+      fetch(`${URL_API}/candidatos-gobernador`)
+        .then(response => {
+          return response.json()
+        })
+        .then(dataCandidatos => {
+          $('.elecciones_body_gobernador .elecciones_body_gobernador_result .candidatos').empty()
+          // console.log({ dataCandidatos })
+          newCandidatos.forEach(candidato => {
+            const infoCandidato = dataCandidatos.data.filter(data => {
+              // console.log(data.cod_candidato)
+              // console.log(candidato.Candidato.V)
+              if (data.cod_candidato === candidato.Candidato.V) {
+                return data
+              }
+            })
+            // console.log(infoCandidato)
+            // if (infoCandidato.length > 0 && infoCandidato[0].cod_candidato !== '007') {
+            if (infoCandidato.length > 0) {
+              const { nombre_candidato, apellido_candidato } = infoCandidato[0]
+              // console.log(infoCandidato[0])
+
+              const names = `${capitalizarPrimeraLetra(nombre_candidato)} ${capitalizarPrimeraLetra(
+                apellido_candidato || ''
+              )}`
+
+              // console.log({ names })
+              const porc = clearZero(candidato.Porc.V)
+              let porcCandidato = parseInt(porc)
+              porcCandidato = Math.round(porcCandidato)
+
+              const elCandidatoResult = `
+                <li>
+                <div class="barra">
+                  <div class="progress-bar-vertical porcet_v">
+                    <div class="bar" style="height: ${porcCandidato}%"><span>${porcCandidato}%</span></div>
+                  </div>
+                  <span class="cant_votos">${number_format(candidato.Votos.V)}</span>
+                </div>
+                <div class="info_candidato">
+                  <div class="foto candidato_${candidato.Candidato.V}"></div>
+                  <div class="name_candidato">${names}</div>
+                </div>
+              </li>
+              `
+              $('.elecciones_body_gobernador .elecciones_body_gobernador_result .candidatos').append(elCandidatoResult)
+            }
+          })
+        })
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
 }
 
 $('#elecciones_results .elecciones_menu li').click(function (e) {
