@@ -611,8 +611,13 @@ function getVotosAlcalde() {
 
 getVotosAlcalde()
 
-function getVotosGobernador() {
-  fetch(`${URL_API}/gobernador`)
+function handleChangeAlcaldeMunicipios(event) {
+  const idMunicipio = event.value
+  getVotosGobernador({ idMunicipio })
+}
+
+function getVotosGobernador({ idMunicipio = '000' }) {
+  fetch(`${URL_API}/gobernador/${idMunicipio}`)
     .then(response => {
       return response.json()
     })
@@ -695,7 +700,8 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     // $(
     //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
     // ).text('Resultados Norte de Santander')
-    getVotosGobernador()
+    document.querySelector('#elecciones_results .elecciones_body_gobernador .select_municipios select').value = '000'
+    getVotosGobernador({ idMunicipio: '000' })
   } else if (corporacion === 'capital') {
     $('#elecciones_results .elecciones_body_presidenciales_departamental').hide()
     $('#elecciones_results .elecciones_body_presidenciales_nacional').hide()
