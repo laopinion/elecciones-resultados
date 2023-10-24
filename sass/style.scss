@@ -67,6 +67,16 @@
     align-items: center;
     margin-bottom: 60px;
     gap: 10px;
+    .elecciones_num_boletin {
+      display: flex;
+      gap: 40px;
+    }
+    .num_boletin,
+    .hora_boletin {
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0px;
+    }
   }
 
   .inactive {
@@ -77,7 +87,7 @@
     list-style: none;
     padding: 0;
     margin: 0 auto;
-    max-width: 670px;
+    max-width: 770px;
     display: flex;
     justify-content: center;
     column-gap: 59px;
@@ -90,7 +100,7 @@
       letter-spacing: 0px;
       color: #000000;
       opacity: 1;
-      font-size: 16px;
+      font-size: 20px;
       line-height: 26px;
       display: flex;
       align-items: center;
@@ -98,10 +108,13 @@
       cursor: pointer;
     }
     li.active {
-      background: #dfdfdf 0% 0% no-repeat padding-box;
-      border-radius: 7px 7px 0px 0px;
       font-weight: 700;
       padding: 10px 20px 7px 20px;
+      background: #7c94bc 0% 0% no-repeat padding-box;
+      border-radius: 7px 7px 0px 0px;
+      opacity: 1;
+      letter-spacing: 0px;
+      color: #ffffff;
     }
     .corporacion_senado,
     .corporacion_camara,
@@ -121,21 +134,108 @@
     position: relative;
     .elecciones_body_alcalde {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 460px);
+      justify-content: center;
       padding-top: 15px;
+      .left {
+        border-right: 1px solid #e3e3e3;
+      }
       .elecciones_body_alcalde_title {
         display: flex;
         justify-content: space-around;
+        .option {
+          color: #7c94bc;
+          font-size: 15px;
+          font-weight: bold;
+          letter-spacing: 0px;
+        }
       }
       .elecciones_body_alcalde_result {
         padding: 0;
-        margin: 10px 0 0 0;
+        margin: 13px 0 0 0;
         list-style: none;
+        display: grid;
+        gap: 7px;
+        li {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+        .info {
+          display: flex;
+          gap: 25px;
+        }
+        .candidato {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .foto_candidato {
+          display: block;
+          height: 30px;
+          width: 30px;
+        }
+        .candidato_001 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_002 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_003 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_004 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_005 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_006 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_007 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_008 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_009 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_010 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_011 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_012 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_013 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
+        .candidato_014 {
+          background: url('../img/candidatos-alcalde.svg') no-repeat;
+          background-position: 0 0;
+        }
         .cant_votos {
           position: relative;
           span {
             position: absolute;
-            bottom: 5px;
+            bottom: 8px;
             z-index: 1;
             left: 15px;
             letter-spacing: 0px;
@@ -182,6 +282,13 @@
           //   position: absolute;
           //   right: -60px;
           // }
+        }
+
+        .porce_votos {
+          letter-spacing: 0px;
+          color: #000000;
+          font-weight: bold;
+          font-size: 12px;
         }
       }
     }
@@ -936,6 +1043,7 @@
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      gap: 35px;
       li {
         display: flex;
         justify-content: space-between;
@@ -949,7 +1057,7 @@
         justify-content: center;
         align-items: center;
         span {
-          font-size: 14px;
+          font-size: 12px;
           letter-spacing: 0px;
           color: #000000;
           opacity: 1;
@@ -958,23 +1066,24 @@
         .votos_n,
         .votos_nm {
           font-size: 16px;
+          font-weight: bold;
         }
       }
 
       .logo_total_v,
       .logo_votos_n,
       .logo_votos_nm {
-        width: 38px;
-        height: 38px;
+        width: 42px;
+        height: 45px;
       }
       .logo_total_v {
-        background: url('../img/votos.png');
+        background: url('../img/votos-totales.svg');
       }
       .logo_votos_n {
-        background: url('../img/nulos.png');
+        background: url('../img/votos-nulos.svg');
       }
       .logo_votos_nm {
-        background: url('../img/no_mark.png');
+        background: url('../img/votos-no-mark.svg');
       }
     }
   }

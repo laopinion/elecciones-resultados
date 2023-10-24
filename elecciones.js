@@ -41,7 +41,7 @@ function capitalizarPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-const URL_API = 'http://localhost:3002/api/data' // https://elecciones.laopinion.com.co/api/data
+const URL_API = 'https://elecciones.laopinion.com.co/api/data' // https://elecciones.laopinion.com.co/api/data
 
 function senadoData() {
   fetch('https://elecciones.laopinion.com.co/api/data/senado-nacional')
@@ -503,7 +503,50 @@ function consultasData(consulta) {
     }) // Fin consultas data
 }
 
-consultasData()
+// consultasData()
+
+function getVotosGlobales({ result }) {
+  const elHeader = '#elecciones_results .elecciones_header'
+  $(elHeader).find('.elecciones_num_boletin .num_boletin').html(`<strong>Boletín N°</strong> ${result.data.Numero.V}`)
+  $(elHeader)
+    .find('.elecciones_num_boletin .hora_boletin')
+    .html(`<strong>Hora:</strong> ${result.data.Hora.V}:${result.data.Minuto.V} p.m.`)
+
+  const porc = clearZero(result.data.Porc_Mesas_Informadas.V)
+  // let porcMesas = parseInt(porc)
+  // porcMesas = Math.round(porcMesas)
+
+  const elFooter = '.elecciones_footer'
+
+  $(elFooter).find('.elecciones_mesas .cant_m_informadas span').text(number_format(result.data.Mesas_Informadas.V, 0))
+  $(elFooter).find('.elecciones_mesas .total_m span').text(number_format(result.data.Mesas_Instaladas.V, 0))
+  $(elFooter)
+    .find('.elecciones_mesas .porcentaje_m span')
+    .text(porc + '%')
+
+  const totales = result.data.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2]
+
+  $(elFooter)
+    .find('.elecciones_mesas .porcentaje_votos span')
+    .text(clearZero(totales.Porc.V) + '%')
+
+  $(elFooter).find('.total_v_title .total_v').text(number_format(totales.Votos.V))
+  $(elFooter).find('.votos_n_title .votos_n').text(number_format(result.data.Votos_Nulos.V))
+  $(elFooter).find('.votos_nm_title .votos_nm').text(number_format(result.data.Votos_No_Marcados.V))
+}
+
+function getVotosAlcalde() {
+  fetch(`${URL_API}/alcalde`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      console.log(result)
+      getVotosGlobales({ result })
+    })
+}
+
+getVotosAlcalde()
 
 $('#elecciones_results .elecciones_menu li').click(function (e) {
   // console.log($(this).data('corporacion'))
