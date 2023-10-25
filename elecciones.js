@@ -331,8 +331,7 @@ function candidatosMunicipios(candidatos, resultCandidatoInfo) {
       // porcCandidato = Math.round(porcCandidato)
 
       return `<li>
-              <span class="code">(${candidato.Candidato.V})</span>
-              <span class="candidato">${names}</span>
+              <span class="candidato">(${candidato.Candidato.V}) ${names}</span>
               <span class="cant_votos">${number_format(candidato.Votos.V)} (${porc}%)</span>
             </li>
                   `
@@ -703,9 +702,6 @@ function getVotosMunicipios() {
         .then(resultCandidatoInfo => {
           $('.elecciones_body_municipios .elecciones_body_municipios_result').empty()
 
-          console.log({ resultCandidatoInfo })
-          console.log({ municipiosList })
-
           municipiosList.forEach(data => {
             console.log({ data })
             const votos = data.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
@@ -720,12 +716,12 @@ function getVotosMunicipios() {
 
             // console.log(liCandidatos)
 
-            const liMunicipio = `<li>
+            const liMunicipio = `<li class='item_municipio'>
                 <div class="name_municipio">
                     <div
                       class="btn_flecha"
                       onclick="handleClickCandidatos(this)"
-                      data-municipio="municipio_${data.Departamento.V}"
+                      data-municipio="municipio_${data.Municipio.V}"
                     ></div>
                     <span class="municipio">${data.Desc_Municipio.V}</span>
                   </div>
@@ -735,11 +731,10 @@ function getVotosMunicipios() {
                   </div>
                   <span>${porc}%</span>
               </li>
-              <div class="list_candidatos departamento_${data.Departamento.V} hidden">
-                <ul>
-                  ${liCandidatos.map(candidato => candidato).join('')}
-                </ul>
-              </div>
+              
+              <ul class="list_candidatos municipio_${data.Municipio.V} hidden">
+                ${liCandidatos.map(candidato => candidato).join('')}
+              </ul>
             `
             $('.elecciones_body_municipios .elecciones_body_municipios_result').append(liMunicipio)
           })

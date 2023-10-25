@@ -129,30 +129,7 @@
           </header>
 
           <ul class="elecciones_body_municipios_result">
-            <li>
-              <div class="name_municipio">
-                <div
-                  class="btn_flecha"
-                  onclick="handleClickCandidatos(this)"
-                  data-municipio="municipio_${
-                  el.Departamento.V
-                }"
-                ></div>
-                <span class="municipio">Cúcuta</span>
-              </div>
-              <span class="cant_votos">200</span>
-              <div class="porcet_v">
-                <progress id="file" max="100" value="30">30%</progress>
-              </div>
-              <span>30%</span>
-            </li>
-            <ul class="list_candidatos municipio_${el.Departamento.V} hidden">
-              <li>
-                <span class="code">(001)</span>
-                <span class="candidato">${names}</span>
-                <span class="cant_votos">${number_format(candidato.Votos.V)} (${porc}%)</span>
-              </li>
-            </ul>
+            <!-- Data municipios and candidatos-->
           </ul>
         </section>
 
