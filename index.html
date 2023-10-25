@@ -57,13 +57,13 @@
           <header>
             <form class="select_municipios">
               <select name="municipio" onchange="handleChangeAlcaldeMunicipios(this)">
-                <option value="000" selected>Norte De Santander</option>
+                <option value="000" selected>Norte de Santander</option>
                 <option value="001">Cúcuta</option>
                 <option value="004">Abrego</option>
                 <option value="007">Arboles</option>
                 <option value="010">Bochalema</option>
                 <option value="013">Bucarasica</option>
-                <option value="016">Cachota</option>
+                <option value="016">Cacota</option>
                 <option value="019">Cáchira</option>
                 <option value="022">Convención</option>
                 <option value="025">Cúcutilla</option>
@@ -107,6 +107,55 @@
               <!-- Data candidatos-->
             </ul>
           </div>
+        </section>
+
+        <section class="elecciones_body_municipios">
+          <header>
+            <ul class="elecciones_body_municipios_titles">
+              <li>
+                <span>Municipios</span>
+                <p>Haga clic en la flecha para ver más detalles</p>
+              </li>
+              <li>
+                <span>Cant. Votos</span>
+              </li>
+              <li>
+                <span>Porcentaje de votación</span>
+              </li>
+              <li>
+                <span>%</span>
+              </li>
+            </ul>
+          </header>
+
+          <ul class="elecciones_body_municipios_result">
+            <li>
+              <div class="name_municipio">
+                <div
+                  class="btn_flecha"
+                  onclick="handleClickCandidatos(this)"
+                  data-municipio="municipio_${
+                  el.Departamento.V
+                }"
+                ></div>
+                <span class="municipio">${el.Desc_Departamento.V}</span>
+              </div>
+              <span class="cant_votos">${number_format(votos)}</span>
+              <span class="porcet_v"
+                ><progress id="file" max="100" value="${porc}">${porc}</progress>
+                <aside>${porc}%</aside></span
+              >
+            </li>
+            <div class="list_candidatos municipio_${el.Departamento.V} hidden">
+              <ul>
+                <li>
+                  <span class="code">(001)</span>
+                  <span class="candidato">${names}</span>
+                  <span class="cant_votos">${number_format(candidato.Votos.V)} (${porc}%)</span>
+                </li>
+              </ul>
+            </div>
+          </ul>
         </section>
 
         <div class="elecciones_body_senado">

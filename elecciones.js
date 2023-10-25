@@ -682,6 +682,10 @@ function getVotosGobernador({ idMunicipio = '000' }) {
     .catch(err => console.log(err))
 }
 
+function getVotosMunicipios() {
+  console.log('get data municipios')
+}
+
 $('#elecciones_results .elecciones_menu li').click(function (e) {
   // console.log($(this).data('corporacion'))
   $(this).addClass('active')
@@ -690,36 +694,33 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
   console.log({ corporacion })
   if (corporacion === 'alcalde') {
     $('#elecciones_results .elecciones_body_gobernador').hide()
-    $('#elecciones_results .elecciones_body_presidenciales_capitales').hide()
+    $('#elecciones_results .elecciones_body_municipios').hide()
     $('#elecciones_results .elecciones_body_alcalde').show()
 
     getVotosAlcalde()
   } else if (corporacion === 'gobernador') {
     $('#elecciones_results .elecciones_body_alcalde').hide()
+    $('#elecciones_results .elecciones_body_municipios').hide()
     $('#elecciones_results .elecciones_body_gobernador').show()
-    // $(
-    //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
-    // ).text('Resultados Norte de Santander')
+
     document.querySelector('#elecciones_results .elecciones_body_gobernador .select_municipios select').value = '000'
     getVotosGobernador({ idMunicipio: '000' })
-  } else if (corporacion === 'capital') {
-    $('#elecciones_results .elecciones_body_presidenciales_departamental').hide()
-    $('#elecciones_results .elecciones_body_presidenciales_nacional').hide()
-    $('#elecciones_results .elecciones_body_presidenciales_capitales').show()
-    // $(
-    //   '#elecciones_results .elecciones_header .elecciones_title_result h2'
-    // ).text('Resultados Norte de Santander')
-    capitalData()
+  } else if (corporacion === 'municipios') {
+    $('#elecciones_results .elecciones_body_alcalde').hide()
+    $('#elecciones_results .elecciones_body_gobernador').hide()
+    $('#elecciones_results .elecciones_body_municipios').show()
+
+    getVotosMunicipios()
   }
 })
 
 function handleClickCandidatos(e) {
-  console.log($(e).data('departamento'))
-  const departamento = $(e).data('departamento')
+  console.log($(e).data('municipio'))
+  const municipio = $(e).data('municipio')
   // $(e).parent().parent().css('height', 'auto')
-  const resultDepartamento = $(e).parent().parent().parent()
+  const resultMunicipios = $(e).parent().parent().parent()
 
-  // console.log(resultDepartamento)
+  console.log({ resultMunicipios })
 
   if ($(e).hasClass('activeList')) {
     $(e).removeClass('activeList')
@@ -727,7 +728,7 @@ function handleClickCandidatos(e) {
     $(e).addClass('activeList')
   }
 
-  resultDepartamento.find(`.list_candidatos.${departamento}`).toggle()
+  resultMunicipios.find(`.list_candidatos.${municipio}`).toggle()
   // const listdepartamento = $(e).parent().parent()
   // $(e).parent().parent().find('.list_candidatos').toggle('slow')
 
