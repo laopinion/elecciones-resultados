@@ -569,11 +569,13 @@ function getVotosAlcalde() {
               const { nombre_candidato, apellido_candidato } = infoCandidato[0] ?? ['', '']
               // console.log(infoCandidato[0])
 
-              const firstName = nombre_candidato.split(' ')[0]
-              const firstLastname = apellido_candidato.split(' ')[0]
-              console.log({ firstLastname })
+              // const firstName = nombre_candidato.split(' ')[0]
+              // const firstLastname = apellido_candidato.split(' ')[0]
+              // console.log({ firstLastname })
 
-              const names = `${capitalizarPrimeraLetra(firstName)} ${capitalizarPrimeraLetra(firstLastname || '')}`
+              const names = `${capitalizarPrimeraLetra(nombre_candidato)} ${capitalizarPrimeraLetra(
+                apellido_candidato || ''
+              )}`
 
               // console.log({ names })
               const porc = clearZero(candidato.Porc.V)
