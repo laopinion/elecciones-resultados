@@ -310,7 +310,7 @@
           height: 1px;
           background: #d3d3d3;
           position: absolute;
-          bottom: 161px;
+          bottom: 146px;
           left: 0;
           right: 0;
           width: 100%;
@@ -550,6 +550,177 @@
           background: #f2f2f2 0% 0% no-repeat padding-box;
         }
         .item_municipio:nth-of-type(even) {
+          background: #ffffff;
+        }
+        .hidden {
+          display: none;
+        }
+        .list_candidatos {
+          padding: 10px 0 0 60px;
+          margin: 0;
+          list-style: none;
+          width: 475px;
+          li {
+            display: grid;
+            grid-template-columns: 1fr 120px;
+            margin-bottom: 3px;
+            .candidato,
+            .cant_votos {
+              font-size: 14px;
+              line-height: 18px;
+              letter-spacing: 0px;
+              color: #585858;
+            }
+            .cant_votos {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    .elecciones_body_concejo {
+      display: none;
+      padding: 0 5px;
+      header {
+        padding-top: 15px;
+        .elecciones_body_concejo_titles {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          justify-content: space-between;
+          padding: 0 20px;
+          align-items: center;
+          display: grid;
+          grid-template-columns: 400px 105px 385px 60px;
+          justify-items: center;
+          li:first-child {
+            display: flex;
+            align-items: center;
+            justify-self: flex-start;
+            gap: 20px;
+            p {
+              margin: 0;
+              letter-spacing: 0px;
+              color: #9b9b9b;
+              font-size: 12px;
+              line-height: 15px;
+              font-weight: bold;
+            }
+          }
+
+          li {
+            span {
+              letter-spacing: 0px;
+              color: #7c94bc;
+              font-size: 15px;
+              line-height: 19px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      .elecciones_body_concejo_result {
+        padding: 8px 0 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        // justify-content: space-around;
+        flex-flow: wrap;
+        height: 280px;
+        overflow-y: scroll;
+        box-sizing: border-box;
+        .item_partido {
+          display: grid;
+          grid-template-columns: 400px 105px 385px 60px;
+          // justify-items: center;
+          justify-content: space-evenly;
+          // column-gap: 20px;
+          height: 42px;
+          align-items: center;
+          padding: 0;
+          gap: 0px;
+          width: 100%;
+          span:last-child {
+            justify-self: flex-end;
+          }
+        }
+
+        .name_partido {
+          display: flex;
+          gap: 24px;
+          .btn_flecha {
+            background: url('../img/flecha_down.png') no-repeat;
+            background-size: 100%;
+            background-position: center;
+            height: 20px;
+            width: 15px;
+            cursor: pointer;
+          }
+        }
+
+        .partido {
+          letter-spacing: 0px;
+          color: #000000;
+          font-size: 16px;
+          line-height: 20px;
+        }
+
+        .cant_votos,
+        .porcentaje {
+          justify-self: center;
+          letter-spacing: 0px;
+          color: #000000;
+          font-size: 14px;
+        }
+        .porcet_v {
+          display: flex;
+          column-gap: 5px;
+          align-items: center;
+          progress {
+            display: flex;
+            width: 382px;
+            height: 16px;
+            margin: 0;
+            background: none;
+            border: 0;
+            border-radius: 15px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            position: relative;
+          }
+          progress::-webkit-progress-bar {
+            height: 16px;
+            width: 382px;
+            // background-color: #ffffff;
+            // border-radius: 15px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            // box-shadow: 0px 0px 6px #777 inset;
+            background: #ffffff 0% 0% no-repeat padding-box;
+            box-shadow: 0px 3px 6px #00000029;
+            border: 0.5px solid #c8c8c8;
+            border-radius: 3px;
+          }
+          progress::-webkit-progress-value {
+            display: flex;
+            height: 16px;
+            margin: 0px -10px 0 0;
+            // background: #08b92c;
+            // border-radius: 15px;
+            background: transparent linear-gradient(270deg, #b1d55a 0%, #03741b 100%) 0% 0% no-repeat padding-box;
+            border-radius: 3px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            // box-shadow: 0px 0px 6px #777 inset;
+          }
+        }
+
+        .item_partido:nth-of-type(odd) {
+          background: #f2f2f2 0% 0% no-repeat padding-box;
+        }
+        .item_partido:nth-of-type(even) {
           background: #ffffff;
         }
         .hidden {

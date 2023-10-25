@@ -43,7 +43,7 @@ function capitalizarPrimeraLetra(str) {
   return str
 }
 
-const URL_API = 'http://localhost:3002/api/data' // https://elecciones.laopinion.com.co/api/data
+const URL_API = 'https://elecciones.laopinion.com.co/api/data' // https://elecciones.laopinion.com.co/api/data
 
 function senadoData() {
   fetch('https://elecciones.laopinion.com.co/api/data/senado-nacional')
@@ -387,19 +387,6 @@ function listCandidatosInfo() {
       console.log(err)
     }) // FIn fetch candidatos
 }
-
-// function listCandidatosInfo() {
-//   return fetch('https://elecciones.laopinion.com.co/api/data/candidatos-camara')
-//     .then((response) => {
-//       return response.json()
-//     })
-//     .then((result) => {
-//       return result.data
-//     })
-//     .catch((err) => {
-//       console.log(err)
-//     }) // FIn fetch candidatos
-// }
 
 function consultasData(consulta) {
   fetch(`https://elecciones.laopinion.com.co/api/data/presidenciales-nacional`)
@@ -751,6 +738,10 @@ function getVotosMunicipios() {
     .catch(err => console.log(err))
 }
 
+function getVotosConcejo() {
+  console.log('get data concejo')
+}
+
 $('#elecciones_results .elecciones_menu li').click(function (e) {
   // console.log($(this).data('corporacion'))
   $(this).addClass('active')
@@ -773,9 +764,17 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
   } else if (corporacion === 'municipios') {
     $('#elecciones_results .elecciones_body_alcalde').hide()
     $('#elecciones_results .elecciones_body_gobernador').hide()
+    $('#elecciones_results .elecciones_body_concejo').hide()
     $('#elecciones_results .elecciones_body_municipios').show()
 
     getVotosMunicipios()
+  } else if (corporacion === 'concejo') {
+    $('#elecciones_results .elecciones_body_alcalde').hide()
+    $('#elecciones_results .elecciones_body_gobernador').hide()
+    $('#elecciones_results .elecciones_body_municipios').hide()
+    $('#elecciones_results .elecciones_body_concejo').show()
+
+    getVotosConcejo()
   }
 })
 
