@@ -137,6 +137,7 @@
       grid-template-columns: repeat(2, 460px);
       justify-content: center;
       padding-top: 15px;
+      gap: 10px;
       .left {
         border-right: 1px solid #e3e3e3;
       }
@@ -447,12 +448,15 @@
       }
 
       .elecciones_body_municipios_result {
-        padding: 0;
+        padding: 8px 0 0;
         margin: 0;
         list-style: none;
         display: flex;
         justify-content: space-around;
-
+        flex-flow: wrap;
+        height: 280px;
+        overflow-y: scroll;
+        box-sizing: border-box;
         li {
           display: grid;
           grid-template-columns: 400px 105px 385px 60px;
@@ -528,10 +532,10 @@
           }
         }
 
-        .list_candidatos:nth-of-type(odd) {
+        li:nth-of-type(odd) {
           background: #f2f2f2 0% 0% no-repeat padding-box;
         }
-        .list_candidatos:nth-of-type(even) {
+        li:nth-of-type(even) {
           background: #ffffff;
         }
         .hidden {
