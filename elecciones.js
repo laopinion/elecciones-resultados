@@ -566,12 +566,14 @@ function getVotosAlcalde() {
             // console.log(infoCandidato)
             // if (infoCandidato.length > 0 && infoCandidato[0].cod_candidato !== '007') {
             if (infoCandidato.length > 0) {
-              const { nombre_candidato, apellido_candidato } = infoCandidato[0]
+              const { nombre_candidato, apellido_candidato } = infoCandidato[0] ?? ['', '']
               // console.log(infoCandidato[0])
 
-              const names = `${capitalizarPrimeraLetra(nombre_candidato)} ${capitalizarPrimeraLetra(
-                apellido_candidato || ''
-              )}`
+              const firstName = nombre_candidato.split(' ')[0]
+              const firstLastname = apellido_candidato.split(' ')[0]
+              console.log({ firstLastname })
+
+              const names = `${capitalizarPrimeraLetra(firstName)} ${capitalizarPrimeraLetra(firstLastname || '')}`
 
               // console.log({ names })
               const porc = clearZero(candidato.Porc.V)

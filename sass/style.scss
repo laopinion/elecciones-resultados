@@ -158,13 +158,13 @@
         display: grid;
         gap: 7px;
         li {
-          display: flex;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 1fr 65px;
           align-items: center;
         }
         .info {
-          display: flex;
-          gap: 25px;
+          display: grid;
+          grid-template-columns: 200px 1fr;
         }
         .candidato {
           display: flex;
