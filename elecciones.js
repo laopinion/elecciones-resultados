@@ -310,7 +310,7 @@ function capitalData() {
     }) // Fin camara departamental
 }
 
-function candidatosPresidenciales(candidatos, resultCandidatoInfo) {
+function candidatosMunicipios(candidatos, resultCandidatoInfo) {
   // console.log(resultCandidatoInfo)
   // console.log(candidatos)
   // console.log(resultCandidatoInfo)
@@ -321,7 +321,8 @@ function candidatosPresidenciales(candidatos, resultCandidatoInfo) {
       }
     })
     // console.log(infoCandidato)
-    if (infoCandidato.length > 0 && infoCandidato[0].cod_candidato !== '007') {
+    // if (infoCandidato.length > 0 && infoCandidato[0].cod_candidato !== '007') {
+    if (infoCandidato.length > 0) {
       const { nombre_candidato, apellido_candidato } = infoCandidato[0]
 
       const names = `${capitalizarPrimeraLetra(nombre_candidato)} ${capitalizarPrimeraLetra(apellido_candidato)} `
@@ -331,15 +332,12 @@ function candidatosPresidenciales(candidatos, resultCandidatoInfo) {
       // porcCandidato = Math.round(porcCandidato)
 
       return `<li>
-              <div class="img_profile candidato_${infoCandidato[0].cod_candidato}"></div>
+              <span class="code">(${candidato.Candidato.V})</span>
               <span class="candidato">${names}</span>
               <span class="cant_votos">${number_format(candidato.Votos.V)} (${porc}%)</span>
             </li>
                   `
     }
-    // else {
-    //   // console.log(candidato.Candidato.V)
-    // }
   })
 
   return divCandidato
@@ -380,7 +378,7 @@ function candidatosCamara(candidatos, id_partido, resultCandidatoInfo) {
 }
 
 function listCandidatosInfo() {
-  return fetch('https://elecciones.laopinion.com.co/api/data/candidatos-presidenciales')
+  return fetch('https://elecciones.laopinion.com.co/api/data/candidatos-municipios')
     .then(response => {
       return response.json()
     })
@@ -683,7 +681,77 @@ function getVotosGobernador({ idMunicipio = '000' }) {
 }
 
 function getVotosMunicipios() {
-  console.log('get data municipios')
+  fetch(`${URL_API}/municipios`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      console.log(result)
+      const votosGlobales = result.filter(data => data.Municipio.V === '000' && data.Desc_Municipio.V === 'NO APLICA')
+      getVotosGlobales({ result: votosGlobales })
+
+      let municipiosList = result.data.sort(
+        (a, b) =>
+          b.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V -
+          a.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
+      )
+
+      // const arrayCapitales = []
+
+      // newArrayCapitales.forEach(e => {
+      //   if (e.Departamento.V === '2500') {
+      //     // console.log('paso' + e.Departamento.V)
+      //     arrayCapitales.unshift(e)
+      //   } else {
+      //     arrayCapitales.push(e)
+      //   }
+      // })
+
+      listCandidatosInfo()
+        .then(resultCandidatoInfo => {
+          $('.elecciones_body_municipios .elecciones_body_municipios_result').empty()
+          // List departamentos
+          municipiosList.forEach(el => {
+            // console.log(el)
+            const votos = el.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
+            const porc = clearZero(el.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Porc.V)
+
+            const candidatos = el.Detalle_Circunscripcion.lin.Detalle_Candidato.lin
+
+            // const divCandidato = candidatosPresidenciales(candidatos, resultCandidatoInfo)
+            const liCandidatos = candidatosMunicipios(candidatos, resultCandidatoInfo)
+
+            // console.log(liCandidatos)
+
+            const liMunicipio = `<li>
+              <div class="name_municipio">
+                  <div
+                    class="btn_flecha"
+                    onclick="handleClickCandidatos(this)"
+                    data-municipio="municipio_${el.Departamento.V}"
+                  ></div>
+                  <span class="municipio">${el.Desc_Municipio.V}</span>
+                </div>
+                <span class="cant_votos">${number_format(votos)}</span>
+                <div class="porcet_v">
+                  <progress id="file" max="100" value="${porc}">${porc}</progress>
+                </div>
+                <span>${porc}%</span>
+            </li>
+            <div class="list_candidatos departamento_${el.Departamento.V} hidden">
+              <ul>
+                ${liCandidatos.map(candidato => candidato).join('')}
+              </ul>
+            </div>
+          `
+            $('.elecciones_body_municipios .elecciones_body_municipios_result').append(liMunicipio)
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
+    .catch(err => console.log(err))
 }
 
 $('#elecciones_results .elecciones_menu li').click(function (e) {
