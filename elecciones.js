@@ -311,8 +311,8 @@ function capitalData() {
 }
 
 function candidatosMunicipios(candidatos, resultCandidatoInfo) {
-  console.log({ resultCandidatoInfo })
-  console.log({ candidatos })
+  // console.log({ resultCandidatoInfo })
+  // console.log({ candidatos })
   const divCandidato = candidatos.map(candidato => {
     const infoCandidato = resultCandidatoInfo.filter(data => {
       if (candidato.Candidato.V === data.cod_candidato) {
@@ -685,25 +685,26 @@ function getVotosMunicipios() {
       return response.json()
     })
     .then(result => {
-      console.log({ result })
+      // console.log({ result })
       const votosGlobales = result.data.filter(
         data => data.Municipio.V === '000' && data.Desc_Municipio.V === 'NO APLICA'
       )
       getVotosGlobales({ result: { data: votosGlobales[0] } })
 
-      // let municipiosList = result.data.sort(
-      //   (a, b) =>
-      //     b.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V -
-      //     a.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
-      // )
-      let municipiosList = result.data.filter(data => data.Municipio.V !== '000')
+      let municipiosList = result.data
+        .filter(data => data.Municipio.V !== '000')
+        .sort(
+          (a, b) =>
+            b.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V -
+            a.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
+        )
 
       listCandidatosInfo()
         .then(resultCandidatoInfo => {
           $('.elecciones_body_municipios .elecciones_body_municipios_result').empty()
 
           municipiosList.forEach(data => {
-            console.log({ data })
+            // console.log({ data })
             const votos = data.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Votos.V
             const porc = clearZero(data.Detalle_Circunscripcion.lin.Detalle_Partidos_Totales.lin[2].Porc.V)
 
@@ -780,7 +781,7 @@ function handleClickCandidatos(e) {
   // $(e).parent().parent().css('height', 'auto')
   const resultMunicipios = $(e).parent().parent().parent()
 
-  console.log({ resultMunicipios })
+  // console.log({ resultMunicipios })
 
   if ($(e).hasClass('activeList')) {
     $(e).removeClass('activeList')

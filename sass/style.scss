@@ -549,6 +549,7 @@
           li {
             display: grid;
             grid-template-columns: 1fr 120px;
+            margin-bottom: 3px;
             .candidato,
             .cant_votos {
               font-size: 14px;
