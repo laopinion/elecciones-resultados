@@ -138,23 +138,21 @@
                   el.Departamento.V
                 }"
                 ></div>
-                <span class="municipio">${el.Desc_Departamento.V}</span>
+                <span class="municipio">Cúcuta</span>
               </div>
-              <span class="cant_votos">${number_format(votos)}</span>
-              <span class="porcet_v"
-                ><progress id="file" max="100" value="${porc}">${porc}</progress>
-                <aside>${porc}%</aside></span
-              >
+              <span class="cant_votos">200</span>
+              <div class="porcet_v">
+                <progress id="file" max="100" value="30">30%</progress>
+              </div>
+              <span>30%</span>
             </li>
-            <div class="list_candidatos municipio_${el.Departamento.V} hidden">
-              <ul>
-                <li>
-                  <span class="code">(001)</span>
-                  <span class="candidato">${names}</span>
-                  <span class="cant_votos">${number_format(candidato.Votos.V)} (${porc}%)</span>
-                </li>
-              </ul>
-            </div>
+            <ul class="list_candidatos municipio_${el.Departamento.V} hidden">
+              <li>
+                <span class="code">(001)</span>
+                <span class="candidato">${names}</span>
+                <span class="cant_votos">${number_format(candidato.Votos.V)} (${porc}%)</span>
+              </li>
+            </ul>
           </ul>
         </section>
 
