@@ -1863,12 +1863,15 @@
       }
       .logo_total_v {
         background: url('../img/votos-totales.svg');
+        background-size: 100%;
       }
       .logo_votos_n {
         background: url('../img/votos-nulos.svg');
+        background-size: 100%;
       }
       .logo_votos_nm {
         background: url('../img/votos-no-mark.svg');
+        background-size: 100%;
       }
     }
   }
@@ -1884,26 +1887,30 @@
     width: 100%;
 
     .elecciones_header {
-      grid-template-columns: 1fr;
-      justify-content: center;
-      margin: 0 0 20px;
+      // margin-bottom: 23px;
+      gap: 20px;
       .logo_elecciones {
         img {
-          width: 100%;
+          width: 329px;
+          height: 34px;
         }
       }
     }
 
     .elecciones_menu {
-      position: static;
-      column-gap: 50px;
-      .corporacion_senado,
-      .corporacion_camara,
-      .corporacion_consultas {
-        width: 81px;
-        height: 36px;
+      width: 90%;
+      overflow-x: scroll;
+      column-gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      justify-content: flex-start;
+      top: 97px;
+      li {
         font-size: 16px;
         line-height: 20px;
+      }
+      .concejo {
+        width: 110px;
       }
     }
 
@@ -1912,176 +1919,77 @@
       padding-bottom: 20px;
       position: static;
       width: 96%;
-      .elecciones_body_senado {
-        grid-template-columns: 1fr;
-        .menu_mobile_candidatos_partidos {
-          display: flex;
-          column-gap: 25px;
-          justify-content: center;
-          padding: 0;
-          list-style: none;
-          margin: 18px 0 0;
-          font-size: 14px;
-          line-height: 18px;
-          font-weight: 700;
-          letter-spacing: 0px;
-          opacity: 1;
-          color: #a4a4a4;
-          .candidatos.active,
-          .partidos.active {
-            color: #c10d19;
-          }
-          .partidos,
+      .elecciones_body_alcalde {
+        grid-template-columns: 100%;
+        gap: 0;
+        .right .elecciones_body_alcalde_title {
+          display: none;
+        }
+
+        .elecciones_body_alcalde_result {
+          padding: 0 15px;
+        }
+      }
+
+      .elecciones_body_gobernador {
+        .elecciones_body_gobernador_result {
           .candidatos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            column-gap: 5px;
-          }
-          input,
-          label {
-            cursor: pointer;
-          }
-        }
-        .divider {
-          display: none;
-        }
-        .elecciones_partidos {
-          display: none;
-        }
-
-        .elecciones_cantidados .elecciones_cantidatos_title {
-          justify-content: center;
-          column-gap: 90px;
-        }
-
-        .elecciones_partidos {
-          .elecciones_partidos_title {
-            grid-template-columns: 1fr 1fr 1fr;
-            .posib_curules,
-            .vacio {
-              display: none;
-            }
-          }
-          .elecciones_r_senado_partidos {
-            li {
-              grid-template-columns: 1fr 1fr 1fr;
-              justify-content: center;
-              justify-items: center;
-              padding: 0 30px;
-              margin: 0 auto;
-              .partido {
-                display: none;
-              }
-            }
-          }
-        }
-      }
-
-      .elecciones_body_presidenciales_nacional {
-        .elecciones_r_presidenciales {
-          display: flex;
-          /* flex-direction: column; */
-          column-gap: 65px;
-          justify-content: center;
-          width: 100%;
-          .consulta_barras {
-            display: flex;
             flex-direction: column;
-            order: 1;
-            margin: 0;
-            column-gap: 0;
-            justify-content: flex-start;
-            width: 130px;
-            li {
-              transform: rotate(90deg);
-              row-gap: 30px;
-              .progress-bar-vertical .bar span {
-                transform: rotate(-90deg);
-                margin-top: -10px;
-              }
-              .cant_votos {
-                transform: rotate(-90deg);
-              }
-            }
+            padding: 0 20px;
+            box-sizing: content-box;
+            gap: 10px;
           }
-          .consulta_candidatos {
-            display: flex;
-            flex-direction: column;
-            column-gap: 0;
-            justify-content: flex-start;
-            row-gap: 12px;
-            margin-right: 25px;
-          }
-        }
-      }
-
-      .elecciones_body_presidenciales_departamental,
-      .elecciones_body_presidenciales_capitales {
-        .elecciones_partidos_title {
-          grid-template-columns: 190px 78px 225px;
-          justify-content: center;
-          column-gap: 10px;
-          padding: 12px 0 0;
           li {
-            flex-direction: column;
-            justify-content: center;
-          }
-          li:first-child {
-            align-items: flex-start;
-            span {
-              line-height: 13px;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            .barra {
+              flex-direction: column-reverse;
+              transform: rotate(270deg);
+              gap: 20px;
+              position: absolute;
+              right: 114px;
             }
-          }
-        }
-
-        .eleeciones_r_presidenciales_candidatos {
-          .list_partido {
-            grid-template-columns: 140px 80px 130px;
-            column-gap: 8px;
-            justify-content: center;
-            padding: 0 8px;
-            // .elecciones_logos_partidos .partido {
-            //   display: none;
-            // }
-            .porcet_v {
+            .progress-bar-vertical {
+              width: 40px;
+              height: 100px;
+              background-color: #fff;
+              border: none;
+              position: relative;
+              .bar {
+                position: relative;
+                background: rgba(0, 0, 0, 0) linear-gradient(0deg, #b1d55a 0%, #03741b 100%) 0% 0% no-repeat padding-box;
+                span {
+                  bottom: -30px;
+                  top: initial;
+                  transform: rotate(90deg);
+                }
+              }
+            }
+            .cant_votos {
+              transform: rotate(90deg);
               margin: 0;
-              progress {
-                width: 100%;
-              }
-              progress::-webkit-progress-bar {
-                width: 100%;
-              }
             }
-          }
-          .list_candidatos {
-            width: 80%;
-            ul li {
-              grid-template-columns: 30px 1fr 1fr;
+            .info_candidato {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
               align-items: center;
+              max-width: 80px;
             }
           }
         }
       }
+    }
 
-      .elecciones_body_consultas {
-        .consultas {
-          width: 100%;
-        }
-        .elecciones_r_presidenciales {
-          width: 100%;
-          .consulta_barras {
-            column-gap: 55px;
-          }
-          .consulta_candidatos {
-            grid-template-columns: repeat(5, 80px);
-            column-gap: 20px;
-            .candidato .name_candidato {
-              text-align: center;
-              line-height: 15px;
-            }
-          }
-        }
+    .elecciones_footer {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5px;
+      ul {
+        gap: 5px;
+        flex-flow: wrap;
       }
     }
   }
@@ -2089,129 +1997,10 @@
 
 @media (max-width: 600px) {
   #elecciones_results {
-    .elecciones_header {
-      .elecciones_title_result {
-        margin-top: 40px;
-        h2 {
-          width: 210px;
-        }
-      }
-    }
-    .elecciones_menu {
-      column-gap: 30px;
-    }
-    .elecciones_container {
-      .elecciones_body_senado {
-        .elecciones_partidos {
-          .elecciones_r_senado_partidos li {
-            grid-template-columns: 40px 60px 120px;
-            padding: 0;
-            padding-right: 45px;
-          }
-          .elecciones_partidos_title {
-            grid-template-columns: 83px 45px 120px;
-            justify-content: center;
-            align-items: center;
-          }
-        }
-      }
-      .elecciones_body_presidenciales_departamental,
-      .elecciones_body_presidenciales_capitales {
-        .elecciones_partidos_title {
-          grid-template-columns: 125px 78px 100px;
-        }
-        .eleeciones_r_presidenciales_candidatos {
-          .list_partido {
-            // grid-template-columns: 88px 50px 90px;
-            // justify-content: flex-start;
-            // column-gap: 5px;
-            // padding: 0 0px 0 15%;
-            .porcet_v progress::before {
-              right: -48px;
-              font-size: 14px;
-            }
-          }
-          .list_candidatos {
-            padding-left: 19%;
-            width: 80%;
-            ul {
-              // li {
-              //   grid-template-columns: 165px 120px;
-              // }
-            }
-          }
-        }
-      }
-
-      .elecciones_body_consultas {
-        .consultas {
-          column-gap: 10px;
-          li {
-            font-size: 14px;
-          }
-        }
-        .elecciones_r_presidenciales {
-          .consulta_barras {
-            column-gap: 30px;
-            margin-top: 18px;
-          }
-          .consulta_candidatos {
-            grid-template-columns: repeat(5, 50px);
-            column-gap: 25px;
-          }
-        }
-      }
-    }
-
-    .elecciones_footer {
-      ul {
-        li {
-          flex-direction: column;
-          align-items: center;
-          row-gap: 8px;
-        }
-      }
-    }
   }
 }
 
 @media (max-width: 380px) {
   #elecciones_results {
-    .elecciones_menu li {
-      font-size: 14px;
-    }
-    .elecciones_container {
-      .elecciones_body_presidenciales_departamental,
-      .elecciones_body_presidenciales_capitales {
-        .eleeciones_r_presidenciales_candidatos {
-          .list_partido {
-            // padding: 0 0px 0 12%;
-            grid-template-columns: 140px 1fr 1fr;
-            .porcet_v progress {
-              display: none;
-            }
-          }
-          .list_candidatos {
-            padding-left: 14%;
-            width: 80%;
-            ul {
-              // li {
-              //   grid-template-columns: 165px 90px;
-              //   column-gap: 10px;
-              // }
-            }
-          }
-        }
-      }
-
-      .elecciones_body_consultas {
-        .elecciones_r_presidenciales {
-          .consulta_candidatos {
-            grid-template-columns: repeat(5, 48px);
-            column-gap: 18px;
-          }
-        }
-      }
-    }
   }
 }
