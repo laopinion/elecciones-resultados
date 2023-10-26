@@ -423,8 +423,21 @@ function listCandidatosInfo() {
     }) // FIn fetch candidatos
 }
 
-function listPartidosInfo() {
-  return fetch(`${URL_API}/partidos`)
+function listPartidosConcejoInfo() {
+  return fetch(`${URL_API}/partidos-concejo`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      return result.data
+    })
+    .catch(err => {
+      console.log(err)
+    }) // FIn fetch candidatos
+}
+
+function listPartidosAsambleaInfo() {
+  return fetch(`${URL_API}/partidos-asamblea`)
     .then(response => {
       return response.json()
     })
@@ -832,7 +845,7 @@ function getVotosConcejo() {
         (a, b) => b.Votos.V - a.Votos.V
       )
 
-      listPartidosInfo()
+      listPartidosConcejoInfo()
         .then(resultPartidosInfo => {
           $('.elecciones_body_concejo .elecciones_body_concejo_result').empty()
 
@@ -856,7 +869,7 @@ function getVotosConcejo() {
                       <div class="btn_flecha" onclick="handleClickCandidatosPartidos(this)" data-partido="partido_${
                         partidoInfo?.codigo
                       }"></div>
-                      <div class="logo">here logo</div>
+                      <div class="logo partido_${partidoInfo?.codigo}"></div>
                       <span class="partido">${capitalizarPrimeraLetra(partidoInfo?.nombre)}</span>
                     </div>
                     <span class="cant_votos">${number_format(votos)}</span>
@@ -902,7 +915,7 @@ function getVotosAsamblea() {
         (a, b) => b.Votos.V - a.Votos.V
       )
 
-      listPartidosInfo()
+      listPartidosAsambleaInfo()
         .then(resultPartidosInfo => {
           $('.elecciones_body_asamblea .elecciones_body_asamblea_result').empty()
 

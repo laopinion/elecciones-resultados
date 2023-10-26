@@ -670,6 +670,7 @@
 
         .info_partido {
           display: flex;
+          align-items: center;
           gap: 24px;
           .btn_flecha {
             background: url('../img/flecha_down.png') no-repeat;
@@ -694,7 +695,77 @@
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
-          width: 260px;
+          width: 300px;
+        }
+
+        .logo {
+          width: 32px;
+          height: 32px;
+          background: url('../img/logos-concejo.svg') no-repeat;
+        }
+
+        .partido_00002 {
+          background-position: 0 -377px;
+        }
+        .partido_00003 {
+          background-position: 0 0;
+        }
+        .partido_00004 {
+          background-position: 0 -45px;
+        }
+        .partido_00006 {
+          background-position: 0 -337px;
+        }
+        .partido_00011 {
+          background-position: 0 -465px;
+        }
+        .partido_00016 {
+          background-position: 0 -296px;
+        }
+        .partido_00019 {
+          background-position: 0 -211px;
+        }
+        .partido_00020 {
+          background-position: 0 -589px;
+        }
+        .partido_00021 {
+          background-position: 0 -632px;
+        }
+        .partido_00023 {
+          background-position: 0 -128px;
+        }
+        .partido_00024 {
+          background-position: 0 -801px;
+        }
+        .partido_00025 {
+          background-position: 0 -170px;
+        }
+        .partido_00026 {
+          background-position: 0 -840px;
+        }
+        .partido_00029 {
+          background-position: 0 -84px;
+        }
+        .partido_00031 {
+          background-position: 0 -675px;
+        }
+        .partido_00037 {
+          background-position: 0 -503px;
+        }
+        .partido_02449 {
+          background-position: 0 -715px;
+        }
+        .partido_05766 {
+          background-position: 0 -548px;
+        }
+        .partido_06138 {
+          background-position: 0 -421px;
+        }
+        .partido_06966 {
+          background-position: 0 -762px;
+        }
+        .partido_08392 {
+          background-position: 0 -254px;
         }
 
         .cant_votos,
@@ -852,6 +923,7 @@
 
         .info_partido {
           display: flex;
+          align-items: center;
           gap: 24px;
           .btn_flecha {
             background: url('../img/flecha_down.png') no-repeat;
