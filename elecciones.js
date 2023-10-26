@@ -449,6 +449,19 @@ function listCandidatosInfoConcejo() {
     })
 }
 
+function listCandidatosInfoAsamblea() {
+  return fetch(`${URL_API}/candidatos-asamblea`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      return result.data
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
 function consultasData(consulta) {
   fetch(`https://elecciones.laopinion.com.co/api/data/presidenciales-nacional`)
     .then(response => {
@@ -869,6 +882,75 @@ function getVotosConcejo() {
     .catch(err => console.log(err))
 }
 
+function getVotosAsamblea() {
+  fetch(`${URL_API}/asamblea`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      // console.log({ result })
+      // const votosGlobales = result.data.filter(
+      //   data => data.Municipio.V === '000' && data.Desc_Municipio.V === 'NO APLICA'
+      // )
+      getVotosGlobales({ result })
+
+      let partidosList = result.data.Detalle_Circunscripcion.lin.Detalle_Partido.lin.sort(
+        (a, b) => b.Votos.V - a.Votos.V
+      )
+
+      const candidatos = result.data.Detalle_Circunscripcion.lin.Detalle_Candidato.lin.sort(
+        (a, b) => b.Votos.V - a.Votos.V
+      )
+
+      listPartidosInfo()
+        .then(resultPartidosInfo => {
+          $('.elecciones_body_asamblea .elecciones_body_asamblea_result').empty()
+
+          // console.log({ resultPartidosInfo })
+          listCandidatosInfoAsamblea()
+            .then(candidatosConcejo => {
+              partidosList.forEach(data => {
+                const votos = data.Votos.V
+                const porc = clearZero(data.Porc.V)
+                // console.log({ candidatos })
+
+                const partidoInfo = resultPartidosInfo.filter(partidoInfo => partidoInfo.codigo === data.Partido.V)[0]
+
+                const liCandidatos = candidatosPartidos(candidatos, candidatosConcejo)
+                // console.log(liCandidatos)
+
+                const liPartido = `
+                  <li class="item_partido">
+                    <div class="info_partido">
+                      <div class="btn_flecha" onclick="handleClickCandidatosPartidos(this)" data-partido="partido_${
+                        partidoInfo?.codigo
+                      }"></div>
+                      <div class="logo">here logo</div>
+                      <span class="partido">${capitalizarPrimeraLetra(partidoInfo?.nombre)}</span>
+                    </div>
+                    <span class="cant_votos">${number_format(votos)}</span>
+                    <div class="porcet_v">
+                      <progress id="file" max="100" value="${porc}">${porc}</progress>
+                    </div>
+                    <span class="porcentaje">${porc}%</span>
+                  </li>
+    
+                  <ul class="list_candidatos partido_${partidoInfo?.codigo} hidden">
+                    ${liCandidatos.map(candidato => candidato).join('')}
+                  </ul>
+                `
+                $('.elecciones_body_asamblea .elecciones_body_asamblea_result').append(liPartido)
+              })
+            })
+            .catch(err => console.log(err))
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
+    .catch(err => console.log(err))
+}
+
 $('#elecciones_results .elecciones_menu li').click(function (e) {
   // console.log($(this).data('corporacion'))
   $(this).addClass('active')
@@ -879,6 +961,7 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $('#elecciones_results .elecciones_body_gobernador').hide()
     $('#elecciones_results .elecciones_body_municipios').hide()
     $('#elecciones_results .elecciones_body_concejo').hide()
+    $('#elecciones_results .elecciones_body_asamblea').hide()
     $('#elecciones_results .elecciones_body_alcalde').show()
 
     getVotosAlcalde()
@@ -886,6 +969,7 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $('#elecciones_results .elecciones_body_alcalde').hide()
     $('#elecciones_results .elecciones_body_municipios').hide()
     $('#elecciones_results .elecciones_body_concejo').hide()
+    $('#elecciones_results .elecciones_body_asamblea').hide()
     $('#elecciones_results .elecciones_body_gobernador').show()
 
     document.querySelector('#elecciones_results .elecciones_body_gobernador .select_municipios select').value = '000'
@@ -894,6 +978,7 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $('#elecciones_results .elecciones_body_alcalde').hide()
     $('#elecciones_results .elecciones_body_gobernador').hide()
     $('#elecciones_results .elecciones_body_concejo').hide()
+    $('#elecciones_results .elecciones_body_asamblea').hide()
     $('#elecciones_results .elecciones_body_municipios').show()
 
     getVotosMunicipios()
@@ -901,9 +986,18 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
     $('#elecciones_results .elecciones_body_alcalde').hide()
     $('#elecciones_results .elecciones_body_gobernador').hide()
     $('#elecciones_results .elecciones_body_municipios').hide()
+    $('#elecciones_results .elecciones_body_asamblea').hide()
     $('#elecciones_results .elecciones_body_concejo').show()
 
     getVotosConcejo()
+  } else if (corporacion === 'asamblea') {
+    $('#elecciones_results .elecciones_body_alcalde').hide()
+    $('#elecciones_results .elecciones_body_gobernador').hide()
+    $('#elecciones_results .elecciones_body_municipios').hide()
+    $('#elecciones_results .elecciones_body_concejo').hide()
+    $('#elecciones_results .elecciones_body_asamblea').show()
+
+    getVotosAsamblea()
   }
 })
 
