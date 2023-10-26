@@ -940,6 +940,55 @@
           }
         }
 
+        .logo {
+          width: 32px;
+          height: 32px;
+          background: url('../img/logos-asamblea.svg') no-repeat;
+        }
+
+        .partido_00001 {
+          background-position: 0 -296px;
+        }
+        .partido_00002 {
+          background-position: 0 -555px;
+        }
+        .partido_00004 {
+          background-position: 0 -254px;
+        }
+        .partido_00008 {
+          background-position: 0 -376px;
+        }
+        .partido_00011 {
+          background-position: 0 -213px;
+        }
+        .partido_00012 {
+          background-position: 0 0;
+        }
+        .partido_00020 {
+          background-position: 0 -511px;
+        }
+        .partido_00023 {
+          background-position: 0 -339px;
+        }
+        .partido_00029 {
+          background-position: 0 -421px;
+        }
+        .partido_00031 {
+          background-position: 0 -169px;
+        }
+        .partido_05806 {
+          background-position: 0 -85px;
+        }
+        .partido_06684 {
+          background-position: 0 -465px;
+        }
+        .partido_07877 {
+          background-position: 0 -127px;
+        }
+        .partido_08009 {
+          background-position: 0 -45px;
+        }
+
         .partido {
           letter-spacing: 0px;
           color: #000000;
@@ -948,7 +997,7 @@
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
-          width: 260px;
+          width: 330px;
         }
 
         .cant_votos,

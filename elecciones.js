@@ -948,7 +948,7 @@ function getVotosAsamblea() {
                       <div class="btn_flecha" onclick="handleClickCandidatosPartidos(this)" data-partido="partido_${
                         partidoInfo?.codigo
                       }"></div>
-                      <div class="logo">here logo</div>
+                      <div class="logo partido_${partidoInfo?.codigo}"></div>
                       <span class="partido">${capitalizarPrimeraLetra(partidoInfo?.nombre)}</span>
                     </div>
                     <span class="cant_votos">${number_format(votos)}</span>
@@ -1025,7 +1025,7 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
 })
 
 function handleClickCandidatos(e) {
-  console.log($(e).data('municipio'))
+  // console.log($(e).data('municipio'))
   const municipio = $(e).data('municipio')
   // $(e).parent().parent().css('height', 'auto')
   const resultMunicipios = $(e).parent().parent().parent()
