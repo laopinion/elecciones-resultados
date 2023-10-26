@@ -508,6 +508,22 @@
         .cant_votos {
           justify-self: center;
         }
+        .municipio {
+          letter-spacing: 0px;
+          color: #000;
+          font-size: 16px;
+          line-height: 20px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        .cant_votos,
+        .porcentaje {
+          justify-self: center;
+          letter-spacing: 0px;
+          color: #000000;
+          font-size: 14px;
+        }
         .porcet_v {
           display: flex;
           column-gap: 5px;

@@ -789,7 +789,7 @@ function getVotosMunicipios() {
                       onclick="handleClickCandidatos(this)"
                       data-municipio="municipio_${data.Municipio.V}"
                     ></div>
-                    <span class="municipio">${data.Desc_Municipio.V}</span>
+                    <span class="municipio">${capitalizarPrimeraLetra(data.Desc_Municipio.V)}</span>
                   </div>
                   <span class="cant_votos">${number_format(votos)}</span>
                   <div class="porcet_v">
