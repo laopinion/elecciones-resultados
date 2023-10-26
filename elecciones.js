@@ -314,12 +314,12 @@ function capitalData() {
     }) // Fin camara departamental
 }
 
-function candidatosMunicipios(candidatos, resultCandidatoInfo) {
+function candidatosMunicipios(candidatos, resultCandidatoInfo, codMunicipio) {
   // console.log({ resultCandidatoInfo })
   // console.log({ candidatos })
   const divCandidato = candidatos.map(candidato => {
     const infoCandidato = resultCandidatoInfo.filter(data => {
-      if (candidato.Candidato.V === data.cod_candidato) {
+      if (candidato.Candidato.V === data.cod_candidato && data.cod_municipio === codMunicipio) {
         return data
       }
     })
@@ -790,8 +790,16 @@ function getVotosMunicipios() {
               (a, b) => b.Votos.V - a.Votos.V
             )
 
+            // console.log({ municipio: data.Municipio.V })
+            // console.log({ resultCandidatoInfo })
+            const codMunicipio = data.Municipio.V
+
+            // const listCandidatosMunicipioInfo = resultCandidatoInfo.filter(
+            //   candidato => candidato.cod_municipio === data.Municipio.V
+            // )
+
             // const divCandidato = candidatosPresidenciales(candidatos, resultCandidatoInfo)
-            const liCandidatos = candidatosMunicipios(candidatos, resultCandidatoInfo)
+            const liCandidatos = candidatosMunicipios(candidatos, resultCandidatoInfo, codMunicipio)
 
             // console.log(liCandidatos)
 
@@ -922,7 +930,7 @@ function getVotosAsamblea() {
 
           // console.log({ resultPartidosInfo })
           listCandidatosInfoAsamblea()
-            .then(candidatosConcejo => {
+            .then(candidatosAsamblea => {
               partidosList.forEach(data => {
                 const votos = data.Votos.V
                 const porc = clearZero(data.Porc.V)
@@ -931,7 +939,7 @@ function getVotosAsamblea() {
                 const partidoInfo = resultPartidosInfo.filter(partidoInfo => partidoInfo.codigo === data.Partido.V)[0]
                 const listCandidatosPartido = candidatos.filter(candidato => candidato.Partido.V === data.Partido.V)
 
-                const liCandidatos = candidatosPartidos(listCandidatosPartido, candidatosConcejo)
+                const liCandidatos = candidatosPartidos(listCandidatosPartido, candidatosAsamblea)
                 // console.log(liCandidatos)
 
                 const liPartido = `
