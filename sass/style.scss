@@ -498,6 +498,11 @@
             width: 15px;
             cursor: pointer;
           }
+          .btn_flecha.activeList {
+            background: url('../img/flecha_top.png') no-repeat;
+            background-size: 130%;
+            background-position: center;
+          }
         }
 
         .cant_votos {
@@ -647,7 +652,7 @@
           }
         }
 
-        .name_partido {
+        .info_partido {
           display: flex;
           gap: 24px;
           .btn_flecha {
@@ -658,6 +663,11 @@
             width: 15px;
             cursor: pointer;
           }
+          .btn_flecha.activeList {
+            background: url('../img/flecha_top.png') no-repeat;
+            background-size: 130%;
+            background-position: center;
+          }
         }
 
         .partido {
@@ -665,6 +675,10 @@
           color: #000000;
           font-size: 16px;
           line-height: 20px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 260px;
         }
 
         .cant_votos,
@@ -730,6 +744,8 @@
           padding: 10px 0 0 60px;
           margin: 0;
           list-style: none;
+          height: 230px;
+          overflow-y: scroll;
           width: 475px;
           li {
             display: grid;

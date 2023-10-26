@@ -552,7 +552,7 @@ function consultasData(consulta) {
 // consultasData()
 
 function getVotosGlobales({ result }) {
-  console.log({ result })
+  // console.log({ result })
   const elHeader = '#elecciones_results .elecciones_header'
   $(elHeader).find('.elecciones_num_boletin .num_boletin').html(`<strong>Boletín N°</strong> ${result.data.Numero.V}`)
   $(elHeader)
@@ -805,7 +805,7 @@ function getVotosConcejo() {
       return response.json()
     })
     .then(result => {
-      console.log({ result })
+      // console.log({ result })
       // const votosGlobales = result.data.filter(
       //   data => data.Municipio.V === '000' && data.Desc_Municipio.V === 'NO APLICA'
       // )
@@ -823,43 +823,44 @@ function getVotosConcejo() {
         .then(resultPartidosInfo => {
           $('.elecciones_body_concejo .elecciones_body_concejo_result').empty()
 
-          console.log({ resultPartidosInfo })
-          partidosList.forEach(data => {
-            // console.log({ data })
-            const votos = data.Votos.V
-            const porc = clearZero(data.Porc.V)
-            // console.log({ candidatos })
+          // console.log({ resultPartidosInfo })
+          listCandidatosInfoConcejo()
+            .then(candidatosConcejo => {
+              partidosList.forEach(data => {
+                const votos = data.Votos.V
+                const porc = clearZero(data.Porc.V)
+                // console.log({ candidatos })
 
-            const partidoInfo = resultPartidosInfo.filter(partidoInfo => partidoInfo.codigo === data.Partido.V)[0]
+                const partidoInfo = resultPartidosInfo.filter(partidoInfo => partidoInfo.codigo === data.Partido.V)[0]
 
-            listCandidatosInfoConcejo().then(candidatosConcejo => {
-              const liCandidatos = candidatosPartidos(candidatos, candidatosConcejo)
+                const liCandidatos = candidatosPartidos(candidatos, candidatosConcejo)
 
-              // console.log(liCandidatos)
+                // console.log(liCandidatos)
 
-              const liPartido = `
-                <li class="item_partido">
-                  <div class="name_partido">
-                    <div class="btn_flecha" onclick="handleClickPartidos(this)" data-partido="${
-                      partidoInfo?.codigo
-                    }"></div>
-                    <div class="logo">here logo</div>
-                    <span class="partido">${partidoInfo?.nombre}</span>
-                  </div>
-                  <span class="cant_votos">${number_format(votos)}</span>
-                  <div class="porcet_v">
-                    <progress id="file" max="100" value="${porc}">${porc}</progress>
-                  </div>
-                  <span class="porcentaje">${porc}%</span>
-                </li>
-  
-                <ul class="list_candidatos partido_${partidoInfo?.codigo} hidden">
-                  ${liCandidatos.map(candidato => candidato).join('')}
-                </ul>
-              `
-              $('.elecciones_body_concejo .elecciones_body_concejo_result').append(liPartido)
+                const liPartido = `
+                  <li class="item_partido">
+                    <div class="info_partido">
+                      <div class="btn_flecha" onclick="handleClickCandidatosPartidos(this)" data-partido="partido_${
+                        partidoInfo?.codigo
+                      }"></div>
+                      <div class="logo">here logo</div>
+                      <span class="partido">${capitalizarPrimeraLetra(partidoInfo?.nombre)}</span>
+                    </div>
+                    <span class="cant_votos">${number_format(votos)}</span>
+                    <div class="porcet_v">
+                      <progress id="file" max="100" value="${porc}">${porc}</progress>
+                    </div>
+                    <span class="porcentaje">${porc}%</span>
+                  </li>
+    
+                  <ul class="list_candidatos partido_${partidoInfo?.codigo} hidden">
+                    ${liCandidatos.map(candidato => candidato).join('')}
+                  </ul>
+                `
+                $('.elecciones_body_concejo .elecciones_body_concejo_result').append(liPartido)
+              })
             })
-          })
+            .catch(err => console.log(err))
         })
         .catch(err => {
           console.log(err)
@@ -877,12 +878,14 @@ $('#elecciones_results .elecciones_menu li').click(function (e) {
   if (corporacion === 'alcalde') {
     $('#elecciones_results .elecciones_body_gobernador').hide()
     $('#elecciones_results .elecciones_body_municipios').hide()
+    $('#elecciones_results .elecciones_body_concejo').hide()
     $('#elecciones_results .elecciones_body_alcalde').show()
 
     getVotosAlcalde()
   } else if (corporacion === 'gobernador') {
     $('#elecciones_results .elecciones_body_alcalde').hide()
     $('#elecciones_results .elecciones_body_municipios').hide()
+    $('#elecciones_results .elecciones_body_concejo').hide()
     $('#elecciones_results .elecciones_body_gobernador').show()
 
     document.querySelector('#elecciones_results .elecciones_body_gobernador .select_municipios select').value = '000'
@@ -925,11 +928,12 @@ function handleClickCandidatos(e) {
   // console.log('ok')
 }
 
-function handleClickPartidos(e) {
-  console.log($(e).data('partido'))
+function handleClickCandidatosPartidos(e) {
+  // console.log($(e).data('partido'))
   const partido = $(e).data('partido')
   // $(e).parent().parent().css('height', 'auto')
-  const resultPartidos = $(e).parent().parent().parent()
+  const resultCandidatos = $(e).parent().parent().parent()
+  // console.log({ resultCandidatos })
 
   if ($(e).hasClass('activeList')) {
     $(e).removeClass('activeList')
@@ -937,7 +941,7 @@ function handleClickPartidos(e) {
     $(e).addClass('activeList')
   }
 
-  resultPartidos.find(`.list_candidatos.${partido}`).toggle()
+  resultCandidatos.find(`.list_candidatos.${partido}`).toggle()
   // const listdepartamento = $(e).parent().parent()
   // $(e).parent().parent().find('.list_candidatos').toggle('slow')
 
