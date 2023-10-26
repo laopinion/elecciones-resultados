@@ -177,6 +177,7 @@
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
+          font-weight: bold;
         }
         .foto_candidato {
           display: block;
@@ -1928,11 +1929,29 @@
 
         .elecciones_body_alcalde_result {
           padding: 0 15px;
+          grid-template-columns: 100%;
+          .info {
+            grid-template-columns: 180px 1fr;
+          }
+          li {
+            grid-template-columns: 1fr 1fr;
+          }
+          .name_candidato {
+            font-size: 14px;
+          }
         }
       }
 
       .elecciones_body_gobernador {
         .elecciones_body_gobernador_result {
+          &::after {
+            height: 100%;
+            bottom: 0;
+            top: 0;
+            left: 160px;
+            right: 0;
+            width: 1px;
+          }
           .candidatos {
             flex-direction: column;
             padding: 0 20px;
@@ -1986,10 +2005,23 @@
     .elecciones_footer {
       flex-direction: column;
       align-items: center;
-      margin-top: 5px;
+      // margin-top: 5px;
+      margin: 20px auto 0;
+      width: 96%;
+      .elecciones_mesas {
+        margin-bottom: 20px;
+      }
       ul {
         gap: 5px;
         flex-flow: wrap;
+      }
+      .cant_m_informadas,
+      .porcentaje_m,
+      .total_m,
+      .porcentaje_votos {
+        font-size: 14px;
+        line-height: 20px;
+        margin: 0;
       }
     }
   }
