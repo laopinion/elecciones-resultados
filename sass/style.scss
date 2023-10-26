@@ -2000,6 +2000,49 @@
           }
         }
       }
+
+      .elecciones_body_municipios {
+        header .elecciones_body_municipios_titles {
+          grid-template-columns: 111px 1fr 1fr;
+          gap: 15px;
+          align-items: flex-start;
+          li:first-child {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+          }
+          li:last-child {
+            display: none;
+          }
+        }
+        .elecciones_body_municipios_result {
+          .item_municipio {
+            grid-template-columns: 158px 1fr 1fr;
+            padding: 0 5px;
+            span:last-child {
+              justify-self: center;
+            }
+          }
+          .porcet_v {
+            display: none;
+          }
+          .list_candidatos {
+            padding-left: 15px;
+            li {
+              grid-template-columns: 200px 100px;
+              justify-content: space-between;
+              .candidato,
+              .cant_votos {
+                font-size: 13px;
+                line-height: 17px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+      }
     }
 
     .elecciones_footer {
