@@ -381,10 +381,10 @@ function candidatosCamara(candidatos, id_partido, resultCandidatoInfo) {
 
 function candidatosPartidos(candidatos, resultCandidatosInfo) {
   // console.log({ resultCandidatosInfo })
-  // console.log({ candidatos })
+  console.log({ candidatos })
   const divCandidato = candidatos.map(candidato => {
     const infoCandidato = resultCandidatosInfo.filter(data => {
-      if (candidato.Candidato.V === data.cod_candidato) {
+      if (candidato.Candidato.V === data.cod_candidato && candidato.Partido.V === data.cod_partido) {
         return data
       }
     })
@@ -858,8 +858,11 @@ function getVotosConcejo() {
                 // console.log({ candidatos })
 
                 const partidoInfo = resultPartidosInfo.filter(partidoInfo => partidoInfo.codigo === data.Partido.V)[0]
+                const listCandidatosPartido = candidatos.filter(candidato => candidato.Partido.V === data.Partido.V)
 
-                const liCandidatos = candidatosPartidos(candidatos, candidatosConcejo)
+                console.log({ listCandidatosPartido })
+
+                const liCandidatos = candidatosPartidos(listCandidatosPartido, candidatosConcejo)
 
                 // console.log(liCandidatos)
 
