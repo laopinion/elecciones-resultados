@@ -37,9 +37,13 @@ function clearZero(string) {
 }
 
 function capitalizarPrimeraLetra(str) {
-  str = str.toLowerCase() // minuscula
-  str = str.split(' ')
-  str = str.map(text => text.charAt(0).toUpperCase() + text.slice(1)).join(' ')
+  if (str && str.length > 0) {
+    str = str.toLowerCase() // minuscula
+    str = str.split(' ')
+    str = str.map(text => text.charAt(0).toUpperCase() + text.slice(1)).join(' ')
+    return str
+  }
+
   return str
 }
 
@@ -375,6 +379,37 @@ function candidatosCamara(candidatos, id_partido, resultCandidatoInfo) {
   return divCandidato
 }
 
+function candidatosPartidos(candidatos, resultCandidatosInfo) {
+  // console.log({ resultCandidatosInfo })
+  // console.log({ candidatos })
+  const divCandidato = candidatos.map(candidato => {
+    const infoCandidato = resultCandidatosInfo.filter(data => {
+      if (candidato.Candidato.V === data.cod_candidato) {
+        return data
+      }
+    })
+    // console.log({ infoCandidato })
+    // if (infoCandidato.length > 0 && infoCandidato[0].cod_candidato !== '007') {
+    if (infoCandidato.length > 0) {
+      const { nombre_candidato, apellido_candidato } = infoCandidato[0]
+
+      const names = `${capitalizarPrimeraLetra(nombre_candidato)} ${capitalizarPrimeraLetra(apellido_candidato)} `
+
+      const porc = clearZero(candidato.Porc.V)
+      // let porcCandidato = parseInt(porc)
+      // porcCandidato = Math.round(porcCandidato)
+
+      return `<li>
+              <span class="candidato">(${candidato.Candidato.V}) ${names}</span>
+              <span class="cant_votos">${number_format(candidato.Votos.V)} (${porc}%)</span>
+            </li>
+            `
+    }
+  })
+
+  return divCandidato
+}
+
 function listCandidatosInfo() {
   return fetch(`${URL_API}/candidatos-municipios`)
     .then(response => {
@@ -386,6 +421,32 @@ function listCandidatosInfo() {
     .catch(err => {
       console.log(err)
     }) // FIn fetch candidatos
+}
+
+function listPartidosInfo() {
+  return fetch(`${URL_API}/partidos`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      return result.data
+    })
+    .catch(err => {
+      console.log(err)
+    }) // FIn fetch candidatos
+}
+
+function listCandidatosInfoConcejo() {
+  return fetch(`${URL_API}/candidatos-concejo`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      return result.data
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 function consultasData(consulta) {
@@ -739,7 +800,72 @@ function getVotosMunicipios() {
 }
 
 function getVotosConcejo() {
-  console.log('get data concejo')
+  fetch(`${URL_API}/concejo`)
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      console.log({ result })
+      // const votosGlobales = result.data.filter(
+      //   data => data.Municipio.V === '000' && data.Desc_Municipio.V === 'NO APLICA'
+      // )
+      getVotosGlobales({ result })
+
+      let partidosList = result.data.Detalle_Circunscripcion.lin.Detalle_Partido.lin.sort(
+        (a, b) => b.Votos.V - a.Votos.V
+      )
+
+      const candidatos = result.data.Detalle_Circunscripcion.lin.Detalle_Candidato.lin.sort(
+        (a, b) => b.Votos.V - a.Votos.V
+      )
+
+      listPartidosInfo()
+        .then(resultPartidosInfo => {
+          $('.elecciones_body_concejo .elecciones_body_concejo_result').empty()
+
+          console.log({ resultPartidosInfo })
+          partidosList.forEach(data => {
+            // console.log({ data })
+            const votos = data.Votos.V
+            const porc = clearZero(data.Porc.V)
+            // console.log({ candidatos })
+
+            const partidoInfo = resultPartidosInfo.filter(partidoInfo => partidoInfo.codigo === data.Partido.V)[0]
+
+            listCandidatosInfoConcejo().then(candidatosConcejo => {
+              const liCandidatos = candidatosPartidos(candidatos, candidatosConcejo)
+
+              // console.log(liCandidatos)
+
+              const liPartido = `
+                <li class="item_partido">
+                  <div class="name_partido">
+                    <div class="btn_flecha" onclick="handleClickPartidos(this)" data-partido="${
+                      partidoInfo?.codigo
+                    }"></div>
+                    <div class="logo">here logo</div>
+                    <span class="partido">${partidoInfo?.nombre}</span>
+                  </div>
+                  <span class="cant_votos">${number_format(votos)}</span>
+                  <div class="porcet_v">
+                    <progress id="file" max="100" value="${porc}">${porc}</progress>
+                  </div>
+                  <span class="porcentaje">${porc}%</span>
+                </li>
+  
+                <ul class="list_candidatos partido_${partidoInfo?.codigo} hidden">
+                  ${liCandidatos.map(candidato => candidato).join('')}
+                </ul>
+              `
+              $('.elecciones_body_concejo .elecciones_body_concejo_result').append(liPartido)
+            })
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
+    .catch(err => console.log(err))
 }
 
 $('#elecciones_results .elecciones_menu li').click(function (e) {
@@ -793,6 +919,25 @@ function handleClickCandidatos(e) {
   }
 
   resultMunicipios.find(`.list_candidatos.${municipio}`).toggle()
+  // const listdepartamento = $(e).parent().parent()
+  // $(e).parent().parent().find('.list_candidatos').toggle('slow')
+
+  // console.log('ok')
+}
+
+function handleClickPartidos(e) {
+  console.log($(e).data('partido'))
+  const partido = $(e).data('partido')
+  // $(e).parent().parent().css('height', 'auto')
+  const resultPartidos = $(e).parent().parent().parent()
+
+  if ($(e).hasClass('activeList')) {
+    $(e).removeClass('activeList')
+  } else {
+    $(e).addClass('activeList')
+  }
+
+  resultPartidos.find(`.list_candidatos.${partido}`).toggle()
   // const listdepartamento = $(e).parent().parent()
   // $(e).parent().parent().find('.list_candidatos').toggle('slow')
 
