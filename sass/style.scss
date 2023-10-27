@@ -2098,6 +2098,78 @@
 
           .list_candidatos {
             padding-left: 15px;
+            width: 100%;
+            li {
+              grid-template-columns: 200px 100px;
+              justify-content: space-between;
+              .candidato,
+              .cant_votos {
+                font-size: 13px;
+                line-height: 17px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+      }
+
+      .elecciones_body_asamblea {
+        header .elecciones_body_asamblea_titles {
+          grid-template-columns: 111px 1fr 1fr;
+          gap: 15px;
+          align-items: flex-start;
+          li:first-child {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+          }
+          li:last-child {
+            display: none;
+          }
+        }
+
+        .elecciones_body_asamblea_result {
+          .item_partido {
+            grid-template-columns: 90px 77px 1fr 1fr;
+            padding: 0 5px;
+            span:last-child {
+              justify-self: center;
+            }
+          }
+          .info_partido {
+            order: 1;
+            gap: 10px;
+          }
+          .cant_votos {
+            order: 3;
+          }
+
+          .partido {
+            display: none;
+          }
+
+          .porcet_v {
+            // display: none;
+            order: 2;
+            progress {
+              width: 77px;
+            }
+            progress::-webkit-progress-bar {
+              width: 77px;
+            }
+            // progress::-webkit-progress-value {
+            // }
+          }
+
+          .porcentaje {
+            order: 4;
+          }
+
+          .list_candidatos {
+            padding-left: 15px;
+            width: 100%;
             li {
               grid-template-columns: 200px 100px;
               justify-content: space-between;
